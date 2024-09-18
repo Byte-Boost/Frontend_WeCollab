@@ -2,6 +2,13 @@
 @tailwind components;
 @tailwind utilities;
 
+:root{
+  background: linear-gradient(110deg,
+    #EA13B4 0%,#CD2093 25%, #B235B0 50%, #6768C3 75%, #189DD7 100%
+  ) no-repeat;
+  background-attachment: fixed;
+}
+
 .App {
   text-align: center;
 }

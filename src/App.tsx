@@ -3,20 +3,12 @@ import { BrowserRouter as Router , Link, Routes, Route } from 'react-router-dom'
 import './App.css';
 import Home from './pages/home';
 import Test from './pages/test';
+import Navbar from './components/navbar';
 
 function App() {
   return (
     <Router>
-       <nav>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/test">Test</Link>
-            </li>
-          </ul>
-       </nav>
+      <Navbar/>
        <Routes>
           <Route path='/' element={<Home />}/>
           <Route path='/test' element={<Test/>}/>
