@@ -4,9 +4,11 @@ import './App.css';
 import Home from './pages/home';
 import Test from './pages/test';
 import Navbar from './components/navbar';
+// import Form from './components/form'
 
 function App() {
   return (
+    <>
     <Router>
       <Navbar/>
        <Routes>
@@ -14,6 +16,8 @@ function App() {
           <Route path='/test' element={<Test/>}/>
        </Routes>
     </Router>
+    {/* <Form/> */}
+    </>
   );
 }
 

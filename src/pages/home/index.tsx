@@ -1,9 +1,13 @@
 import React from 'react';
 import logo from '../../logo.svg';
+import Form from '../../components/form';
 function Home() {
     return (
     <div className="App">
-        <header className="App-header">
+        
+        <Form />
+        
+        {/* <header className="App-header">
             <img src={logo} className="App-logo" alt="logo" />
             <p>
             Edit <code>src/App.tsx</code> and save to reload.
@@ -16,7 +20,7 @@ function Home() {
             >
             Learn React
             </a>
-        </header>
+        </header> */}
         </div>
         );
 }
