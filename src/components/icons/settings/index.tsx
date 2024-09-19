@@ -1,13 +1,13 @@
 
-interface LogOutIconProps {
+interface SettingsIconProps {
     className?: string;
 }
 
-const SettingsIcon = ({className}: LogOutIconProps) => {
+const SettingsIcon = ({className}: SettingsIconProps) => {
     return ( 
         <svg 
-        width="35" 
-        height="35"
+        width="45" 
+        height="45"
         viewBox="0 0 24 24" 
         fill="none" 
         xmlns="http://www.w3.org/2000/svg"
