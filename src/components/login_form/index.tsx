@@ -1,9 +1,9 @@
 import './form.css'
 import { login } from '../../server/api';
 import { useRef } from 'react';
-import { failureAlert, successAlert } from '../../scripts/utils/shared';
+import { failureAlert } from '../../scripts/utils/shared';
 
-function Form(){
+function LoginForm(){
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -25,37 +25,17 @@ function Form(){
     }    
 
     return(
-        <section className='form'>
+        <section className='form '>
             <form action="" onSubmit={(e) => e.preventDefault()}>
                 <h1>LOGIN</h1>
-
-
-                <div className="coolinput">
-                    <label htmlFor="input" className="text">CPF:</label>
-                    <input type="text"  name="input" className="input" ref={usernameRef}/>
-                    <br />
-                    <label htmlFor="input" className="text">Password</label>
-                    <input type="password"  name="input" className="input" ref={passwordRef}/>
-                </div>  
-
-            
-                {/* <label className="text">Name:</label>
-                "<input 
-                type="text" 
-                name="cpf"
-                id="cpf"
-                placeholder="123.456.789-00"
-                />
-               <label  className="text">Name:</label>
-                <input 
-                type="password" 
-                name="password"
-                id="cpf"
-                placeholder="####"
-                /> */}
-            
+                    <div className="coolinput">
+                        <label htmlFor="input" className="text">Username</label>
+                        <input type="text"  name="input" className="input" ref={usernameRef}/>
+                        <br />
+                        <label htmlFor="input" className="text">Senha</label>
+                        <input type="password"  name="input" className="input" ref={passwordRef}/>
+                    </div>  
                 <br />
-                
                 <button id='login' onClick={toLogin}>LOGAR</button>
                 <br />
                 <button id='re-login'>RECUPERAR LOGIN</button>
@@ -64,4 +44,4 @@ function Form(){
     )
 }
 
-export default Form;
+export default LoginForm;
