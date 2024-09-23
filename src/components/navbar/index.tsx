@@ -3,6 +3,8 @@ import './navbar.css'
 import LogOutIcon from "../icons/logout";
 import SettingsIcon from "../icons/settings";
 import AreaTicketIcon from "../icons/area_ticket";
+import TicketIcon from "../icons/ticket";
+import HomeIcon from "../icons/home";
 function Navbar(){
     return (
         <nav className="navbar navbar--fixed-top max-sm:grid-cols-1 max-sm:grid  ">
@@ -12,9 +14,13 @@ function Navbar(){
                 </div>
                 <div className=" navbar__items navbar__items--right">
                     <div className="flex flex-row gap-6">
-                    <Link to="/"><AreaTicketIcon/></Link>
-                    <Link to="/"><SettingsIcon/></Link>
-                    <Link to="/test"><LogOutIcon/></Link>
+                        <Link to="/home" className="hover:scale-125 transition-all"><HomeIcon/></Link>
+                        <Link to="/ticket" className="hover:scale-125 transition-all"><TicketIcon/></Link>
+                        <Link to="/areatickets" className="hover:scale-125 transition-all"><AreaTicketIcon/></Link>
+                        {/*
+                        <Link to="/settings" className="hover:scale-125 transition-all" ><SettingsIcon/></Link>
+                        */}
+                        <Link to="/" className="hover:scale-125 transition-all"><LogOutIcon/></Link>
                     </div>
                 </div>  
             </div>
