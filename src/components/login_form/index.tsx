@@ -1,5 +1,4 @@
 import './form.css'
-
 import { useRef } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
 import { login } from '@/scripts/http-requests/api';
@@ -26,21 +25,26 @@ function LoginForm(){
     }    
 
     return(
-        <section className='form '>
-            <form action="" onSubmit={(e) => e.preventDefault()}>
-                <h1>LOGIN</h1>
-                    <div className="coolinput">
-                        <label htmlFor="input" className="text">Username</label>
-                        <input type="text"  name="input" className="input" ref={usernameRef}/>
+        <section className='form-container'>
+            <div className='form'>
+                <form  action="" onSubmit={(e) => e.preventDefault()}>
+                    <h1 className="" >🎩LOGIN</h1>
+                        <div className="coolinput ">
+                            <label htmlFor="input" className="text">Username</label>
+                            <input type="text"  name="input" className="input" ref={usernameRef}/>
+                            <br />
+                            <label htmlFor="input" className="text">Senha</label>
+                            <input type="password"  name="input" className="input" ref={passwordRef}/>
+                        </div>
                         <br />
-                        <label htmlFor="input" className="text">Senha</label>
-                        <input type="password"  name="input" className="input" ref={passwordRef}/>
+                        <div>
+                    
+                    <button id='login' onClick={toLogin}>LOGAR</button>
+                    <br />
+                    {/* <button id='re-login'>RECUPERAR LOGIN</button> */}
                     </div>  
-                <br />
-                <button id='login' onClick={toLogin}>LOGAR</button>
-                <br />
-                <button id='re-login'>RECUPERAR LOGIN</button>
-            </form>
+                </form>
+            </div>
         </section>
     )
 }
