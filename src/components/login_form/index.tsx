@@ -1,7 +1,8 @@
 import './form.css'
-import { login } from '../../server/api';
+
 import { useRef } from 'react';
-import { failureAlert } from '../../scripts/utils/shared';
+import { failureAlert } from '@/scripts/utils/shared';
+import { login } from '@/scripts/http-requests/api';
 
 function LoginForm(){
     const usernameRef = useRef<HTMLInputElement | null>(null);

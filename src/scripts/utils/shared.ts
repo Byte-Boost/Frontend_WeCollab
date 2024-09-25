@@ -1,6 +1,6 @@
 import Swal from "sweetalert2";
 
-export const successAlert = (text: string, log: string, cb: Function=()=>{})=>{
+export const successAlert = (text: string, log: string, cb: Function=()=>{}) : void =>{
     Swal.fire({
       title: 'Sucesso',
       text: text,
@@ -13,7 +13,7 @@ export const successAlert = (text: string, log: string, cb: Function=()=>{})=>{
     cb()
   }
 
-export const failureAlert = (text: string, log: string, cb:Function=()=>{})=>{
+export const failureAlert = (text: string, log: string, cb:Function=()=>{}) : void =>{
     Swal.fire({
         title: 'Oops!',
         text: text,
