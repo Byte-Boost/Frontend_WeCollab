@@ -1,15 +1,22 @@
 import './card.css'
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
-import { postComment } from '@/scripts/http-requests/endpoints';
-import { Comment, Ticket } from '@/models/models';
+import { getCommentsByTicketId, postComment } from '@/scripts/http-requests/endpoints';
+import { Ticket, TicketComment } from '@/models/models';
 import CategoryIcon from '../icons/category';
 import { Textarea } from 'flowbite-react';
 
 function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
-    const emptyCommentsList: Array<Comment> = [];
-    const [comments, setComments] = useState(emptyCommentsList);
+    const [commentsOnTicket, setCommentsOnTicket] = useState<Array<TicketComment>>([]);
     const [commentValue, setCommentValue] = useState<string|null>(null);
+    async function getComments(ticketId: number) {
+        let comments: Array<TicketComment> = await getCommentsByTicketId(ticketId);
+        setCommentsOnTicket(comments);
+    }
+    useEffect(()=>{
+        getComments(Number(ticket.id))
+    }, [])
+    
     async function tryCommenting() {
         if(commentValue !== undefined) {
             const comment = commentValue || "";
@@ -61,19 +68,16 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                     </div>
                     <div className="flex items-center justify-end mt-4">
                         <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
-                            alert(commentValue)
+                            tryCommenting()
                         }}>Postar</button>
-                        {/* <button data-modal-hide="default-modal" type="button" className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-400 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" onClick={()=>{
-                            // clear the comment box
-                        }}>Cancel</button> */}
                     </div> 
                     {
-                        comments.map((comment, index) => {
+                        commentsOnTicket.map((comment, index) => {
                             return (
                                 <div className="bg-gray-200 mt-4 p-2.5 w-full rounded-lg border">
                                     <div className="flex gap-2">
                                         <div className="bg-red-400 w-8 h-8 rounded-full"></div>
-                                        <span className="text-md">Placeholder Name</span>
+                                        <span className="text-md">{comment.commenterId}</span>
                                         <span className="text-md grow text-end">{(new Date(comment.date)).toLocaleDateString()}</span>
                                     </div>
                                     <p className="text-sm text-gray-900">{comment.content}</p>

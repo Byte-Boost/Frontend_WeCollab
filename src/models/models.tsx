@@ -17,7 +17,7 @@ export type Ticket = {
     dateOfCreation: Date, 
     requesterId: string
 }
-export type Comment = {
+export type TicketComment = {
     id: string, 
     content: string, 
     date: Date, 

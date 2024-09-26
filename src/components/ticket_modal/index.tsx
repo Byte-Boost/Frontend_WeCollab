@@ -18,25 +18,26 @@ export default UploadModal;
 
 
 // SOMETHING USEFUL:
-// const exampleTicket: Ticket = {
-//   id: "1", 
-//   area: "Recursos Humanos", 
-//   status: "Novo", 
-//   category: "suporte", 
-//   title: "exemplo de um cartão", description:"Lorem ipsum dolor sit amet consectetur, adipisicing elit.",  
-//   dateOfCreation: new Date("2024-09-25T12:22:30"), 
-//   requesterId: "1"
-// }
-
 // Things needed when calling this, for when the page is ready:
 
 // import { useRef, useState } from 'react';
 // import TicketModal from '../ticket_modal';
 // import { Ticket } from '@/models/models';
+
 // const [modalIsOpen, setModalIsOpen] = useState(false);
 // const [selectedTicket, setSelectedTicket] = useState(exampleTicket);
+// const [selectedTicketId, setSelectedTicketId] = useState(1);
 // const closeModal = () => {
-//   setModalIsOpen(false);
+// setModalIsOpen(false);
 // };
-// <AlgumElemento onClick={()=>{setModalIsOpen(true);setSelectedTicket(exampleTicket)}></AlgumElemento>
+// async function getTicket(ticketId: number) {
+//     let ticket: Ticket = await getTicketById(ticketId);
+//     setSelectedTicket(ticket)
+//     console.log(ticket);
+// }
+// useEffect(()=>{
+//     getTicket(selectedTicketId)
+// }, [selectedTicketId])
+
+// onClick={()=>{setModalIsOpen(true);setSelectedTicketId(1)}}
 // <TicketModal isOpen={modalIsOpen} closeModal={closeModal} ticket={selectedTicket}></TicketModal>

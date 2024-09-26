@@ -1,6 +1,6 @@
 import { jwtDecode } from 'jwt-decode';
 import instance from './instance';
-import { MyJwtPayload, User } from '@/models/models';
+import { MyJwtPayload, Ticket, TicketComment, User } from '@/models/models';
 
 export async function login(username: string, password: string) {
     
@@ -16,7 +16,7 @@ export async function login(username: string, password: string) {
     return response;
 
 }
-// This will be redone using instance.ts, but later
+
 export async function register(newUser: User) {
     await instance.post("accounts/register", {
         "name": newUser.name,
@@ -36,8 +36,12 @@ export async function postComment(comment: String, ticketId: String) {
         content: comment,
         commenterId: decoded.id,
     });
-
-    const token = response.data.token;
-    console.log(token);
-    localStorage.setItem("token", token)
+}
+export async function getCommentsByTicketId(ticketId: number){
+    const res = await instance.get<Array<TicketComment>>(`/tickets/comment/${ticketId}`);
+    return res.data;
+}
+export async function getTicketById(id: number){
+    const res = await instance.get<Ticket>(`/tickets/${id}`);
+    return res.data;
 }
