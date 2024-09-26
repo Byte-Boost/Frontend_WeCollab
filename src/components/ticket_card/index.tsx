@@ -1,15 +1,18 @@
-import { useRef } from 'react';
+import './card.css'
+import { useState } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
 import { postComment } from '@/scripts/http-requests/api';
-import { Ticket } from '@/models/models';
+import { Comment, Ticket } from '@/models/models';
+import CategoryIcon from '../icons/category';
+import { Textarea } from 'flowbite-react';
 
 function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
-    const writeCommentRef = useRef<HTMLInputElement | null>(null);
-
+    const emptyCommentsList: Array<Comment> = [];
+    const [comments, setComments] = useState(emptyCommentsList);
+    const [commentValue, setCommentValue] = useState<string|null>(null);
     async function tryCommenting() {
-        if(writeCommentRef.current?.value !== undefined) {
-            const comment = writeCommentRef.current?.value;
-            console.log(comment,ticket.id)
+        if(commentValue !== undefined) {
+            const comment = commentValue || "";
             try {
                 await postComment(comment, ticket.id)
             } catch(error: any) {
@@ -18,38 +21,68 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                 }
             }
         }
-    }    
-
+    }  
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
+        const { value } = e.target;
+        setCommentValue(value);
+    };  
     return(
-        <div className="max-w-sm w-full lg:max-w-full lg:flex">
-            <div className="border-r border-b border-l border-gray-400 lg:border-l-0 lg:border-t lg:border-gray-400 bg-white rounded-b lg:rounded-b-none lg:rounded-r p-4 flex flex-col justify-between leading-normal">
-                
-                <div className="mb-8">
-                    <p className="text-sm text-gray-600 flex items-center">
-                        <svg className="fill-current text-gray-500 w-3 h-3 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                        <path d="M4 8V6a6 6 0 1 1 12 0v2h1a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-8c0-1.1.9-2 2-2h1zm5 6.73V17h2v-2.27a2 2 0 1 0-2 0zM7 6v2h6V6a3 3 0 0 0-6 0z" />
+        <div className="relative p-4 w-full max-w-2xl max-h-full">
+            <div className="relative bg-white rounded-lg shadow overflow-y-scroll max-h-[42rem] noScrollbar">
+                {/* CARD HEADER */}
+                <header className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-300">
+                    <h3 className="text-xl font-semibold text-gray-900">
+                        <p className="text-sm text-black flex items-center">
+                            <CategoryIcon/>{ticket.category} 
+                        </p>
+                        {ticket.id} - {ticket.title}
+                    </h3>
+
+                    <button type="button" className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center" data-modal-hide="default-modal" onClick={closeModal}>
+                        <svg className="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                         </svg>
-                        {ticket.category}
+                        <span className="sr-only">Close modal</span>
+                    </button>
+                </header>
+
+                {/* CARD BODY */}
+                <div className="p-4 md:p-5 space-y-4">
+                    <p className="text-base leading-relaxed text-gray-500">
+                        {ticket.description}
                     </p>
-                    <div className="text-gray-900 font-bold text-xl mb-2">{ticket.id} - {ticket.title}</div>
-                    <p className="text-gray-700 text-base">{ticket.description}</p>
                 </div>
                 
-                <hr></hr>
+                {/* CARD FOOTER */}
+                <footer className="p-4 md:p-5 border-t border-gray-300 rounded-b">
+                    <div className="col-span-2">
+                        <label htmlFor="description" className="block mb-2 font-medium text-gray-900 text-lg">Comentários</label>
+                        <Textarea id="description" onChange={handleChange} rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Adicione um comentário"></Textarea>               
+                    </div>
+                    <div className="flex items-center justify-end mt-4">
+                        <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
+                            alert(commentValue)
+                        }}>Postar</button>
+                        {/* <button data-modal-hide="default-modal" type="button" className="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-400 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100" onClick={()=>{
+                            // clear the comment box
+                        }}>Cancel</button> */}
+                    </div> 
+                    {
+                        comments.map((comment, index) => {
+                            return (
+                                <div className="bg-gray-200 mt-4 p-2.5 w-full rounded-lg border">
+                                    <div className="flex gap-2">
+                                        <div className="bg-red-400 w-8 h-8 rounded-full"></div>
+                                        <span className="text-md">Placeholder Name</span>
+                                        <span className="text-md grow text-end">{(new Date(comment.date)).toLocaleDateString()}</span>
+                                    </div>
+                                    <p className="text-sm text-gray-900">{comment.content}</p>
+                                </div>
+                            )
+                        })
+                    }
+                </footer>
 
-                <div className="flex items-center coolinput">
-                    <label htmlFor="input" className="text">Comment</label>
-                    <input type="text"  name="input" className="input" ref={writeCommentRef}/>
-                </div>
-                <button className='mt-2 mb-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded' onClick={tryCommenting}>
-                    Post
-                </button>
-                    
-                    {/* aqui entrará a sessão de comentários de cada ticket, utilizando um data.map */}
-
-                <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded" onClick={closeModal}>
-                    Fechar
-                </button>
             </div>
         </div>
     )
