@@ -39,12 +39,12 @@ const AreaTicketIcon = ({className}: AreaTicketIconProps) => {
        transform="translate(-42.1073,-12.190108)"><path
          d="m 52.8669,67.3723 -5.8845,-2.5496 m 5.8845,2.5496 5.8994,-2.7063 m -5.8994,2.7063 0.0187,-6.5698 m -17.6722,-1.079 -5.8846,-2.5496 0.0187,-6.5699 m 0.0373,-13.1396 0.0187,-6.5699 m 0,0 5.8994,-2.7063 m -5.8994,2.7063 5.8845,2.5496 m 11.8138,-10.6684 5.8995,-2.7063 5.8845,2.5496 m -7.264,18.1255 -4.5648,-2.2012"
          stroke="#000000"
-         stroke-opacity="0.93"
-         stroke-width="4"
-         stroke-linecap="round"
-         stroke-linejoin="round"
+         strokeOpacity="0.93"
+         strokeWidth="4"
+         strokeLinecap="round"
+         strokeLinejoin="round"
          id="path1-5"
-         clip-path="url(#clipPath2)" /></g></g>
+         clipPath="url(#clipPath2)" /></g></g>
         </svg>
     );
 }
