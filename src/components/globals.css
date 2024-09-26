@@ -20,40 +20,6 @@
   src:  url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 }
 
-
-/* Product page*/
-
-.content-container{
-  display : flex;
-  height: 100%;
-  padding: 0;
-  margin: 0;
-}
-
-/* Client page */
-
-.container-c{
-  display: flex;
-  justify-content: start;
-  filter: drop-shadow(0 25px 25px rgba(0, 0, 0, 0.50));
-  border-radius: 1rem;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(225, 225, 225); 
-}
-
-.container-table{
-  margin: 2rem;
-  height: 100%;
-  width: 80%;
-}
-
-.info{
-  display: flex;
-  justify-content: center;
-  height: 100%;
-}
-
 /* From Uiverse.io by kamehame-ha */ 
 .coolinput {
   display: flex;

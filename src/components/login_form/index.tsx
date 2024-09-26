@@ -2,8 +2,10 @@ import './form.css'
 import { useRef } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
 import { login } from '@/scripts/http-requests/api';
+import { useRouter } from 'next/router';
 
 function LoginForm(){
+    const router = useRouter();
     const usernameRef = useRef<HTMLInputElement | null>(null);
     const passwordRef = useRef<HTMLInputElement | null>(null);
 
@@ -12,10 +14,12 @@ function LoginForm(){
             const username = usernameRef.current?.value;
             const password = passwordRef.current?.value;
             try {
-                await login(username, password)
+                await login(username, password).then(function(response){
+                        router.push('/home');
+                })
             } catch(error: any) {
                 if(error.status === 401) {
-                    failureAlert("Invalid credentials!", `${username} ${password}`, () => {})
+                    failureAlert("Credenciais inválidas!", `${username} ${password}`, () => {})
                 }
             }
 
