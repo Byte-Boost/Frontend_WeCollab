@@ -19,10 +19,10 @@ function LoginForm(){
                 })
             } catch(error: any) {
                 if(error.status === 401) {
-                    failureAlert("Credenciais inválidas!", `${username} ${password}`)
+                    failureAlert("Credenciais inválidas!", `${username} ${password}`, () => {})
                 }
-                failureAlert("Erro ao conectar-se com o servidor",`'Error' ${error}`)
-            }
+                console.log(error)
+                failureAlert("Credenciais inválidas!", `${1}`, () => {})
 
             //usernameRef.current?.value = "";
             //passwordRef.current?.value = "";
