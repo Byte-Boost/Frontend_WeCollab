@@ -1,7 +1,7 @@
 import './card.css'
 import { useState } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
-import { postComment } from '@/scripts/http-requests/api';
+import { postComment } from '@/scripts/http-requests/endpoints';
 import { Comment, Ticket } from '@/models/models';
 import CategoryIcon from '../icons/category';
 import { Textarea } from 'flowbite-react';

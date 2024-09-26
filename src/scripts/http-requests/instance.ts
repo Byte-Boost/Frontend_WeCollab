@@ -21,8 +21,10 @@ console.log(instance.defaults.baseURL);
 // Add a request interceptor
 instance.interceptors.request.use((config) => {
   //THIS WILL NEED TO CHANGE WHEN WE START USING COOKIES.
-  const userToken: string = localStorage.getItem("token") || "";
-  const decoded = jwtDecode<MyJwtPayload>(userToken);
+  const userToken: string|null = localStorage.getItem("token");
+  if (userToken){
+    const decoded = jwtDecode<MyJwtPayload>(userToken);
+  }
   // Get the authorization value
   const authorizationValue = 'bear ' + userToken;
 

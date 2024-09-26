@@ -1,42 +1,24 @@
-import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 import instance from './instance';
 import { MyJwtPayload, User } from '@/models/models';
 
-
-export const api = axios.create({
-    baseURL: "http://127.0.0.1:3200"
-})
-
 export async function login(username: string, password: string) {
     
-    const response = await api.post("/accounts/login", {
+    console.log ("response")
+    const response = await instance.post("/accounts/login", {
         username: username,
         password: password
+    })
+    .then(function(response){
+        const token = response.data.token;
+        localStorage.setItem("token", token)
     });
+    return response;
 
-    const token = response.data.token;
-    console.log(token);
-    localStorage.setItem("token", token)
 }
 // This will be redone using instance.ts, but later
 export async function register(newUser: User) {
-    const axiosConfig = {
-        baseURL: process.env.NEXT_PUBLIC_API_IP,
-        timeout: 30000,
-    };
-    const instance =  axios.create(axiosConfig);
-    console.log(instance.defaults.baseURL);
-    // Add a request interceptor
-    instance.interceptors.request.use((config) => {
-        const authorizationValue = 'bear ' + localStorage.getItem('token');
-
-        config.headers.Authorization = authorizationValue;
-        
-        return config
-    })
-
-    await api.post("accounts/register", {
+    await instance.post("accounts/register", {
         "name": newUser.name,
         "cpf": newUser.cpf,
         "area": newUser.area,

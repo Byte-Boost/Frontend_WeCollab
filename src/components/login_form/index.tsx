@@ -1,7 +1,7 @@
 import './form.css'
 import { useRef } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
-import { login } from '@/scripts/http-requests/api';
+import { login } from '@/scripts/http-requests/endpoints';
 import { useRouter } from 'next/router';
 
 function LoginForm(){
@@ -21,12 +21,13 @@ function LoginForm(){
                 if(error.status === 401) {
                     failureAlert("Credenciais inválidas!", `${username} ${password}`, () => {})
                 }
-            }
+                console.log(error)
+                failureAlert("Credenciais inválidas!", `${1}`, () => {})
 
             //usernameRef.current?.value = "";
             //passwordRef.current?.value = "";
         }
-    }    
+    }    }
 
     return(
         <section className='form-container'>
