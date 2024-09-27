@@ -1,14 +1,12 @@
-import TicketUser from "@/components/ticket_user";
-// import TicketRow from "@/components/ticket_row";
+import TicketRow from "@/components/ticket_row";
+import TicketTag from "@/components/ticket_tag";
 
 
 function Ticket() {
     return (
         <div className="flex justify-center flex-col items-center h-[85vh]">
-            {/* <TicketUser name='ola' />     */}
-            {/* <TicketRow /> */}
-
-        </div>
+            {/* <TicketRow taskName={"Trocar senhas"} initialDate={new Date()} endDate={<TicketTag tagName="ABERTO" className="bg-[#46E964] rounded-2xl text-center w-[8%]" />} /> */}
+         </div>
     )
 }
 
