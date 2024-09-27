@@ -1,16 +1,22 @@
 import { MouseEventHandler } from 'react'
 import './button.css'
 
+interface CustomButton{
+    name: string;
+    onClick?: MouseEventHandler
+    value: string
+}
 
 
-
-function CustomButton(name: string, onClick? : MouseEventHandler ){
-    if (onClick == undefined){
-        onClick = () => ``
+function CustomButton(CustomButton: CustomButton ){
+    if (CustomButton.onClick == undefined){
+        CustomButton.onClick = () => ``
     }
     return(
         <>
-        <button className='Button' onClick={onClick} name={name}/>
+        <button className='Btn'  onClick={CustomButton.onClick} name={CustomButton.name}>{CustomButton.value}</button>
         </>
     )
 }
+
+export default CustomButton;

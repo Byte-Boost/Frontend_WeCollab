@@ -1,0 +1,13 @@
+.ticket{
+    background-color: #fffcfe;
+    width: 100%;
+    height: 95%;
+    /* border: %; */
+
+}
+
+.top{
+    padding: 2%;
+    display: flex;
+    justify-content: space-between;
+}

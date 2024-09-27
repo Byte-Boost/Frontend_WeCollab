@@ -3,17 +3,21 @@ import './user.css'
 
 interface TicketUser{
     name: string
+    area: string
 }
 
-function TicketUser(name: string){
+function TicketUser(TicketUser: TicketUser){
     return(
         <>
         <section className="user">
-            <div>
-                <TicketIcon/>
-                <h1>Tickets enviados por {name}</h1>
+            <div className="geraldiv">
+                <div className="icon"></div>
+                <div className="txtDiv">
+                    <h1>Tickets enviados por {TicketUser.name}</h1>
+
+                    <h3>{TicketUser.area}</h3>
+                </div>
             </div>
-            <h3></h3>
         </section>
         </>
     )
