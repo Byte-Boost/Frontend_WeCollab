@@ -4,7 +4,7 @@ import TicketCard from "../ticket_card";
 import { Modal } from "flowbite-react";
 import { ModalProps } from "@/models/models";
 
-const UploadModal: React.FC<ModalProps> = ({ isOpen, closeModal, ticket }) => {
+const TicketModal: React.FC<ModalProps> = ({ isOpen, closeModal, ticket }) => {
   return (
     <Modal show={isOpen} onClose={closeModal} dismissible className="bg-black bg-opacity-30 grid place-content-center" size={"lg"}>
       <Modal.Body>
@@ -14,7 +14,7 @@ const UploadModal: React.FC<ModalProps> = ({ isOpen, closeModal, ticket }) => {
   );
 };
 
-export default UploadModal;
+export default TicketModal;
 
 
 // SOMETHING USEFUL:
