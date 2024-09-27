@@ -22,6 +22,7 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
             const comment = commentValue || "";
             try {
                 await postComment(comment, ticket.id)
+                getComments(Number(ticket.id));
             } catch(error: any) {
                 if(error.status === 401) {
                     failureAlert("Algo deu errado!", `Something went wrong`, () => {})

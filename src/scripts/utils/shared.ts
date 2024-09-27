@@ -24,3 +24,19 @@ export const failureAlert = (text: string, log: string, cb:Function=()=>{}) : vo
     console.log(log)
     cb()
 }
+
+export const confirmationAlert = (text:string, log: string, confirmCb:Function=()=>{}): void =>{
+  Swal.fire({
+    title: "Tem certeza?",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sim"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      confirmCb()
+    }
+  });
+  console.log(log)
+}
