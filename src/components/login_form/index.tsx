@@ -3,6 +3,7 @@ import { useRef } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
 import { login } from '@/scripts/http-requests/endpoints';
 import { useRouter } from 'next/router';
+import CustomInput from '../custom_input';
 
 function LoginForm(){
     const router = useRouter();
@@ -20,9 +21,12 @@ function LoginForm(){
             } catch(error: any) {
                 if(error.status === 401) {
                     failureAlert("Credenciais inválidas!", `${username} ${password}`, () => {})
+                }  else{
+                    failureAlert("Erro de Conexão", `${error}`, () => {})
                 }
                 console.log(error)
-                failureAlert("Credenciais inválidas!", `${1}`, () => {})
+              
+               
 
             //usernameRef.current?.value = "";
             //passwordRef.current?.value = "";
@@ -35,11 +39,9 @@ function LoginForm(){
                 <form  action="" onSubmit={(e) => e.preventDefault()}>
                     <h1 className="" >🎩LOGIN</h1>
                         <div className="coolinput ">
-                            <label htmlFor="input" className="text">Username</label>
-                            <input type="text"  name="input" className="input" ref={usernameRef}/>
+                            <CustomInput type='text' name='Username' ref={usernameRef}/>
                             <br />
-                            <label htmlFor="input" className="text">Senha</label>
-                            <input type="password"  name="input" className="input" ref={passwordRef}/>
+                            <CustomInput type='password' name='Password' ref={passwordRef}/>
                         </div>
                         <br />
                         <div>
