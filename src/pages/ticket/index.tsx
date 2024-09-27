@@ -14,11 +14,12 @@ function Ticket() {
                     <CustomButton value="Novo" onClick={function(){}} name="novo"/>
                 </div>
                 <div>
-                    <TicketRow taskName={""} initialDate={new Date} endDate={""} />
+                    <TicketRow taskName={"Trocar Senhas de Acesso ao Banco"} initialDate={new Date} endDate={"28/09/2024"} />
+                    
+                    <TicketRow taskName={"asd"} initialDate={new Date()} endDate={<TicketTag tagName="ABERTO" className="bg-[#46E964]" />} /> 
                 </div>
             </section> 
 
-            {/* <TicketRow taskName={"Trocar senhas"} initialDate={new Date()} endDate={<TicketTag tagName="ABERTO" className="bg-[#46E964] rounded-2xl text-center w-[8%]" />} /> */}
          </div>
     )
 }

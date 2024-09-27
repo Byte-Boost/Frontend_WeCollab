@@ -11,14 +11,20 @@ interface TicketRow {
 
 function TicketRow(TicketRow: TicketRow) {
     return (
-        <div className="row_Ticket">
-            <BoxTicketIcon />
-            <span>{TicketRow.taskName}</span>
-            <TicketTag tagName="ESPERA" className="bg-[#FF860E] rounded-2xl text-center w-[8%]" />
-            <TicketTag tagName="TI" className="bg-[#000] rounded-2xl text-center w-[8%]" />
-            <span>{TicketRow.initialDate.toLocaleDateString()}</span>
-            <span>{TicketRow.endDate}</span>
-        </div>
+        <section className="row">
+            <div className="i">
+                <BoxTicketIcon />
+                <span>{TicketRow.taskName}</span>
+            </div>
+            <div className="i tags">
+                <TicketTag tagName="ESPERA" className="bg-[#FF860E]"/>
+                <TicketTag tagName="TI" className="bg-[#000]"/>
+            </div>
+            <div className="i right">
+                <span>{TicketRow.initialDate.toLocaleDateString()}</span>
+                <span>{TicketRow.endDate}</span>
+            </div>
+        </section>
     );
 }
 

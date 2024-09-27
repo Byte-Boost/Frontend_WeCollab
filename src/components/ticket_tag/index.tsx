@@ -13,9 +13,11 @@ interface TagProps {
 
 function TicketTag(TagProps: TagProps) {
     return(
-        <div className={TagProps.className}>
-            <h3 className="tag">{TagProps.tagName}</h3>
-        </div>
+        <section className="tag">
+            <div className={TagProps.className}>
+                <h3>{TagProps.tagName}</h3>
+            </div>
+        </section>
     );
 }
 
