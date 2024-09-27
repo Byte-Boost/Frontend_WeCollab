@@ -9,13 +9,8 @@ interface CustomButton{
 
 
 function CustomButton(CustomButton: CustomButton ){
-    if (CustomButton.onClick == undefined){
-        CustomButton.onClick = () => ``
-    }
     return(
-        <>
-        <button className='Btn'  onClick={CustomButton.onClick} name={CustomButton.name}>{CustomButton.value}</button>
-        </>
+        <button className='btn' onClick={CustomButton.onClick} name={CustomButton.name}>{CustomButton.value}</button>
     )
 }
 

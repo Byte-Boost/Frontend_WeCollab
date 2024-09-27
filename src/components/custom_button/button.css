@@ -1,5 +1,6 @@
-.Btn{
+.btn{
     background: linear-gradient(153deg, rgba(234,19,180,1) 0%, rgba(205,32,147,1) 45%, rgba(24,157,215,1) 100%);
+    color:#FFFCFE;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -14,4 +15,65 @@
     text-decoration: none;
     border: none;
     color: white;
+}
+
+.btn:hover{
+    scale: 1.05;
+      transition: 0.1s;
+  }
+.btn:active{
+scale: 0.98;
+    transition: 0.1s;
+}
+.btn:not(:last-child) {
+margin-bottom: 3rem;
+}
+.btn:active::before, .btn:active::after {
+content: "";
+display: block;
+position: absolute;
+height: 100%;
+top: 0;
+}
+.btn:active::before {
+background: rgba(255, 255, 255, 0.5);
+width: 60px;
+left: 0;
+filter: blur(30px);
+animation: shine-alt1 5s ease-in-out infinite;
+scale: 0.98;
+transition: 0.1s;
+}
+.btn:active::after {
+background: rgba(255, 255, 255, 0.2);
+width: 30px;
+left: 30px;
+filter: blur(5px);
+animation: shine-alt2 5s ease-in-out infinite;
+scale: 0.98;
+transition: 0.1s;
+}
+@keyframes shine-alt1 {
+0% {
+    opacity: 0.5;
+    transform: translateX(-100px) skewX(-15deg);
+    transition-property: opacity, transform;
+}
+11.5044247788%, 100% {
+    opacity: 0.6;
+    transform: translateX(300px) skewX(-15deg);
+    transition-property: opacity, transform;
+}
+}
+@keyframes shine-alt2 {
+0% {
+    opacity: 0;
+    transform: translateX(-100px) skewX(-15deg);
+    transition-property: opacity, transform;
+}
+11.5044247788%, 100% {
+    opacity: 1;
+    transform: translateX(300px) skewX(-15deg);
+    transition-property: opacity, transform;
+}
 }
