@@ -1,10 +1,11 @@
 <h1 align="center">🎩WeCollab - Frontend</h1>
    <p align="center">
-   <image alt="header-WeCollab-main" src="https://i.imgur.com/RXakrvx.png"/>   
+   <image alt="header-WeCollab-main" src="https://github.com/user-attachments/assets/2d404250-0068-4725-9e80-d4d8eb682a1e"/>   
    </p>
 <hr>    
       
 ## Running on Local Machine for Development
+
 
 ### Requirements
 > [!WARNING]
