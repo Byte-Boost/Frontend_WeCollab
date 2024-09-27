@@ -22,7 +22,13 @@ export type TicketComment = {
     content: string, 
     date: Date, 
     commenterId: string, 
-    ticketId: string
+    ticketId: string,
+    User: {
+        id: string,
+        name: string,
+        role: string,
+        area: string,
+    }
 }
 export interface User {
     name: string,

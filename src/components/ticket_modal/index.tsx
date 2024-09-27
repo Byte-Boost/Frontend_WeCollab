@@ -20,9 +20,11 @@ export default UploadModal;
 // SOMETHING USEFUL:
 // Things needed when calling this, for when the page is ready:
 
-// import { useRef, useState } from 'react';
+// import { useEffect, useRef, useState } from 'react';
+// import { getTicketById, login } from '@/scripts/http-requests/endpoints';
 // import TicketModal from '../ticket_modal';
 // import { Ticket } from '@/models/models';
+// import { exampleTicket } from '@/samples/sampleTicket';
 
 // const [modalIsOpen, setModalIsOpen] = useState(false);
 // const [selectedTicket, setSelectedTicket] = useState(exampleTicket);

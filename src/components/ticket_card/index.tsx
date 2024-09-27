@@ -15,7 +15,7 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
     }
     useEffect(()=>{
         getComments(Number(ticket.id))
-    }, [])
+    }, [ticket])
     
     async function tryCommenting() {
         if(commentValue !== undefined) {
@@ -41,6 +41,21 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                     <h3 className="text-xl font-semibold text-gray-900">
                         <p className="text-sm text-black flex items-center">
                             <CategoryIcon/>{ticket.category} 
+                            { ticket.status === "Novo" ? 
+                                <div className="justify-end">
+                                    <span className="bg-yellow-100 text-yellow-800 text-xs font-medium ml-3 me-2 px-1 py-0.5 rounded">Novo</span>
+                                </div>
+                                : ticket.status === "Em andamento" ?
+                                    <div className="justify-end">
+                                        <span className="bg-green-100 text-green-800 text-xs font-medium ml-3 me-2 px-1 py-0.5 rounded">Em Andamento</span>
+                                    </div>
+                                : ticket.status === "Concluído" ?
+                                    <div className="justify-end">
+                                        <span className="bg-blue-100 text-blue-800 text-xs font-medium ml-3 me-2 px-1 py-0.5 rounded">Concluído</span>
+                                    </div>
+                                
+                                : null
+                            } 
                         </p>
                         {ticket.id} - {ticket.title}
                     </h3>
@@ -72,12 +87,13 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                         }}>Postar</button>
                     </div> 
                     {
-                        commentsOnTicket.map((comment, index) => {
+                        commentsOnTicket.toReversed().map((comment, index) => {
+                            console.log(comment)
                             return (
                                 <div className="bg-gray-200 mt-4 p-2.5 w-full rounded-lg border">
                                     <div className="flex gap-2">
                                         <div className="bg-red-400 w-8 h-8 rounded-full"></div>
-                                        <span className="text-md">{comment.commenterId}</span>
+                                        <span className="text-md">{comment.User.name}</span>
                                         <span className="text-md grow text-end">{(new Date(comment.date)).toLocaleDateString()}</span>
                                     </div>
                                     <p className="text-sm text-gray-900">{comment.content}</p>
