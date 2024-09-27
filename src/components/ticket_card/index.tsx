@@ -35,10 +35,10 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
         setCommentValue(value);
     };  
     return(
-        <div className="relative p-4 w-full max-w-2xl max-h-full">
-            <div className="relative bg-white rounded-lg shadow overflow-y-scroll max-h-[42rem] noScrollbar">
+        <div className="relative p-4 w-full max-w-2xl max-h-full z-50">
+            <div className="relative bg-white rounded-lg shadow overflow-y-scroll max-h-[32rem]  ">
                 {/* CARD HEADER */}
-                <header className="flex items-center justify-between p-4 md:p-5 border-b rounded-t border-gray-300">
+                <header className="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-300">
                     <h3 className="text-xl font-semibold text-gray-900">
                         <p className="text-sm text-black flex items-center">
                             <CategoryIcon/>{ticket.category} 
@@ -93,11 +93,11 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                             return (
                                 <div className="bg-gray-200 mt-4 p-2.5 w-full rounded-lg border">
                                     <div className="flex gap-2">
-                                        <div className="bg-red-400 w-8 h-8 rounded-full"></div>
+                                        <div className="bg-black w-8 h-8 rounded-lg text-white text-center content-center font-mono">{comment.User.name[0].toUpperCase()}</div>
                                         <span className="text-md">{comment.User.name}</span>
                                         <span className="text-md grow text-end">{(new Date(comment.date)).toLocaleDateString()}</span>
                                     </div>
-                                    <p className="text-sm text-gray-900">{comment.content}</p>
+                                    <p className="text-sm text-gray-900 break-words">{comment.content}</p>
                                 </div>
                             )
                         })

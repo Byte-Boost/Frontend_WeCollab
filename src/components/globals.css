@@ -19,3 +19,15 @@
   font-style: normal;
   src:  url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
 }
+
+/* Scroll Customization */
+html::-webkit-scrollbar{
+  width: 0.8vw;
+  display: block;
+  background-color: var(--scrollbar-bg-color); /* these vars are not defined but the default color is fine */
+  border-radius: 50vw;
+}
+html::-webkit-scrollbar-thumb{
+  background-color:var(--scrollbar-thumb-color); /* these vars are not defined but the default color is fine */
+  border-radius: 50vw;
+}
