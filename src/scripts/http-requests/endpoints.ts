@@ -41,6 +41,10 @@ export async function getCommentsByTicketId(ticketId: number){
     const res = await instance.get<Array<TicketComment>>(`/tickets/comment/${ticketId}`);
     return res.data;
 }
+export async function getTickets() {
+    const res = await instance.get<Array<Ticket>>(`/tickets`);
+    return res.data;
+}
 export async function getTicketById(id: number){
     const res = await instance.get<Ticket>(`/tickets/${id}`);
     return res.data;
