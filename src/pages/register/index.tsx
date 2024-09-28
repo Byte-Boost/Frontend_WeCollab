@@ -22,16 +22,24 @@ function RegisterPage() {
     const buttonRef = useRef(null);
 
     const handleChange = (e: any) => {
-        const { name, value } = e.target;
-        if (name === "passwordconfirm") {
-            setPasswordConfirm(value);
+        const { name, value, type, checked } = e.target;
+        switch (type) {
+            case 'checkbox':
+                setUser({ ...user, [name]: checked });
+                break;
+            default:
+                if (name === "passwordconfirm") {
+                    setPasswordConfirm(value);
+                }
+                else {
+                    setUser((prevUser) => ({
+                    ...prevUser,
+                    [name]: value
+                }));
+                }
+                break;
         }
-        else {
-            setUser((prevUser) => ({
-            ...prevUser,
-            [name]: value
-        }));
-        }
+        
     };
 
     const validateInputs = () => {
@@ -47,13 +55,7 @@ function RegisterPage() {
     const handleSubmit = async (e: any) => {
         e.preventDefault();
         user.cpf = user.cpf.replace(/[^[^\w\s]/gi, ''); // I call this a crime but i still did it.
-        if (user.admin == 'on'){ // it is intentional until i muster the energy to change the input to give a boolean
-            user.admin = true
-        }
-        else{
-            user.admin = false
-        }
-        console.log(user)
+        
         const emptyFields = validateInputs();
         if (emptyFields.length > 0) {
             failureAlert("Alguns campos estão vazios", `Campos vazios: ${emptyFields.join(', ')}`, () => {});

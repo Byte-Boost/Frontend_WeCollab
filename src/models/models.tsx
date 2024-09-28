@@ -4,9 +4,21 @@ import { JwtPayload } from "jwt-decode";
 export type ModalProps = {
     isOpen: boolean;
     closeModal: () => void;
+}
+export type TicketModalProps = {
+    isOpen: boolean;
+    closeModal: () => void;
     ticket: Ticket;
 }
-// Other models
+
+// Ticket related models
+export type CreateTicket = {
+    area: string, 
+    category: string, 
+    title: string, 
+    description: string, 
+    requesterId: string
+}
 export type Ticket = {
     id: string, 
     area: string, 
@@ -30,6 +42,8 @@ export type TicketComment = {
         area: string,
     }
 }
+
+// User related models
 export interface User {
     name: string,
     cpf: string,

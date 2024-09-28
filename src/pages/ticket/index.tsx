@@ -6,14 +6,37 @@ import { getTickets } from "@/scripts/http-requests/endpoints";
 import { failureAlert } from "@/scripts/utils/shared";
 import { useEffect, useState } from "react";
 import './ticket.css';
+import { Ticket } from "@/models/models";
+import { getTicketById, login } from '@/scripts/http-requests/endpoints';
+import { exampleTicket } from '@/samples/sampleTicket';
+import TicketModal from "@/components/ticket_modal";
+import NewTicketModal from "@/components/new_ticket_modal";
 
-function Ticket() {
-    const [data, setData] = useState([]);
 
+function TicketPage() {
+    const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);
+    const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
+    const [selectedTicket, setSelectedTicket] = useState(exampleTicket);
+    const [selectedTicketId, setSelectedTicketId] = useState(1);
+    const closeTicketModal = () => {
+        setTicketModalIsOpen(false);
+    };
+    const closeCreateModal = () => {
+        setCreateModalIsOpen(false);
+    };
+
+    async function getTicket(ticketId: number) {
+        let ticket: Ticket = await getTicketById(ticketId);
+        setSelectedTicket(ticket)
+    }
+    const [data, setData] = useState(Array<Ticket>);
+    useEffect(()=>{
+        getTicket(selectedTicketId)
+    }, [selectedTicketId])
     async function getAllTickets() {
         try {
             let tickets = await getTickets()
-            console.log(tickets)
+            setData(tickets)
         } catch(error: any) {
             if(error.status === 401) {
                 failureAlert("Credenciais inválidas!", `${error}`, () => {})
@@ -33,16 +56,20 @@ function Ticket() {
             <section className="ticket">
                 <div className="top">
                     <TicketUser area="TI" name='Forcato' />
-                    <CustomButton value="Novo" onClick={function(){}} name="novo"/>
+                    <CustomButton value="Novo" onClick={()=>{setCreateModalIsOpen(true);}} name="novo"/>
                 </div>
                 <div>
-                    <TicketRow taskName={"Trocar Senhas de Acesso ao Banco"} initialDate={new Date} endDate={"28/09/2024"} />
-                    <TicketRow taskName={"asd"} initialDate={new Date()} endDate={<TicketTag tagName="ABERTO" className="bg-[#46E964]" />} /> 
+                    {
+                        data.map((ticket: Ticket) => {
+                            return <TicketRow cb={()=>{setTicketModalIsOpen(true);setSelectedTicketId(Number(ticket.id))}} taskName={ticket.title} initialDate={new Date(ticket.dateOfCreation)} endDate={<TicketTag tagName={ticket.status} className="bg-[#46E964]" />} />
+                        })
+                    }
                 </div>
             </section> 
-
+            <NewTicketModal isOpen={createModalIsOpen} closeModal={closeCreateModal}></NewTicketModal>
+            <TicketModal isOpen={ticketModalIsOpen} closeModal={closeTicketModal} ticket={selectedTicket}></TicketModal>
          </div>
     )
 }
 
-export default Ticket;
+export default TicketPage;

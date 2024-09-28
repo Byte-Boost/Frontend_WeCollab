@@ -7,11 +7,12 @@ interface TicketRow {
     taskName: string;
     initialDate: Date;
     endDate: string | JSX.Element
+    cb: Function;
 }
 
 function TicketRow(TicketRow: TicketRow) {
     return (
-        <section className="row">
+        <section className="row" onClick={()=>{TicketRow.cb()}}>
             <div className="i">
                 <BoxTicketIcon />
                 <span>{TicketRow.taskName}</span>

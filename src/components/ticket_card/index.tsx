@@ -40,7 +40,7 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                 {/* CARD HEADER */}
                 <header className="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-300">
                     <h3 className="text-xl font-semibold text-gray-900">
-                        <p className="text-sm text-black flex items-center">
+                        <div className="text-sm text-black flex items-center">
                             <CategoryIcon/>{ticket.category} 
                             { ticket.status === "Novo" ? 
                                 <div className="justify-end">
@@ -57,7 +57,7 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                                 
                                 : null
                             } 
-                        </p>
+                        </div>
                         {ticket.id} - {ticket.title}
                     </h3>
 
@@ -89,7 +89,6 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                     </div> 
                     {
                         commentsOnTicket.toReversed().map((comment, index) => {
-                            console.log(comment)
                             return (
                                 <div className="bg-gray-200 mt-4 p-2.5 w-full rounded-lg border" key={index}>
                                     <div className="flex gap-2">
