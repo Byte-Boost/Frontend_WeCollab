@@ -24,7 +24,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>((props, ref) 
         type={props.type} 
         name={props.name} 
         value={props.value}
-        className={twMerge(`p-[4px] text-[1.5rem] border-[#C019A2] rounded border-[2px]`,props.inputClassName) }
+        className={twMerge(`p-[4px] text-[1.5rem] border-[#C019A2] rounded border`,props.inputClassName) }
         ref={ref as LegacyRef<HTMLInputElement>} 
         onChange={props.onChange}
       />

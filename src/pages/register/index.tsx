@@ -1,9 +1,12 @@
 import CustomButton from "@/components/custom_button";
+import CustomCheckbox from "@/components/custom_checkbox";
 import CustomInput from "@/components/custom_input";
+import CustomRadio from "@/components/custom_radio";
 import { User } from "@/models/models";
 import { register } from "@/scripts/http-requests/endpoints";
 import { formatCPF } from "@/scripts/utils/dataFormatter";
 import { failureAlert, successAlert } from "@/scripts/utils/shared";
+import { Card } from "flowbite-react";
 import { useRef, useState } from "react";
 
 function RegisterPage() {
@@ -23,23 +26,15 @@ function RegisterPage() {
 
     const handleChange = (e: any) => {
         const { name, value, type, checked } = e.target;
-        switch (type) {
-            case 'checkbox':
-                setUser({ ...user, [name]: checked });
-                break;
-            default:
-                if (name === "passwordconfirm") {
-                    setPasswordConfirm(value);
-                }
-                else {
-                    setUser((prevUser) => ({
-                    ...prevUser,
-                    [name]: value
-                }));
-                }
-                break;
+        if (name === "passwordconfirm") {
+            setPasswordConfirm(value);
         }
-        
+        else {
+            setUser((prevUser) => ({
+            ...prevUser,
+            [name]: value
+        }));
+        }
     };
 
     const validateInputs = () => {
@@ -79,34 +74,51 @@ function RegisterPage() {
         }
     };
 
+    const updateRoleInput = (value: "User" | "Manager") => {
+        setUser({ ...user, "role": value });
+    }
+    const updateAdminInput = (value: boolean) => {
+        setUser({ ...user, "admin": value });
+    }
+
     return (
         <div className="mt-4 h-[85vh] flex justify-center items-center">
-            <div className='bg-white min-h-[85vh] min-w-full flex justify-center items-center'>
+            <div className='min-h-[85vh] min-w-full flex justify-center items-center'>
                 <div className="text-center">
-                    <h1 className="text-5xl pt-5 font-mono">Cadastro de Usuários</h1>
-                    <div className="text-center">
+                    <Card className="p-4 border-2">
+                        <h1 className="text-5xl pt-5 font-mono">Cadastro de Usuários</h1>
+                        <div className="text-center">
                         <form action="" onSubmit={handleSubmit}>
-                            <div className="flex flex-col">
-                                <div className="flex flex-row gap-5">
-                                    <CustomInput labelName="Nome Completo" name="name" type="text" inputClassName="border-[#000] border-[3.5px]" onChange={handleChange} />
-                                    <CustomInput labelName="Nome de Usuario" name="username" type="text" inputClassName="border-[#000] border-[3.5px]" onChange={handleChange} />
-                                </div>
-                                <div className="flex">
-                                    <CustomInput labelName="CPF" value={formatCPF(user.cpf)} name="cpf" type="text" inputClassName="border-[#000] border-[3.5px]" containerClassName="w-[41.2rem]" onChange={handleChange} maxLenght={14} />
-                                </div>
-                                <div className="flex flex-row gap-5">
-                                <CustomInput labelName="Área" name="area" type="text" inputClassName="border-[#000] border-[3.5px]" onChange={handleChange} />
-                                    <div>
-                                        <label htmlFor="admin" className="text center">Admin</label>
-                                        <input  name="admin" type="checkbox" onChange={handleChange} />
+                                <div className="flex flex-col">
+                                    <div className="flex">
+                                        <CustomInput labelName="Nome Completo" name="name" type="text" inputClassName="border-[#000]" containerClassName="w-[41.2rem]" onChange={handleChange} />
                                     </div>
+                                    <div className="flex">
+                                        <CustomInput labelName="Nome de Usuario" name="username" type="text" inputClassName="border-[#000]" containerClassName="w-[41.2rem]" onChange={handleChange} />
+                                    </div>
+                                    <div className="flex flex-row gap-5">
+                                        <CustomInput labelName="Área" name="area" type="text" inputClassName="border-[#000]" onChange={handleChange} />
+                                        <CustomInput labelName="CPF" value={formatCPF(user.cpf)} name="cpf" type="text" inputClassName="border-[#000]" onChange={handleChange} maxLenght={14} />
+                                    </div>
+
+                                    <div className="flex flex-row gap-5">
+                                        <CustomInput labelName="Senha" name="password" type="password" inputClassName="border-[#000]" onChange={handleChange} />
+                                        <CustomInput labelName="Confirme a Senha" name="passwordconfirm" type="password" inputClassName="border-[#000]" onChange={handleChange} />
+                                    </div>
+
+                                    <div className="flex flex-row gap-5">
+                                        <CustomRadio cb={updateRoleInput} opts={[{id: "user", label: "Usuário", name: "user", value: "User", default: true},{id: "manager", label: "Gerente", name: "manager", value: "Manager"}]}></CustomRadio>
+                                    </div>
+
                                 </div>
-                                <CustomInput labelName="Senha" name="password" type="password" inputClassName="border-[#000] border-[3.5px]" onChange={handleChange} />
-                                <CustomInput labelName="Confirme a Senha" name="passwordconfirm" type="password" inputClassName="border-[#000] border-[3.5px]" onChange={handleChange} />
-                            </div>
-                            <CustomButton ref={buttonRef} name="Cadastrar" value="Cadastrar" className="m-5" />
-                        </form>
-                    </div>
+                                
+                                <div className="flex flex-row gap-5">
+                                    <CustomCheckbox label="Administrador" name="admin" cb={updateAdminInput}></CustomCheckbox>
+                                    <CustomButton ref={buttonRef} name="Cadastrar" value="Cadastrar" className="m-5" />
+                                </div>
+                            </form>
+                        </div>
+                    </Card>
                 </div>
             </div>
         </div>

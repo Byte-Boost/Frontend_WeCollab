@@ -38,6 +38,9 @@ export async function postTicket(createTicket: CreateTicket) {
         requesterId: userToken.id
     });
 }
+export async function closeTicket(ticketId: string){
+    await instance.patch(`/tickets/close/${ticketId}`);
+}
 export async function getTickets() {
     const res = await instance.get<Array<Ticket>>(`/tickets`);
     return res.data;
