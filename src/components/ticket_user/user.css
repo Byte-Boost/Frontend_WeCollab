@@ -1,0 +1,28 @@
+.geraldiv{
+    display: flex;
+ 
+}
+
+.user h1{
+    font-weight: bold;
+    font-size: 1.5rem;
+    /* font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; */
+}
+
+.user h3{
+    font-size: 1.5rem;
+    color: #D9D8D8;
+    /* align-items: left; */
+}
+
+.icon{
+    background-color: rgb(0, 0, 0);
+    width: 4.5rem;
+    height: 4.5rem;
+    border-radius: 20%;
+}
+
+.txtDiv{
+    padding-left: 1rem;
+    padding-top: 0.15rem;
+}

@@ -1,0 +1,33 @@
+@import url(https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap);
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Default Settings */
+:root{
+  background: linear-gradient(110deg,
+    rgba(234, 19, 180, 0.85) 0%,rgba(205, 32, 147, 0.85) 25%, rgba(178, 53, 176, 0.85) 50%, rgba(103, 104, 195, 0.85) 75%, rgba(24, 157, 215, 0.85) 100%
+  ) no-repeat;
+  background-attachment: fixed;
+  
+}
+
+@font-face {
+  font-family: "JetBrains Mono", monospace;
+  font-weight: 100;
+  font-style: normal;
+  src:  url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+}
+
+/* Scroll Customization */
+html::-webkit-scrollbar{
+  width: 0.8vw;
+  display: block;
+  background-color: var(--scrollbar-bg-color); /* these vars are not defined but the default color is fine */
+  border-radius: 50vw;
+}
+html::-webkit-scrollbar-thumb{
+  background-color:var(--scrollbar-thumb-color); /* these vars are not defined but the default color is fine */
+  border-radius: 50vw;
+}

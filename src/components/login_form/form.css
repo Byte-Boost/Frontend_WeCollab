@@ -1,0 +1,114 @@
+.form-container {
+  font-family: 'Incosolate', monospace;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.form{
+  display: flex;
+  justify-content: center;
+  font-size: 2rem; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.form form{
+  background-color: #FFFCFE;
+  padding: 10% 10% ;
+}
+.form h1 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-size: 2.75rem;
+  font-weight: bold;
+  text-align: center;
+  padding-bottom: 1.25rem;
+}
+.form button {
+  color:#FFFCFE;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+  height: 3rem;
+  font-size: 1rem; 
+  font-weight: bold;
+  border-radius: 0.25rem ;
+  font-size: 1.1rem;
+  position: relative;
+  overflow: hidden;
+  text-decoration: none;
+  border: none;
+  color: white;
+}
+.form button#login{
+  background: linear-gradient(153deg, rgba(234,19,180,1) 0%, rgba(205,32,147,1) 45%, rgba(24,157,215,1) 100%);
+  margin-bottom: 2rem;
+}
+.form button#re-login{
+  background: #03ABDB;
+}
+
+.form button:hover{
+  scale: 1.05;
+    transition: 0.1s;
+}
+.form button:active{
+  scale: 0.98;
+    transition: 0.1s;
+}
+.form button:not(:last-child) {
+  margin-bottom: 3rem;
+}
+.form button:active::before, .form button:active::after {
+  content: "";
+  display: block;
+  position: absolute;
+  height: 100%;
+  top: 0;
+}
+.form button:active::before {
+  background: rgba(255, 255, 255, 0.5);
+  width: 60px;
+  left: 0;
+  filter: blur(30px);
+  animation: shine-alt1 5s ease-in-out infinite;
+  scale: 0.98;
+  transition: 0.1s;
+}
+.form button:active::after {
+  background: rgba(255, 255, 255, 0.2);
+  width: 30px;
+  left: 30px;
+  filter: blur(5px);
+  animation: shine-alt2 5s ease-in-out infinite;
+  scale: 0.98;
+  transition: 0.1s;
+}
+@keyframes shine-alt1 {
+  0% {
+    opacity: 0.5;
+    transform: translateX(-100px) skewX(-15deg);
+    transition-property: opacity, transform;
+  }
+  11.5044247788%, 100% {
+    opacity: 0.6;
+    transform: translateX(300px) skewX(-15deg);
+    transition-property: opacity, transform;
+  }
+}
+@keyframes shine-alt2 {
+  0% {
+    opacity: 0;
+    transform: translateX(-100px) skewX(-15deg);
+    transition-property: opacity, transform;
+  }
+  11.5044247788%, 100% {
+    opacity: 1;
+    transform: translateX(300px) skewX(-15deg);
+    transition-property: opacity, transform;
+  }
+}
