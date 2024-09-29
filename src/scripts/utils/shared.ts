@@ -27,11 +27,12 @@ export const failureAlert = (text: string, log: string, cb:Function=()=>{}) : vo
 
 export const confirmationAlert = (text:string, log: string, confirmCb:Function=()=>{}): void =>{
   Swal.fire({
-    title: "Tem certeza?",
+    title: text,
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#3085d6",
     cancelButtonColor: "#d33",
+    cancelButtonText:"Não",
     confirmButtonText: "Sim"
   }).then((result) => {
     if (result.isConfirmed) {

@@ -1,7 +1,7 @@
 import TicketUser from "@/components/ticket_user";
 import CustomButton from "@/components/custom_button";
-import { getTickets } from "@/scripts/http-requests/endpoints";
-import { failureAlert } from "@/scripts/utils/shared";
+import { closeTicket, getTickets } from "@/scripts/http-requests/endpoints";
+import { confirmationAlert, failureAlert } from "@/scripts/utils/shared";
 import { useEffect, useState } from "react";
 import './ticket.css';
 import { Ticket } from "@/models/models";
@@ -61,7 +61,7 @@ function TicketPage() {
         console.log(user)
     },[user])
     return (
-        <div className="flex justify-center flex-col items-center h-[85vh]">
+        <div className="flex justify-center flex-col items-center min-h-fit h-fit">
             <section className="ticket">
                 <div className="top">
                     <TicketUser area={user?.area ?? ''} name={user?.username ?? ''} />
@@ -73,7 +73,7 @@ function TicketPage() {
                         <tbody>
                             {
                                 data.map((ticket: Ticket) => {
-                                    return <CustomTableRow onClick={()=>{setTicketModalIsOpen(true);setSelectedTicketId(Number(ticket.id))}} date={ticket.dateOfCreation} id={ticket.id} status={ticket.status} title={ticket.title} area={ticket.area} key={ticket.id} user={ticket.requesterId}/>
+                                    return <CustomTableRow onClick={()=>{setTicketModalIsOpen(true);setSelectedTicketId(Number(ticket.id))}} date={ticket.dateOfCreation} id={ticket.id} status={ticket.status} title={ticket.title} area={ticket.area} key={ticket.id} user={ticket.requesterId} onDelete={()=>{confirmationAlert("Certeza que deseja fechar o ticket?",'closeticketopen',() => {closeTicket(ticket.id)})}}/>
                                 })
                             }
                         </tbody>

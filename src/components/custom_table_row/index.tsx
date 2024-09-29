@@ -1,6 +1,7 @@
 import { formatCNPJ, formatCPF, formatDateToSlash, formatMoney } from "@/scripts/utils/dataFormatter";
 import { MouseEventHandler } from "react";
 import BoxTicketIcon from "../icons/box_ticket";
+import CrossIcon from "../icons/cross_icon";
 
 interface CustomTableRowProps {
     id: string;
@@ -11,6 +12,7 @@ interface CustomTableRowProps {
     area?: string;
     title?: string;
     onClick : MouseEventHandler;
+    onDelete : MouseEventHandler;
 }
 
 const CustomTableRow = ({
@@ -21,7 +23,8 @@ const CustomTableRow = ({
     user,
     area,
     title,
-    onClick
+    onClick,
+    onDelete
 }: CustomTableRowProps) => {
     const formattedDate = formatDateToSlash(date);
     const formattedEndDate = formatDateToSlash(endDate? endDate:'' );
@@ -71,6 +74,16 @@ const CustomTableRow = ({
         </td>
         <td className="p-4 border-b border-blue-gray-50">
             {formattedEndDate? formattedEndDate: '-'}
+        </td>
+        <td className="p-4 border-b border-blue-gray-50">
+        <button className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-10 max-w-[40px] h-10 max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button" onClick={(event) => {
+                event.stopPropagation();
+                onDelete(event);
+            }}>
+            <span className="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+                <CrossIcon/>
+            </span>
+          </button>
         </td>
       </tr>
 
