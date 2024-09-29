@@ -40,7 +40,7 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                 {/* CARD HEADER */}
                 <header className="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-300">
                     <h3 className="text-xl font-semibold text-gray-900">
-                        <div className="text-sm text-black flex items-center">
+                        <div className="text-sm text-black flex items-center text-ellipsis ">
                             <CategoryIcon/>{ticket.category} 
                             { ticket.status === "Novo" ? 
                                 <div className="justify-end">

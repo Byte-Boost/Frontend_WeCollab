@@ -6,16 +6,15 @@ interface TicketUser{
     area: string
 }
 
-function TicketUser(TicketUser: TicketUser){
+function TicketUser(props: TicketUser){
     return(
         <>
         <section className="user">
-            <div className="geraldiv">
-                <div className="icon"></div>
+            <div className="geraldiv md:grid md:grid-flow-row">
+                <div className="icon text-center content-center text-white font-mono">{props.name[0]? props.name[0].toUpperCase() : 'DMY' }</div>
                 <div className="txtDiv">
-                    <h1>Tickets enviados por {TicketUser.name}</h1>
-
-                    <h3>{TicketUser.area}</h3>
+                    <h1>Tickets enviados por {props.name? props.name.replace(/^./, props.name[0].toUpperCase()) : 'Dummy' }</h1>
+                    <h3>{props.area? props.area: ""}</h3>
                 </div>
             </div>
         </section>
