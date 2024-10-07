@@ -1,5 +1,7 @@
 import axios from 'axios';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
+import {  getCookie } from 'cookies-next';
+import { jwtDecode, JwtPayload } from 'jwt-decode'; 
+
 
 // Axios configuration
 const axiosConfig = {
@@ -20,12 +22,11 @@ const instance = axios.create(axiosConfig);
 console.log(instance.defaults.baseURL);
 // Add a request interceptor
 instance.interceptors.request.use((config) => {
-  //THIS WILL NEED TO CHANGE WHEN WE START USING COOKIES.
-  const userToken: string|null = localStorage.getItem("token");
+  const userToken = getCookie("token"); 
   if (userToken){
     const decoded = jwtDecode<MyJwtPayload>(userToken);
   }
-  // Get the authorization value
+  // Get the authorization value  
   const authorizationValue = 'bear ' + userToken;
 
   // Add the Authorization header

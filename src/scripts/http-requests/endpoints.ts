@@ -1,12 +1,12 @@
 import instance from './instance';
 import { CreateTicket, Ticket, TicketComment, User } from '@/models/models';
 import { getSessionUser } from '../utils/userService';
-
+import { setCookie } from 'cookies-next';
 
 // User related endpoints
 export async function register(newUser: User) {
     await instance.post("accounts/register", {
-        "name": newUser.name,
+        "name": newUser.name,   
         "cpf": newUser.cpf,
         "area": newUser.area,
         "username": newUser.username,
@@ -18,11 +18,12 @@ export async function register(newUser: User) {
 export async function login(username: string, password: string) {
     const response = await instance.post("/accounts/login", {
         username: username,
-        password: password
+        password: password  
     })
     .then(function(response){
         const token = response.data.token;
-        localStorage.setItem("token", token)
+        setCookie('token', response.data.token);
+        console.log(response.data.token )
     });
     return response;
 }

@@ -16,6 +16,7 @@ function LoginForm(){
             const password = passwordRef.current?.value;
             try {
                 await login(username, password).then(function(response){
+                        console.log('WEGOTHEERE')
                         router.push('/home');
                 })
             } catch(error: any) {
