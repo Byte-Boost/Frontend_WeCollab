@@ -6,7 +6,7 @@ import { Ticket, TicketComment } from '@/models/models';
 import CategoryIcon from '../icons/category';
 import { Textarea } from 'flowbite-react';
 
-function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
+function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Ticket,uponPost? : Function}){
     const [commentsOnTicket, setCommentsOnTicket] = useState<Array<TicketComment>>([]);
     const [commentValue, setCommentValue] = useState<string|null>(null);
     async function getComments(ticketId: number) {
@@ -22,6 +22,7 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
             const comment = commentValue || "";
             try {
                 await postComment(comment, ticket.id)
+                uponPost? uponPost(): null;
                 getComments(Number(ticket.id));
             } catch(error: any) {
                 if(error.status === 401) {

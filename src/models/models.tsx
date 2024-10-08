@@ -3,11 +3,13 @@ import { JwtPayload } from "jwt-decode";
 // Modals
 export type ModalProps = {
     isOpen: boolean;
+    cb : () => void;
     closeModal: () => void;
 }
 export type TicketModalProps = {
     isOpen: boolean;
     closeModal: () => void;
+    cb : () => void;
     ticket: Ticket;
 }
 

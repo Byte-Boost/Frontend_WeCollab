@@ -23,9 +23,11 @@ function TicketPage() {
 
     const closeTicketModal = () => {
         setTicketModalIsOpen(false);
+        getAllTickets();
     };
     const closeCreateModal = () => {
         setCreateModalIsOpen(false);
+        getAllTickets();
     };
 
     async function getTicket(ticketId: number) {
@@ -60,29 +62,32 @@ function TicketPage() {
     useEffect(() =>{
         console.log(user)
     },[user])
+    useEffect(() => {
+        getTicket(selectedTicketId);
+    }, [selectedTicketId]);
     return (
-        <div className="flex justify-center flex-col items-center min-h-fit h-fit">
-            <section className="ticket">
-                <div className="top">
-                    <TicketUser area={user?.area ?? ''} name={user?.username ?? ''} />
-                    <CustomButton value="Novo" onClick={()=>{setCreateModalIsOpen(true);}} name="novo"/>
-                </div>
-                <div>
-                    <table className="w-full min-w-max table-auto text-left">
-                        <CustomTableHeader/>
-                        <tbody>
-                            {
-                                data.map((ticket: Ticket) => {
-                                    return <CustomTableRow onClick={()=>{setTicketModalIsOpen(true);setSelectedTicketId(Number(ticket.id))}} date={ticket.dateOfCreation} id={ticket.id} status={ticket.status} title={ticket.title} area={ticket.area} key={ticket.id} user={ticket.requesterId} onDelete={()=>{confirmationAlert("Certeza que deseja fechar o ticket?",'closeticketopen',() => {closeTicket(ticket.id)})}}/>
-                                })
-                            }
-                        </tbody>
-                    </table>
-                </div>
-            </section> 
-            <NewTicketModal isOpen={createModalIsOpen} closeModal={closeCreateModal}></NewTicketModal>
-            <TicketModal isOpen={ticketModalIsOpen} closeModal={closeTicketModal} ticket={selectedTicket}></TicketModal>
-         </div>
+        <div className="bg-white min-h-screen flex justify-center ">
+                <section className="ticket">
+                    <div className="top">
+                        <TicketUser area={user?.area ?? ''} name={user?.username ?? ''} />
+                        <CustomButton value="Novo" onClick={()=>{setCreateModalIsOpen(true);}} name="novo"/>
+                    </div>
+                    <div>
+                        <table className="w-full min-w-max table-auto text-left">
+                            <CustomTableHeader/>
+                            <tbody>
+                                {
+                                    data.map((ticket: Ticket) => {
+                                        return <CustomTableRow onClick={()=>{setTicketModalIsOpen(true);setSelectedTicketId(Number(ticket.id))}} date={ticket.dateOfCreation} id={ticket.id} status={ticket.status} title={ticket.title} area={ticket.area} key={ticket.id} user={ticket.requesterId} onDelete={()=>{confirmationAlert("Certeza que deseja fechar o ticket?",'closeticketopen',() => {closeTicket(ticket.id,getAllTickets)})}}/>
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </section> 
+                <NewTicketModal isOpen={createModalIsOpen} closeModal={closeCreateModal} cb={()=>{}}></NewTicketModal>
+                <TicketModal isOpen={ticketModalIsOpen} closeModal={closeTicketModal} ticket={selectedTicket} cb={getAllTickets} ></TicketModal>
+            </div>
     )
 }
 

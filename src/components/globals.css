@@ -31,3 +31,45 @@ html::-webkit-scrollbar-thumb{
   background-color:var(--scrollbar-thumb-color); /* these vars are not defined but the default color is fine */
   border-radius: 50vw;
 }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 8px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+@media (max-width: 1030px) {
+  table, thead, tbody, th, td, tr {
+      display: block;
+  }
+
+  thead tr {
+      display: none;
+  }
+
+  tr {
+      margin-bottom: 15px;
+  }
+
+  td {
+      position: relative;
+      padding-left: 50%;
+      text-align: right;
+  }
+
+  td::before {
+      content: attr(data-label);
+      position: absolute;
+      left: 10px;
+      width: calc(50% - 20px);
+      padding-right: 10px;
+      white-space: nowrap;
+      text-align: left;
+      font-weight: bold;
+  }
+}
