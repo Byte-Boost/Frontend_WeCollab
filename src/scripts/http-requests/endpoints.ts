@@ -51,6 +51,13 @@ export async function getTicketById(id: number){
     const res = await instance.get<Ticket>(`/tickets/${id}`);
     return res.data;
 }
+export async function switchObserver(id: string, obs: Array<User>) {
+    //const res = await instance.patch<Ticket>(`/tickets/${id}`, obs);
+    console.log(id);
+    console.log(obs);
+    //return res.data;
+}
+
 // Comment related endpoints
 export async function postComment(comment: String, ticketId: String) {
     let userToken = await getSessionUser()

@@ -30,6 +30,7 @@ export type Ticket = {
     description: string, 
     dateOfCreation: Date, 
     requesterId: string
+    observer: Array<User>
 }
 export type TicketComment = {
     id: string, 
