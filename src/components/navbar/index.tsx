@@ -6,6 +6,10 @@ import Link from 'next/link';
 import AddUserIcon from '../icons/add_user';
 import { useEffect, useState } from 'react';
 import { getSessionUser } from '@/scripts/utils/userService';
+import CategoryIcon from '../icons/category';
+import SettingsIcon from '../icons/settings';
+
+
 function Navbar(){
 
     return (
@@ -18,6 +22,10 @@ function Navbar(){
                     <div className="flex flex-row gap-6">
                        
                         <Link href="/ticket" className="hover:scale-125 transition-all"><TicketIcon/></Link>
+
+                        <Link href="/upload" className="hover:scale-125 transition-all"><SettingsIcon/></Link>
+                
+
                         {/* <Link href="/areatickets" className="hover:scale-125 transition-all"><AreaTicketIcon/></Link> */}
                         {/*
                         <Link href="/settings" className="hover:scale-125 transition-all" ><SettingsIcon/></Link>
