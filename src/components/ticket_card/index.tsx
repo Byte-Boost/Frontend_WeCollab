@@ -1,4 +1,4 @@
-import './card.css'
+ import './card.css'
 import { useEffect, useState } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
 import { getCommentsByTicketId, postComment } from '@/scripts/http-requests/endpoints';
@@ -35,7 +35,8 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
         setCommentValue(value);
     };  
     return(
-        <div className="relative p-4 w-full max-w-2xl max-h-full z-50">
+        <div className="relative p-4 w-full w-[30rem] max-h-full z-50">
+ 
             <div className="relative bg-white rounded-lg shadow overflow-y-scroll max-h-[32rem]  ">
                 {/* CARD HEADER */}
                 <header className="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-300">
@@ -67,13 +68,41 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                         </svg>
                         <span className="sr-only">Close modal</span>
                     </button>
+                    
                 </header>
+                
+                {/* CARD OWNER */}
+                
+                <div className="p-4 md:p-5 space-y-4 ">
+                    <div className='flex space-x items-center' >    
+                        <div className="text-sm text-black flex items-center w-[12rem] truncate md:overflow-clip ">
+                            <CategoryIcon/> <p className='font-bold'>Owner:</p> {ticket.owner}
+                        </div>
+                        <div className="text-sm text-black  flex items-center w-[13rem] truncate">
+                            <CategoryIcon/><p className='font-bold'>Encarregado:</p> {ticket.responsible}
+                        </div>
+                    </div>
+                    {/* {ticket.owner} */}
+
+                </div>
+
 
                 {/* CARD BODY */}
                 <div className="p-4 md:p-5 space-y-4">
                     <p className="text-base leading-relaxed text-gray-500">
                         {ticket.description}
                     </p>
+                </div>
+                
+
+                {/* CARD BUTTON */}
+                <div className="p-4 md:p-3 space-x-36 ">
+                <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
+                            
+                        }}>Atribuir tarefa</button>
+                <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
+                            
+                        }}>Finalizar ticket</button>
                 </div>
                 
                 {/* CARD FOOTER */}
@@ -86,6 +115,7 @@ function TicketCard({closeModal, ticket}: {closeModal: any, ticket: Ticket}){
                         <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
                             tryCommenting()
                         }}>Postar</button>
+                        
                     </div> 
                     {
                         commentsOnTicket.toReversed().map((comment, index) => {

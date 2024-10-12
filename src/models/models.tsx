@@ -22,6 +22,8 @@ export type CreateTicket = {
 export type Ticket = {
     id: string, 
     area: string, 
+    owner: string,
+    responsible:Array<string>,
     status: string, 
     category: string, 
     title: string, 
