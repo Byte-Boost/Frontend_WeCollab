@@ -27,6 +27,11 @@ export async function login(username: string, password: string) {
     });
     return response;
 }
+export async function getUsers() {
+    const res = await instance.get<Array<User>>(`/users`);
+    console.log(res.data)
+    return res.data;
+}
 
 // Ticket related endpoints
 export async function postTicket(createTicket: CreateTicket) {
