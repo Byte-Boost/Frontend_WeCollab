@@ -1,5 +1,5 @@
 import instance from './instance';
-import { CreateTicket, Ticket, TicketComment, User } from '@/models/models';
+import { Area, CreateTicket, Role, Ticket, TicketComment, User } from '@/models/models';
 import { getSessionUser } from '../utils/userService';
 import { setCookie } from 'cookies-next';
 
@@ -35,13 +35,11 @@ export async function getUsers() {
 
 // Ticket related endpoints
 export async function postTicket(createTicket: CreateTicket) {
-    let userToken = await getSessionUser()
     await instance.post(`/tickets`, {
         area: createTicket.area,
-        category: createTicket.category,
         title: createTicket.title,
         description: createTicket.description,
-        requesterId: userToken.id
+        observers: createTicket.observers,
     });
 }
 export async function closeTicket(ticketId: string,cb? : Function){
@@ -56,22 +54,40 @@ export async function getTicketById(id: number){
     const res = await instance.get<Ticket>(`/tickets/${id}`);
     return res.data;
 }
-export async function switchObserver(id: string, obs: Array<User>) {
-    //const res = await instance.patch<Ticket>(`/tickets/${id}`, obs);
-    console.log(id);
-    console.log(obs);
-    //return res.data;
+export async function switchObserver(id: string, obs: Array<number>) {
+    // obs is an array of userIDs
+    const res = await instance.patch<Ticket>(`/tickets/forward/${id}`, obs);
+    return res.data;
 }
 
 // Comment related endpoints
 export async function postComment(comment: String, ticketId: String) {
-    let userToken = await getSessionUser()
     await instance.post(`/tickets/comment/${ticketId}`, {
         content: comment,
-        commenterId: userToken.id,
     });
 }
 export async function getCommentsByTicketId(ticketId: number){
     const res = await instance.get<Array<TicketComment>>(`/tickets/comment/${ticketId}`);
+    return res.data;
+}
+
+// Area related endpoints
+export async function getAreas(filter: any) {
+    const res = await instance.get<Array<Area>>(`/areas`, {
+        params: {
+            startsWith: filter.startsWith
+        }
+    });
+    return res.data;
+}
+
+// Role related endpoints
+export async function getRoles(filter: any) {
+    const res = await instance.get<Array<Role>>(`/roles`, {
+        params: {
+            startsWith: filter.startsWith,
+            area: filter.area
+        }
+    });
     return res.data;
 }

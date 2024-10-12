@@ -2,12 +2,13 @@ import CustomButton from "@/components/custom_button";
 import CustomCheckbox from "@/components/custom_checkbox";
 import CustomInput from "@/components/custom_input";
 import CustomRadio from "@/components/custom_radio";
-import { User } from "@/models/models";
-import { register } from "@/scripts/http-requests/endpoints";
+import CustomSelect from "@/components/custom_select";
+import { Area, Role, User } from "@/models/models";
+import { getAreas, getRoles, register } from "@/scripts/http-requests/endpoints";
 import { formatCPF } from "@/scripts/utils/dataFormatter";
 import { failureAlert, successAlert } from "@/scripts/utils/shared";
-import { Card } from "flowbite-react";
-import { useRef, useState } from "react";
+import { Card, Select } from "flowbite-react";
+import { useEffect, useRef, useState } from "react";
 
 function RegisterPage() {
     const emptyUser: User = {
@@ -16,7 +17,7 @@ function RegisterPage() {
         area: null,
         username: '',
         password: '',
-        role: "User",
+        role: "",
         admin: false
     };
     
@@ -73,13 +74,25 @@ function RegisterPage() {
             console.log(error);
         }
     };
-
-    const updateRoleInput = (value: "User" | "Manager") => {
-        setUser({ ...user, "role": value });
-    }
     const updateAdminInput = (value: boolean) => {
         setUser({ ...user, "admin": value });
     }
+
+    const [areas, setAreas] = useState<Array<Area>>([]);
+    useEffect(() => {
+        getAreas({}).then((data) => {
+            setAreas(data);
+        });
+    }, [])
+    const [roles, setRoles] = useState<Array<Role>>([]);
+    useEffect(() => {
+        if (user.area !== null){
+            getRoles({area: user.area}).then((data) => {
+                setRoles(data);
+            });
+            setUser({...user, role: ""});
+        }
+    }, [user.area])
 
     return (
         <div className="mt-4 h-[85vh] flex justify-center items-center">
@@ -93,13 +106,15 @@ function RegisterPage() {
                                     <div className="flex">
                                         <CustomInput labelName="Nome Completo" name="name" type="text" inputClassName="border-[#000]" containerClassName="w-[41.2rem]" onChange={handleChange} />
                                     </div>
+
                                     <div className="flex">
                                         <CustomInput labelName="Nome de Usuario" name="username" type="text" inputClassName="border-[#000]" containerClassName="w-[41.2rem]" onChange={handleChange} />
                                     </div>
-                                    <div className="flex flex-row gap-5">
-                                        <CustomInput labelName="Área" name="area" type="text" inputClassName="border-[#000]" onChange={handleChange} />
-                                        <CustomInput labelName="CPF" value={formatCPF(user.cpf)} name="cpf" type="text" inputClassName="border-[#000]" onChange={handleChange} maxLenght={14} />
+
+                                    <div className="flex">
+                                        <CustomInput labelName="CPF" value={formatCPF(user.cpf)} name="cpf" type="text" inputClassName="border-[#000]" containerClassName="w-[41.2rem]" onChange={handleChange} maxLenght={14} />
                                     </div>
+
 
                                     <div className="flex flex-row gap-5">
                                         <CustomInput labelName="Senha" name="password" type="password" inputClassName="border-[#000]" onChange={handleChange} />
@@ -107,9 +122,9 @@ function RegisterPage() {
                                     </div>
 
                                     <div className="flex flex-row gap-5">
-                                        <CustomRadio cb={updateRoleInput} opts={[{id: "user", label: "Usuário", name: "user", value: "User", default: true},{id: "manager", label: "Gerente", name: "manager", value: "Manager"}]}></CustomRadio>
+                                        <CustomSelect labelName="Carreira" value={user.area || ""} name="area" inputClassName="border-[#000]" onChange={handleChange} options={areas} defaultValue="Selecione uma carreira"/>
+                                        <CustomSelect labelName="Cargo" value={user.role || ""} name="role" inputClassName="border-[#000]" onChange={handleChange} options={roles} defaultValue="Selecione um cargo"/>
                                     </div>
-
                                 </div>
                                 
                                 <div className="flex flex-row gap-5">

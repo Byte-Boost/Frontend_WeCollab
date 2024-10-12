@@ -16,21 +16,19 @@ export type TicketModalProps = {
 // Ticket related models
 export type CreateTicket = {
     area: string, 
-    category: string, 
     title: string, 
     description: string, 
-    requesterId: string
+    observers: Array<number>
 }
 export type Ticket = {
     id: string, 
     area: string, 
     status: string, 
-    category: string, 
     title: string, 
     description: string, 
     dateOfCreation: Date, 
     requesterId: string
-    observer: Array<User>
+    observer: Array<Observer>
 }
 export type TicketComment = {
     id: string, 
@@ -53,13 +51,26 @@ export interface User {
     area: string | null,
     username: string,
     password: string,
-    role: "Manager" | "User",
+    role: string,
     admin: true | false
 }
-
 export interface MyJwtPayload extends JwtPayload {
     id: string,
     username: string,
     role: string,
     admin: string
+}
+export type Observer = {
+    id: string,
+    user: User;
+}
+
+// Area related models
+export type Area = {
+    name: string,
+    Roles: Array<Role>
+}
+// Role related models
+export type Role = {
+    name: string,
 }
