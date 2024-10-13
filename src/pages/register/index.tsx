@@ -1,13 +1,12 @@
 import CustomButton from "@/components/custom_button";
 import CustomCheckbox from "@/components/custom_checkbox";
 import CustomInput from "@/components/custom_input";
-import CustomRadio from "@/components/custom_radio";
 import CustomSelect from "@/components/custom_select";
 import { Area, Role, User } from "@/models/models";
 import { getAreas, getRoles, register } from "@/scripts/http-requests/endpoints";
 import { formatCPF } from "@/scripts/utils/dataFormatter";
 import { failureAlert, successAlert } from "@/scripts/utils/shared";
-import { Card, Select } from "flowbite-react";
+import { Card } from "flowbite-react";
 import { useEffect, useRef, useState } from "react";
 
 function RegisterPage() {

@@ -18,7 +18,7 @@ export type CreateTicket = {
     area: string, 
     title: string, 
     description: string, 
-    observers: Array<number>
+    observers: Array<string>
 }
 export type Ticket = {
     id: string, 
