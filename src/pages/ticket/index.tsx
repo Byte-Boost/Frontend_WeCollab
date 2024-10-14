@@ -1,26 +1,25 @@
-import TicketUser from "@/components/ticket_user";
 import CustomButton from "@/components/custom_button";
-import { closeTicket, getTickets } from "@/scripts/http-requests/endpoints";
+import CustomTableHeader from "@/components/custom_table_header";
+import CustomTableRow from "@/components/custom_table_row";
+import NewTicketModal from "@/components/new_ticket_modal";
+import TicketModal from "@/components/ticket_modal";
+import TicketUser from "@/components/ticket_user";
+import { Ticket } from "@/models/models";
+import { exampleTicket } from '@/samples/sampleTicket';
+import { closeTicket, getTicketById, getTickets } from "@/scripts/http-requests/endpoints";
 import { confirmationAlert, failureAlert } from "@/scripts/utils/shared";
+import { getSessionUser } from "@/scripts/utils/userService";
+import { Pagination } from "flowbite-react";
 import { useEffect, useState } from "react";
 import './ticket.css';
-import { Ticket } from "@/models/models";
-import { getTicketById, login } from '@/scripts/http-requests/endpoints';
-import { exampleTicket } from '@/samples/sampleTicket';
-import TicketModal from "@/components/ticket_modal";
-import NewTicketModal from "@/components/new_ticket_modal";
-import { getSessionUser } from "@/scripts/utils/userService";
-import CustomTableRow from "@/components/custom_table_row";
-import CustomTableHeader from "@/components/custom_table_header";
-
-
 function TicketPage() {
     const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);
     const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
     const [selectedTicket, setSelectedTicket] = useState(exampleTicket);
     const [selectedTicketId, setSelectedTicketId] = useState(1);
     const [user,setUser] = useState<any>()
-
+    const [page,setPage] = useState(1)
+    
     const closeTicketModal = () => {
         setTicketModalIsOpen(false);
         getAllTickets();
@@ -40,7 +39,7 @@ function TicketPage() {
     }, [selectedTicketId])
     async function getAllTickets() {
         try {
-            let tickets = await getTickets()
+            let tickets = await getTickets(page,5)
             setData(tickets)
         } catch(error: any) {
             if(error.status === 401) {
@@ -59,12 +58,19 @@ function TicketPage() {
         getAllTickets()
         getUser()
       }, [])
+    useEffect(() => {
+        getAllTickets()
+        },[page]);
+    
     useEffect(() =>{
         console.log(user)
     },[user])
     useEffect(() => {
         getTicket(selectedTicketId);
     }, [selectedTicketId]);
+
+    const onPageChange = (page: number) => setPage(page);
+
     return (
         <div className="bg-white min-h-screen flex justify-center ">
                 <section className="ticket">
@@ -84,6 +90,25 @@ function TicketPage() {
                             </tbody>
                         </table>
                     </div>
+                    <div className="flex overflow-x-auto  sm:justify-center pt-5">
+                   
+                    <Pagination
+                        layout="pagination"
+                        currentPage={page}
+                        totalPages={1000}
+                        onPageChange={onPageChange}
+                        showIcons
+                        className="flex items-center space-x-2"
+                         >
+                            <button className="w-12 h-12 flex items-center justify-center">Previous</button>
+                            <button className="w-12 h-12 flex items-center justify-center">1</button>
+                            <button className="w-12 h-12 flex items-center justify-center">2</button>
+                            <button className="w-12 h-12 flex items-center justify-center">3</button>
+                            <button className="w-12 h-12 flex items-center justify-center">4</button>
+                            <button className="w-12 h-12 flex items-center justify-center">Next</button>
+                    </Pagination>
+                </div>
+                   
                 </section> 
                 <NewTicketModal isOpen={createModalIsOpen} closeModal={closeCreateModal} cb={()=>{}}></NewTicketModal>
                 <TicketModal isOpen={ticketModalIsOpen} closeModal={closeTicketModal} ticket={selectedTicket} cb={getAllTickets} ></TicketModal>

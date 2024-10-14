@@ -1,7 +1,6 @@
-import instance from './instance';
 import { Area, CreateTicket, Role, Ticket, TicketComment, User } from '@/models/models';
-import { getSessionUser } from '../utils/userService';
 import { setCookie } from 'cookies-next';
+import instance from './instance';
 
 // User related endpoints
 export async function register(newUser: User) {
@@ -50,8 +49,13 @@ export async function closeTicket(ticketId: string,cb? : Function){
     await instance.patch(`/tickets/close/${ticketId}`)
     cb? cb(): null;
 }
-export async function getTickets() {
-    const res = await instance.get<Array<Ticket>>(`/tickets`);
+export async function getTickets(page? : number, limit? : number) {
+    const res = await instance.get<Array<Ticket>>(`/tickets`, {
+        params:{
+            page:page,
+            limit:limit
+        }
+    });
     return res.data;
 }
 export async function getTicketById(id: number){
