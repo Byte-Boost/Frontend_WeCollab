@@ -6,7 +6,7 @@ import { Area, CreateTicket, Ticket, User } from '@/models/models';
 import { getAreas, getUsers, postTicket } from '@/scripts/http-requests/endpoints';
 import { failureAlert, successAlert } from '@/scripts/utils/shared';
 import CustomSelect from '../custom_select';
-import { Autocomplete, TextField } from '@mui/material';
+// import { Autocomplete, TextField } from '@mui/material';
 import { twMerge } from 'tailwind-merge';
 
 function NewTicketCard({closeModal}: {closeModal: any}){
