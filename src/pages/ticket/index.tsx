@@ -72,19 +72,19 @@ function TicketPage() {
     const onPageChange = (page: number) => setPage(page);
 
     return (
-        <div className="bg-white min-h-screen flex justify-center ">
+        <div className="bg-white min-h-screen flex justify-center">
                 <section className="ticket">
-                    <div className="top">
+                    <div className="p-10 flex justify-between">
                         <TicketUser area={user?.area ?? ''} name={user?.username ?? ''} />
                         <CustomButton value="Novo" onClick={()=>{setCreateModalIsOpen(true);}} name="novo"/>
                     </div>
-                    <div>
+                    <div className="p-4">
                         <table className="w-full min-w-max table-auto text-left">
                             <CustomTableHeader/>
                             <tbody>
                                 {
                                     data.map((ticket: Ticket) => {
-                                        return <CustomTableRow onClick={()=>{setTicketModalIsOpen(true);setSelectedTicketId(Number(ticket.id))}} date={ticket.dateOfCreation} id={ticket.id} status={ticket.status} title={ticket.title} owner={ticket.owner} area={ticket.area} key={ticket.id} user={ticket.requesterId} onDelete={()=>{confirmationAlert("Certeza que deseja fechar o ticket?",'closeticketopen',() => {closeTicket(ticket.id,getAllTickets)})}}/>
+                                        return <CustomTableRow onClick={()=>{setTicketModalIsOpen(true);setSelectedTicketId(Number(ticket.id))}} date={ticket.dateOfCreation} id={ticket.id} status={ticket.status} title={ticket.title} owner={ticket.Owner.name} area={ticket.area} key={ticket.id} user={ticket.requesterId} onDelete={()=>{confirmationAlert("Certeza que deseja fechar o ticket?",'closeticketopen',() => {closeTicket(ticket.id,getAllTickets)})}}/>
                                     })
                                 }
                             </tbody>

@@ -14,6 +14,7 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
         setCommentsOnTicket(comments);
     }
     useEffect(()=>{
+        console.log(ticket)
         getComments(Number(ticket.id))
     }, [ticket])
     
@@ -36,13 +37,13 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
         setCommentValue(value);
     };  
     return(
-        <div className="relative p-4 w-full  w-[30rem] max-h-full z-50">
+        <div className="relative p-4 w-full min-w-[50rem] max-w-[60rem] max-h-full z-50">
             <div className="relative bg-white rounded-lg shadow overflow-y-scroll max-h-[32rem]  ">
                 {/* CARD HEADER */}
                 <header className="flex items-center justify-between p-4 md:p-5 border-b rounded-t  border-gray-300">
                     <h3 className="text-xl font-semibold text-gray-900">
                         <div className="text-sm text-black flex items-center text-ellipsis ">
-                            <CategoryIcon/>{ticket.category} 
+                            <CategoryIcon/>
                             { ticket.status === "Novo" ? 
                                 <div className="justify-end">
                                     <span className="bg-yellow-100 text-yellow-800 text-xs font-medium ml-3 me-2 px-1 py-0.5 rounded">Novo</span>
@@ -70,34 +71,31 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
                     </button>
                 </header>
 
-                {/* CARD OWNER */}                
-                <div className="p-4 md:p-5 space-y-4 ">
-                    <div className='flex space-x items-center' >    
-                        <div className="text-sm text-black flex items-center w-[12rem] truncate md:overflow-clip ">
-                            <CategoryIcon/> <p className='font-bold'>Owner:</p> 
+                {/* CARD BODY */}                
+                <div className="p-4 md:p-5 space-y-4">
+                    <div className='flex justify-start items-center'>    
+                        <div className="text-sm grow text-black flex items-center w-[12rem] truncate md:overflow-clip ">
+                            <CategoryIcon/><p><b>Owner: </b>{ticket.Owner.name}</p>
                         </div>
-                        <div className="text-sm text-black  flex items-center w-[13rem] truncate">
-                            <CategoryIcon/><p className='font-bold'>Encarregado:</p> 
+                        <div className="text-sm grow text-black  flex items-center w-[13rem] truncate">
+                            <CategoryIcon/><p><b>Encarregados: </b>{ticket.Observers[0]?ticket.Observers[0].User.name:""}</p> 
                         </div>
                     </div>
-                    {/* {ticket.owner} */}
-
                 </div>
 
-                {/* CARD BODY */}
-                <div className="p-4 md:p-5 space-y-4">
+                <div className="p-4 md:p-5 text-center">
                     <p className="text-base leading-relaxed text-gray-500">
                         {ticket.description}
                     </p>
                 </div>
 
                 {/* CARD BUTTON */}
-                <div className="p-4 md:p-3 space-x-36 ">
-                <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
-                            
+                <div className="p-4 md:p-3 flex justify-around">
+                    <button data-modal-hide="default-modal" type="button" className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
+                        // codigo para atribuir tarefa    
                         }}>Atribuir tarefa</button>
-                <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
-                            
+                    <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
+                        // codigo para finalizar ticket
                         }}>Finalizar ticket</button>
                 </div>
                 
@@ -108,7 +106,7 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
                         <Textarea id="description" onChange={handleChange} rows={4} className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Adicione um comentário"></Textarea>               
                     </div>
                     <div className="flex items-center justify-end mt-4">
-                        <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
+                        <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-500 hover:bg-blue-600 focus:ring-4 focus:outline-none focus:ring-blue-100 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
                             tryCommenting()
                         }}>Postar</button>
                     </div> 

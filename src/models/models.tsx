@@ -23,14 +23,13 @@ export type CreateTicket = {
 export type Ticket = {
     id: string, 
     area: string, 
-    owner:string,
-    responsible:Array<string>,
     status: string, 
     title: string, 
     description: string, 
     dateOfCreation: Date, 
     requesterId: string
-    observer: Array<Observer>
+    Owner: {id: number, name: string},
+    Observers: Array<Observer>
 }
 export type TicketComment = {
     id: string, 
@@ -64,7 +63,7 @@ export interface MyJwtPayload extends JwtPayload {
 }
 export type Observer = {
     id: string,
-    user: User;
+    User: User;
 }
 
 // Area related models

@@ -79,15 +79,6 @@ const CustomTableRow = ({
             </td>
             <td data-label="Owner" className="p-2 md:p-4 border-b border-blue-gray-50 ">
                     {owner}
-
-                {/* <button className="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 md:w-10 max-w-[32px] md:max-w-[40px] h-8 md:h-10 max-h-[32px] md:max-h-[40px] rounded-lg text-xs text-gray-900 hover:bg-gray-900/10 active:bg-gray-900/20" type="button" onClick={(event) => {
-                    event.stopPropagation();
-                    onDelete(event);
-                }}>
-                    <span className="absolute  top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
-                        <CrossIcon />
-                    </span>
-                </button> */}
             </td>
         </tr>
     );
