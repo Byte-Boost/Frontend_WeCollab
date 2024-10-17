@@ -17,6 +17,11 @@ function TicketPage() {
     const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
     const [selectedTicket, setSelectedTicket] = useState(exampleTicket);
     const [selectedTicketId, setSelectedTicketId] = useState(1);
+    const [filters, setFilters] = useState({
+        status: "", 
+        area: "", 
+        userRelation: "created"
+    })
     const [user,setUser] = useState<any>()
     const [page,setPage] = useState(1)
     
@@ -28,18 +33,23 @@ function TicketPage() {
         setCreateModalIsOpen(false);
         getAllTickets();
     };
-
+    const handleFilterChanges = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>): void => {
+        const { name, value } = e.target;
+        setFilters({ ...filters, [name]: value });
+    };
     async function getTicket(ticketId: number) {
         let ticket: Ticket = await getTicketById(ticketId);
         setSelectedTicket(ticket)
     }
     const [data, setData] = useState(Array<Ticket>);
+    
     useEffect(()=>{
         getTicket(selectedTicketId)
     }, [selectedTicketId])
     async function getAllTickets() {
         try {
-            let tickets = await getTickets(page,5)
+            console.log(filters)
+            let tickets = await getTickets(filters, page,5)
             setData(tickets)
         } catch(error: any) {
             if(error.status === 401) {
@@ -60,7 +70,7 @@ function TicketPage() {
       }, [])
     useEffect(() => {
         getAllTickets()
-        },[page]);
+    },[page, filters]);
     
     useEffect(() =>{
         console.log(user)
@@ -78,6 +88,21 @@ function TicketPage() {
                         <TicketUser area={user?.area ?? ''} name={user?.username ?? ''} />
                         <CustomButton value="Novo" onClick={()=>{setCreateModalIsOpen(true);}} name="novo"/>
                     </div>
+
+                    <div className="mx-4 flex justify-center">
+                        <div className="w-[40rem] flex justify-around">
+                            <select name="userRelation" id="userRelation" onChange={handleFilterChanges}>
+                                <option value="created">Meus tickets</option>
+                                <option value="observed">Tickets seguidos</option>
+                            </select>
+                            <select name="status" id="status" onChange={handleFilterChanges}>
+                                <option value="open">Abertos</option>
+                                <option value="closed">Fechados</option>
+                                <option value="all" selected>Todos</option>
+                            </select>
+                        </div>
+                    </div>
+                    
                     <div className="p-4">
                         <table className="w-full min-w-max table-auto text-left">
                             <CustomTableHeader/>

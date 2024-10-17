@@ -1,4 +1,4 @@
-import { Area, CreateTicket, Role, Ticket, TicketComment, User } from '@/models/models';
+import { Area, CreateTicket, getTicketsFilter, Role, Ticket, TicketComment, User } from '@/models/models';
 import { setCookie } from 'cookies-next';
 import instance from './instance';
 
@@ -49,9 +49,12 @@ export async function closeTicket(ticketId: string,cb? : Function){
     await instance.patch(`/tickets/close/${ticketId}`)
     cb? cb(): null;
 }
-export async function getTickets(page? : number, limit? : number) {
+export async function getTickets(filters : getTicketsFilter = {status: "", area: "", userRelation: ""}, page? : number, limit? : number) {
     const res = await instance.get<Array<Ticket>>(`/tickets`, {
         params:{
+            area: filters.area,
+            status: filters.status,
+            userRelation: filters.userRelation,
             page:page,
             limit:limit
         }

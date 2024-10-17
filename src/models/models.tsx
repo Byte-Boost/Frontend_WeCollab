@@ -20,6 +20,11 @@ export type CreateTicket = {
     description: string, 
     observers: Array<string>
 }
+export type getTicketsFilter = {
+    status: string,
+    area: string,
+    userRelation: string
+}
 export type Ticket = {
     id: string, 
     area: string, 
