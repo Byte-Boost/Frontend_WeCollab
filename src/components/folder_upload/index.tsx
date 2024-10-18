@@ -1,5 +1,5 @@
 import { MouseEventHandler } from "react";
-import BoxTicketIcon from "../icons/box_ticket";
+import FolderIcon from "@/components/icons/folder/folder_icon";
 import Link from 'next/link';
 
 interface FolderUploadProps {
@@ -17,7 +17,7 @@ const FolderUpload = ({name, onClick}: FolderUploadProps) => {
             <td data-label="ID" className="p-2 md:p-4 border-b border-blue-gray-50">
                 <div className="flex items-center gap-3 lg:justify-normal  justify-end">
                     <p className="block antialiased font-sans text-md leading-normal text-blue-gray-900 font-bold">
-                        <BoxTicketIcon className="fill-black" />
+                        <FolderIcon className="fill-black" />
                     </p>
                 </div>
             </td>

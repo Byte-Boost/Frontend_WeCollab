@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { getSessionUser } from '@/scripts/utils/userService';
 import CategoryIcon from '../icons/category';
 import SettingsIcon from '../icons/settings';
+import FolderNavbarIcon from '../icons/folder/folder_navbar';
 
 
 function Navbar(){
@@ -23,7 +24,7 @@ function Navbar(){
                        
                         <Link href="/ticket" className="hover:scale-125 transition-all"><TicketIcon/></Link>
 
-                        <Link href="/upload" className="hover:scale-125 transition-all"><SettingsIcon/></Link>
+                        <Link href="/upload" className="hover:scale-125 transition-all"><FolderNavbarIcon/></Link>
                 
 
                         {/* <Link href="/areatickets" className="hover:scale-125 transition-all"><AreaTicketIcon/></Link> */}
