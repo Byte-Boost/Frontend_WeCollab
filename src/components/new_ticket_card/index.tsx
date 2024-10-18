@@ -16,7 +16,6 @@ function NewTicketCard({closeModal}: {closeModal: any}){
         area: "",
         observers: []
     }
-    // {name: "osvaldo cruz", id: "3"},{name: "penalti", id: "2"}, {name: "Galinho frito da casa do caralho", id: "6"}
     const [selectedObservers, setSelectedObservers] = useState<Array<{id: string, name: string}>>([]);
     const [ticketValue, setTicketValue] = useState<CreateTicket>(emptyTicket);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
@@ -125,7 +124,6 @@ function NewTicketCard({closeModal}: {closeModal: any}){
                             </div>
                         </div>
                         
-
                         
 
                         <div className='min-w-[12rem] flex flex-col static'>
@@ -153,12 +151,7 @@ function NewTicketCard({closeModal}: {closeModal: any}){
 
                             </p>
                         </div>
-
-
-
-
-
-
+                        
                     </div>
                     
                     <div>

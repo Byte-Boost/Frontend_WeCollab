@@ -65,9 +65,9 @@ export async function getTicketById(id: number){
     const res = await instance.get<Ticket>(`/tickets/${id}`);
     return res.data;
 }
-export async function switchObserver(id: string, obs: Array<number>) {
+export async function switchObserver(id: string, area: string, obs: Array<number>) {
     // obs is an array of userIDs
-    const res = await instance.patch<Ticket>(`/tickets/forward/${id}`, obs);
+    const res = await instance.patch<Ticket>(`/tickets/forward/${id}`, {area: area, observers: obs});
     return res.data;
 }
 
