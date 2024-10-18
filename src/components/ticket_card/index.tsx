@@ -1,7 +1,7 @@
 import './card.css'
 import { useEffect, useState } from 'react';
-import { failureAlert } from '@/scripts/utils/shared';
-import { getCommentsByTicketId, postComment } from '@/scripts/http-requests/endpoints';
+import { failureAlert, successAlert } from '@/scripts/utils/shared';
+import { closeTicket, getCommentsByTicketId, postComment } from '@/scripts/http-requests/endpoints';
 import { Ticket, TicketComment } from '@/models/models';
 import CategoryIcon from '../icons/category';
 import { Textarea } from 'flowbite-react';
@@ -9,12 +9,12 @@ import { Textarea } from 'flowbite-react';
 function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Ticket,uponPost? : Function}){
     const [commentsOnTicket, setCommentsOnTicket] = useState<Array<TicketComment>>([]);
     const [commentValue, setCommentValue] = useState<string|null>(null);
+    
     async function getComments(ticketId: number) {
         let comments: Array<TicketComment> = await getCommentsByTicketId(ticketId);
         setCommentsOnTicket(comments);
     }
     useEffect(()=>{
-        console.log(ticket)
         getComments(Number(ticket.id))
     }, [ticket])
     
@@ -35,7 +35,8 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>): void => {
         const { value } = e.target;
         setCommentValue(value);
-    };  
+    };
+    
     return(
         <div className="relative p-4 w-full min-w-[50rem] max-w-[60rem] max-h-full z-50">
             <div className="relative bg-white rounded-lg shadow overflow-y-scroll max-h-[32rem]  ">
@@ -94,8 +95,11 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
                     <button data-modal-hide="default-modal" type="button" className="text-white bg-green-600 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-200 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
                         // codigo para atribuir tarefa    
                         }}>Atribuir tarefa</button>
-                    <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={()=>{
-                        // codigo para finalizar ticket
+                    <button data-modal-hide="default-modal" type="button" className="text-white bg-blue-800 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-400 font-medium rounded-lg text-sm px-5 py-2.5 text-center" onClick={async ()=>{
+                        await closeTicket(ticket.id)
+                        successAlert("Tarefa finalizada!", `Tarefa ${ticket.id} finalizada com sucesso!`, () => {
+                            closeModal()
+                        })
                         }}>Finalizar ticket</button>
                 </div>
                 
