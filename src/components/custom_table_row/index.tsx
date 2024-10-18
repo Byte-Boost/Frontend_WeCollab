@@ -46,7 +46,7 @@ const CustomTableRow = ({
                 </p>
             </td>
             <td data-label="Status" className="p-2 md:p-4 border-b border-blue-gray-50 ">
-                <p className="block antialiased font-sans text-sm  leading-normal text-blue-gray-900 font-normal ">
+                <div className="block antialiased font-sans text-sm  leading-normal text-blue-gray-900 font-normal ">
                     {status === "Novo" ? 
                         <div className="flex lg:justify-start  justify-end">
                             <BoxTicketIcon className="fill-yellow-500 h-[16px] md:h-[20px]" />
@@ -64,7 +64,7 @@ const CustomTableRow = ({
                         </div>
                         : null
                     }
-                </p>
+                </div>
             </td>
             <td data-label="Área" className="p-2 md:p-4 border-b border-blue-gray-50">
                 {area}

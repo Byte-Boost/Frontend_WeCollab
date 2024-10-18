@@ -48,7 +48,6 @@ function TicketPage() {
     }, [selectedTicketId])
     async function getAllTickets() {
         try {
-            console.log(filters)
             let tickets = await getTickets(filters, page,5)
             setData(tickets)
         } catch(error: any) {
@@ -72,9 +71,9 @@ function TicketPage() {
         getAllTickets()
     },[page, filters]);
     
-    useEffect(() =>{
-        console.log(user)
-    },[user])
+    // useEffect(() =>{
+    //     console.log(user)
+    // },[user])
     useEffect(() => {
         getTicket(selectedTicketId);
     }, [selectedTicketId]);
@@ -95,10 +94,10 @@ function TicketPage() {
                                 <option value="created">Meus tickets</option>
                                 <option value="observed">Tickets seguidos</option>
                             </select>
-                            <select name="status" id="status" onChange={handleFilterChanges}>
+                            <select name="status" id="status" onChange={handleFilterChanges} defaultValue={"all"}>
                                 <option value="open">Abertos</option>
                                 <option value="closed">Fechados</option>
-                                <option value="all" selected>Todos</option>
+                                <option value="all">Todos</option>
                             </select>
                         </div>
                     </div>
