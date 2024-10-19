@@ -12,6 +12,12 @@ export type TicketModalProps = {
     cb : () => void;
     ticket: Ticket;
 }
+export type UserModalProps = {
+    isOpen: boolean;
+    cb : () => void;
+    closeModal: () => void;
+    user: User
+}
 
 // Ticket related models
 export type CreateTicket = {
@@ -52,6 +58,7 @@ export type TicketComment = {
 
 // User related models
 export interface User {
+    id?: string,
     name: string,
     cpf: string,
     area: string | null,

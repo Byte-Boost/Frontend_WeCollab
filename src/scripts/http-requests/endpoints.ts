@@ -35,6 +35,18 @@ export async function getUsers(filters: any={}) {
     });
     return res.data;
 }
+export async function getUserById(userId: string) {
+    const res = await instance.get(`/users/${userId}`)
+    return res.data;
+}
+export async function deleteUser(userId: string, cb?: Function) {
+    await instance.delete(`/accounts/${userId}`)
+    cb? cb(): null;
+} 
+export async function editUser(userId: string, user: User, cb?: Function) {
+    await instance.put(`/accounts/${userId}`, user)
+    cb? cb(): null;
+}
 
 // Ticket related endpoints
 export async function postTicket(createTicket: CreateTicket) {
