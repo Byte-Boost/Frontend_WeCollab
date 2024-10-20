@@ -6,13 +6,19 @@ import Link from 'next/link';
 import AddUserIcon from '../icons/add_user';
 import { useEffect, useState } from 'react';
 import { getSessionUser } from '@/scripts/utils/userService';
-import CategoryIcon from '../icons/category';
-import SettingsIcon from '../icons/settings';
 import FolderNavbarIcon from '../icons/folder/folder_navbar';
+import UserIcon from '../icons/user';
 
 
 function Navbar(){
-
+    const [user,setUser] = useState<any>();
+    async function getUser(){
+        let secUser = await getSessionUser()
+        setUser(secUser)
+    }
+    useEffect(() => {
+        getUser()
+    },[])
     return (
         <nav className="navbar navbar--fixed-top max-sm:grid-cols-1 max-sm:grid  ">
             <div className="navbar__inner">
@@ -23,15 +29,9 @@ function Navbar(){
                     <div className="flex flex-row gap-6">
                        
                         <Link href="/ticket" className="hover:scale-125 transition-all"><TicketIcon/></Link>
-
                         <Link href="/upload" className="hover:scale-125 transition-all"><FolderNavbarIcon/></Link>
-                
-
-                        {/* <Link href="/areatickets" className="hover:scale-125 transition-all"><AreaTicketIcon/></Link> */}
-                        {/*
-                        <Link href="/settings" className="hover:scale-125 transition-all" ><SettingsIcon/></Link>
-                        */}
-                        <Link href="/register" className='hover:scale-125 transition-all'><AddUserIcon/></Link> 
+                        {user?.admin && <Link href="/users" className='hover:scale-125 transition-all'><UserIcon/></Link>} 
+                        {user?.admin && <Link href="/register" className='hover:scale-125 transition-all'><AddUserIcon/></Link>} 
                         <Link href="/" className="hover:scale-125 transition-all"><LogOutIcon/></Link>
                     </div>
                 </div>  

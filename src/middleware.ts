@@ -3,7 +3,7 @@ import type { NextRequest } from 'next/server'
 import { isAuthenticated, isAuthenticatedAsAdmin } from './scripts/utils/auth' 
 
 const protectedRoutes = ['/home','/ticket']
-const adminProtectedRoutes = ['/register']
+const adminProtectedRoutes = ['/register','/users']
 
 export default function middleware(req: NextRequest, res : NextResponse) {
 

@@ -115,22 +115,24 @@ function TicketPage() {
                         </table>
                     </div>
                     <div className="flex overflow-x-auto  sm:justify-center pt-5">
+                    {(data.length + 1 > 5 || page > 1 ) &&
+                      <Pagination
+                      layout="pagination"
+                      currentPage={page}
+                      totalPages={1000}
+                      onPageChange={onPageChange}
+                      showIcons
+                      className="flex items-center space-x-2"
+                       >
+                          <button className="w-12 h-12 flex items-center justify-center">Previous</button>
+                          <button className="w-12 h-12 flex items-center justify-center">1</button>
+                          <button className="w-12 h-12 flex items-center justify-center">2</button>
+                          <button className="w-12 h-12 flex items-center justify-center">3</button>
+                          <button className="w-12 h-12 flex items-center justify-center">4</button>
+                          <button className="w-12 h-12 flex items-center justify-center">Next</button>
+                  </Pagination>
+                    }
                    
-                    <Pagination
-                        layout="pagination"
-                        currentPage={page}
-                        totalPages={1000}
-                        onPageChange={onPageChange}
-                        showIcons
-                        className="flex items-center space-x-2"
-                         >
-                            <button className="w-12 h-12 flex items-center justify-center">Previous</button>
-                            <button className="w-12 h-12 flex items-center justify-center">1</button>
-                            <button className="w-12 h-12 flex items-center justify-center">2</button>
-                            <button className="w-12 h-12 flex items-center justify-center">3</button>
-                            <button className="w-12 h-12 flex items-center justify-center">4</button>
-                            <button className="w-12 h-12 flex items-center justify-center">Next</button>
-                    </Pagination>
                 </div>
                    
                 </section> 
