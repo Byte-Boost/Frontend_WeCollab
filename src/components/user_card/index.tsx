@@ -73,21 +73,20 @@ function UserCard({ closeModal, user, cb }: UserCardProps) {
     };
     const [areas, setAreas] = useState<Array<Area>>([]);
     useEffect(() => {
-        console.log(user)
+        setNewUser(user);
         getAreas({}).then((data) => {
             setAreas(data);
         });
     }, [])
     const [roles, setRoles] = useState<Array<Role>>([]);
     useEffect(() => {
-        if (user.area !== null){
-            getRoles({area: user.area}).then((data) => {
+        if (newUser.area !== null){
+            getRoles({area: newUser.area}).then((data) => {
                 setRoles(data);
             });
-            console.log(newUser)
-            setNewUser({...user, role: ""});
+            setNewUser({...newUser, role: ""});
         }
-    }, [user.area])
+    }, [newUser.area])
 
     return (
         <div className="relative p-4 w-full min-w-[50rem] max-w-[60rem] max-h-full z-50">
