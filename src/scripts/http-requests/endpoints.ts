@@ -63,7 +63,7 @@ export async function closeTicket(ticketId: string,cb? : Function){
     cb? cb(): null;
 }
 export async function getTickets(filters : getTicketsFilter = {status: "", area: "", userRelation: ""}, page? : number, limit? : number) {
-    const res = await instance.get<Array<Ticket>>(`/tickets`, {
+    const res = await instance.get<{count: number, rows: Array<Ticket>}>(`/tickets`, {
         params:{
             area: filters.area,
             status: filters.status,

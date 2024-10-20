@@ -52,7 +52,7 @@ const CustomTableRow = ({
                             <BoxTicketIcon className="fill-yellow-500 h-[16px] md:h-[20px]" />
                             <span className="bg-yellow-500 text-yellow-800 text-xs font-medium ml-3 me-2 px-1 py-0.5 rounded">Novo</span>
                         </div>
-                        : status === "Em andamento" ?
+                        : status === "Em Andamento" ?
                         <div className="flex lg:justify-start  justify-end">
                             <BoxTicketIcon className="fill-green-500 h-[16px] md:h-[20px]" />
                             <span className="bg-green-500 text-green-800 text-xs font-medium ml-3 me-2 px-1 py-0.5 rounded">Em Andamento</span>

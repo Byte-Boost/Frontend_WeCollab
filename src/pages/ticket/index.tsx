@@ -23,6 +23,7 @@ function TicketPage() {
         userRelation: "created"
     })
     const [user,setUser] = useState<any>()
+    const [totalPages, setTotalPages] = useState(0)
     const [page,setPage] = useState(1)
     
     const closeTicketModal = () => {
@@ -48,8 +49,12 @@ function TicketPage() {
     }, [selectedTicketId])
     async function getAllTickets() {
         try {
-            let tickets = await getTickets(filters, page,5)
+            let pageLimit = 5;
+            let ticketsQuery = await getTickets(filters, page, pageLimit)
+            let totalEntries = ticketsQuery.count
+            let tickets = ticketsQuery.rows
             setData(tickets)
+            setTotalPages(Math.ceil(totalEntries/pageLimit))
             return tickets;
         } catch(error: any) {
             if(error.status === 401) {
@@ -64,10 +69,11 @@ function TicketPage() {
     async function getUser(){
         let secUser = await getSessionUser()
         setUser(secUser)
+        console.log(secUser)
     }
     useEffect(() => {
-        getAllTickets()
         getUser()
+        getAllTickets()
       }, [])
     useEffect(() => {
         getAllTickets()
@@ -96,9 +102,10 @@ function TicketPage() {
 
                     <div className="mx-4 flex justify-center">
                         <div className="w-[40rem] flex justify-around">
-                            <select name="userRelation" id="userRelation" onChange={handleFilterChanges}>
+                            <select name="userRelation" id="userRelation" onChange={handleFilterChanges} >
                                 <option value="created">Meus tickets</option>
                                 <option value="observed">Tickets seguidos</option>
+                                { user?.admin && <option value="all">Todos os tickets</option>}
                             </select>
                             <select name="status" id="status" onChange={handleFilterChanges} defaultValue={"all"}>
                                 <option value="open">Abertos</option>
@@ -120,16 +127,24 @@ function TicketPage() {
                             </tbody>
                         </table>
                     </div>
+                    
                     <div className="flex overflow-x-auto  sm:justify-center pt-5">
                     {
                     (data.length + 1 > 5 || page > 1 ) &&
-                      <Pagination
-                      layout="pagination"
-                      currentPage={page}
-                      totalPages={1000}
-                      onPageChange={onPageChange}
-                      className="flex items-center space-x-2"
-                      />
+                        <Pagination
+                        layout="pagination"
+                        currentPage={page}
+                        totalPages={totalPages}
+                        onPageChange={onPageChange}
+                        className="flex items-center space-x-2"
+                        >
+                                <button className="w-12 h-12 flex items-center justify-center">Previous</button>
+                                <button className="w-12 h-12 flex items-center justify-center">1</button>
+                                <button className="w-12 h-12 flex items-center justify-center">2</button>
+                                <button className="w-12 h-12 flex items-center justify-center">3</button>
+                                <button className="w-12 h-12 flex items-center justify-center">4</button>
+                                <button className="w-12 h-12 flex items-center justify-center">Next</button>
+                        </Pagination>
                       
                     }
                    
