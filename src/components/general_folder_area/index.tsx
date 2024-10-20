@@ -1,11 +1,16 @@
+import { MouseEventHandler } from "react";
+import './general_folder_area.css'
+
 interface GeneralFolderAreaProps {
     area: string
+    onClick?: MouseEventHandler;
 }
 
-function GeneralFolderArea(area: GeneralFolderAreaProps) {
+function GeneralFolderArea({area, onClick}: GeneralFolderAreaProps) {
     return(
-        <div className="bg-cyan-300">
-            <p>{area.area}</p>
+        <div className="folder_desc" onClick={onClick}>
+            <p>{area}</p>
+            {/* <p>+</p> */}
         </div>
     );
 }

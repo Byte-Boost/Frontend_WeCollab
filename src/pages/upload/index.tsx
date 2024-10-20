@@ -42,56 +42,23 @@ function UploadPage() {
       }, [])
 
     return(
-        <div className="bg-white min-h-screen flex flex-col justify-start ">
+        <div className="bg-white min-h-screen flex flex-col justify-start">
             <section className="ticket">
-                <GeneralFolderArea area="Administrativa" />
-                <table className="w-full min-w-max table-auto text-left">
-                    <tbody>
-                        {
-                            user.map((user: User) => {
-                                if(user.area == "Administrativa") {
-                                    return <FolderUpload name={user.name} />
-                                }
-                            })
-                        }
-                    </tbody>
-                </table>
-                <GeneralFolderArea area="Gestão" />
-                <table className="w-full min-w-max table-auto text-left">
-                    <tbody>
-                        {
-                            user.map((user: User) => {
-                                if(user.area == "Gestao") {
-                                    return <FolderUpload name={user.name} />
-                                }
-                            })
-                        }
-                    </tbody>
-                </table>
-                <GeneralFolderArea area="Negócios" />
-                <table className="w-full min-w-max table-auto text-left">
-                    <tbody>
-                        {
-                            user.map((user: User) => {
-                                if(user.area == "Negocios") {
-                                    return <FolderUpload name={user.name} />
-                                }
-                            })
-                        }
-                    </tbody>
-                </table>
-                <GeneralFolderArea area="Técnica" />
-                <table className="w-full min-w-max table-auto text-left">
-                    <tbody>
-                        {
-                            user.map((user: User) => {
-                                if(user.area == "Tecnica") {
-                                    return <FolderUpload name={user.name} />
-                                }
-                            })
-                        }
-                    </tbody>
-                </table>
+                {["Administrativa", "Gestao", "Negocios", "Tecnica"].map(area => (
+                    <div key={area}>
+                        <GeneralFolderArea area={area} />
+                        <table className="w-full min-w-max table-auto text-left mb-4">
+                            <tbody>
+                                {user.map((user: User) => {
+                                    if (user.area === area) {
+                                        return <FolderUpload key={user.name} name={user.name} />;
+                                    }
+                                    return null;
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+                ))}
             </section>
         </div>
     )

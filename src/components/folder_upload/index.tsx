@@ -1,6 +1,6 @@
 import { MouseEventHandler } from "react";
 import FolderIcon from "@/components/icons/folder/folder_icon";
-import Link from 'next/link';
+
 
 interface FolderUploadProps {
     name: string
@@ -10,19 +10,11 @@ interface FolderUploadProps {
 const FolderUpload = ({name, onClick}: FolderUploadProps) => {
     return(
         <tr onClick={onClick} className="cursor-pointer hover:bg-gray-200 transition-all active:bg-gray-300">
-            <div className="flex items-center gap-3">
-                <Link href="/user_folder"className="flex items-center gap-3">
-                </Link>
-            </div>
             <td data-label="ID" className="p-2 md:p-4 border-b border-blue-gray-50">
-                <div className="flex items-center gap-3 lg:justify-normal  justify-end">
-                    <p className="block antialiased font-sans text-md leading-normal text-blue-gray-900 font-bold">
-                        <FolderIcon className="fill-black" />
-                    </p>
-                </div>
+                <FolderIcon className="fill-black" />
             </td>
             <td data-label="NAME" className="p-2 md:p-4 border-b border-blue-gray-50">
-                <div className="flex items-center gap-3 lg:justify-normal  justify-end">
+                <div className="flex items-center gap-3">
                     <p className="block antialiased font-sans text-md leading-normal text-blue-gray-900 font-bold">
                         {name}
                     </p>

@@ -1,0 +1,12 @@
+.folder_desc{
+    background: linear-gradient(153deg, rgba(234,19,180,1) 0%, rgba(205,32,147,1) 45%, rgba(24,157,215,1) 100%);
+    margin-left: 1rem;
+    display: flex;
+    /* justify-content: space-evenly; */
+    cursor: pointer;
+    padding-left: 0.6rem;
+}
+
+
+
+/* bg-cyan-300 ml-1 flex justify-between cursor-pointer hover:bg-cyan-200 transition-all active:bg-cyan-100 */
