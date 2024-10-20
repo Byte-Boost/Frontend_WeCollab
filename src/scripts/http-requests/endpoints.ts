@@ -30,7 +30,8 @@ export async function getUsers(filters: any={}) {
     const res = await instance.get<Array<User>>(`/users`, {
         params: {
             startsWith: filters.startsWith,
-            limit: filters.limit
+            limit: filters.limit,
+            page: filters.page
         }
     });
     return res.data;
@@ -44,7 +45,7 @@ export async function deleteUser(userId: string, cb?: Function) {
     cb? cb(): null;
 } 
 export async function editUser(userId: string, user: User, cb?: Function) {
-    await instance.put(`/accounts/${userId}`, user)
+    await instance.patch(`/accounts/${userId}`, user)
     cb? cb(): null;
 }
 

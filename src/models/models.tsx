@@ -66,6 +66,9 @@ export interface User {
     password: string,
     role: string,
     admin: true | false
+    Role?: {
+        name: string
+    }
 }
 export interface MyJwtPayload extends JwtPayload {
     id: string,
