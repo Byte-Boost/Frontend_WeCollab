@@ -41,6 +41,7 @@ function UsersPage(){
                 limit: 7
             })
             setData(users)
+            return users;
         } catch(error: any) {
             if(error.status === 401) {
                 failureAlert("Credenciais inválidas", `${error}`, ()=>{})
@@ -48,6 +49,7 @@ function UsersPage(){
                 failureAlert("Erro de Conexão", `${error}`, () => {})
             }
             console.log(error)
+            return null;
         }
     }
 
@@ -56,14 +58,15 @@ function UsersPage(){
         getAllUsers();
     }
 
-    async function getUser(userId: string) {
-        let user: User = await getUserById(userId);
-        setSelectedUser(user);
-    }
-
     useEffect(() => {
         getAllUsers()
-    }, [page, startsWith]);
+    }, [startsWith]);
+    useEffect(() => {
+        getAllUsers().then((newUsers) => {
+            if(newUsers && newUsers.length === 0 && page > 1) {
+                setPage(page-1);
+        }});
+    }, [page]);
 
     const onPageChange = (page: number) => setPage(page);
 
@@ -79,7 +82,7 @@ function UsersPage(){
 
                 <div className="p-4 flex justify-center items-center">
                     <table className="min-w-[70rem] max-w-[80rem] table-auto text-left shadow-xl">
-                        <UserTableHeader titles={["CPF","Nome", "Carreira", "Cargo"]}/>
+                        <UserTableHeader titles={["CPF", "Carreira", "Cargo", "Nome"]}/>
                         <tbody>
                             {data.map((user, ij) => (
                                     <UserTableRow key={ij} onClick={() => {setEditUserModalIsOpen(true); setSelectedUser(user)}} 
@@ -100,21 +103,16 @@ function UsersPage(){
                 </div>
 
                 <div className="flex overflow-x-auto sm:justify-center pt-5">
+                    { (data.length + 1 > 5 || page > 1 ) &&
                     <Pagination
                     layout="pagination"
                     currentPage={page}
                     totalPages={1000}
                     onPageChange={onPageChange}
-                    showIcons
                     className="flex items-center space-x-2"
                     >
-                            <button className="w-12 h-12 flex items-center justify-center">Previous</button>
-                            <button className="w-12 h-12 flex items-center justify-center">1</button>
-                            <button className="w-12 h-12 flex items-center justify-center">2</button>
-                            <button className="w-12 h-12 flex items-center justify-center">3</button>
-                            <button className="w-12 h-12 flex items-center justify-center">4</button>
-                            <button className="w-12 h-12 flex items-center justify-center">Next</button>
                     </Pagination>
+                    }
                 </div>
                 
             </section>

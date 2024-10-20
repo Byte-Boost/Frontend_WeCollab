@@ -50,6 +50,7 @@ function TicketPage() {
         try {
             let tickets = await getTickets(filters, page,5)
             setData(tickets)
+            return tickets;
         } catch(error: any) {
             if(error.status === 401) {
                 failureAlert("Credenciais inválidas!", `${error}`, () => {})
@@ -57,6 +58,7 @@ function TicketPage() {
                 failureAlert("Erro de Conexão", `${error}`, () => {})
             }
             console.log(error)
+            return null;
         }
     }
     async function getUser(){
@@ -69,11 +71,15 @@ function TicketPage() {
       }, [])
     useEffect(() => {
         getAllTickets()
-    },[page, filters]);
+    },[filters]);
+    useEffect(() => {
+        getAllTickets().then((newTickets)=>{
+            if(newTickets && newTickets.length === 0 && page > 1){
+                setPage(page-1)
+            }
+        })
+    },[page]);
     
-    // useEffect(() =>{
-    //     console.log(user)
-    // },[user])
     useEffect(() => {
         getTicket(selectedTicketId);
     }, [selectedTicketId]);
@@ -115,22 +121,16 @@ function TicketPage() {
                         </table>
                     </div>
                     <div className="flex overflow-x-auto  sm:justify-center pt-5">
-                    {(data.length + 1 > 5 || page > 1 ) &&
+                    {
+                    (data.length + 1 > 5 || page > 1 ) &&
                       <Pagination
                       layout="pagination"
                       currentPage={page}
                       totalPages={1000}
                       onPageChange={onPageChange}
-                      showIcons
                       className="flex items-center space-x-2"
-                       >
-                          <button className="w-12 h-12 flex items-center justify-center">Previous</button>
-                          <button className="w-12 h-12 flex items-center justify-center">1</button>
-                          <button className="w-12 h-12 flex items-center justify-center">2</button>
-                          <button className="w-12 h-12 flex items-center justify-center">3</button>
-                          <button className="w-12 h-12 flex items-center justify-center">4</button>
-                          <button className="w-12 h-12 flex items-center justify-center">Next</button>
-                  </Pagination>
+                      />
+                      
                     }
                    
                 </div>
