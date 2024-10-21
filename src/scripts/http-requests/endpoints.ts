@@ -115,3 +115,41 @@ export async function getRoles(filter: any) {
     });
     return res.data;
 }
+// Archive related endpoints
+export async function uploadArchive(file : Blob, userId : number){
+    let formData = new FormData();
+    formData.append('archive', file);
+    formData.append('userId', userId.toString());
+    const res = await instance.post(`/archives/upload`, formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+    return res.data;
+}
+export async function getArchives() {
+    const res = await instance.get(`/archives`)
+    return res.data;
+}
+export async function downloadArchive(filename: string) {
+    try {
+        console.log(`/archives/download/${filename}`)
+      const res = await instance.get(`/archives/download/${filename}`, {
+        responseType: 'blob',
+      });
+  
+      // Create a URL for the blob and trigger a download
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement('a');
+      link.href = url;
+      link.setAttribute('download', filename); // or any other extension if needed
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+  
+      return res.data;
+    } catch (error) {
+      console.error('Error downloading the archive:', error);
+      throw error;
+    }
+}

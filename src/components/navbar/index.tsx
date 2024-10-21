@@ -29,7 +29,7 @@ function Navbar(){
                     <div className="flex flex-row gap-6">
                        
                         <Link href="/ticket" className="hover:scale-125 transition-all"><TicketIcon/></Link>
-                        <Link href="/upload" className="hover:scale-125 transition-all"><FolderNavbarIcon/></Link>
+                        <Link href="/archives" className="hover:scale-125 transition-all"><FolderNavbarIcon/></Link>
                         {user?.admin && <Link href="/users" className='hover:scale-125 transition-all'><UserIcon/></Link>} 
                         {user?.admin && <Link href="/register" className='hover:scale-125 transition-all'><AddUserIcon/></Link>} 
                         <Link href="/" className="hover:scale-125 transition-all"><LogOutIcon/></Link>
