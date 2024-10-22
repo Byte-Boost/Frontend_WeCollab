@@ -12,6 +12,7 @@ interface TreeNode {
   onClick?: () => void;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
+  type?: 'area' | 'user' | 'archive';
   cb?: () => void;
 }
 
@@ -35,12 +36,12 @@ const FolderTree: React.FC<FolderTreeProps> = ({ nodes }) => {
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>, node: TreeNode) => {
     event.preventDefault();
-    setDraggedOverNodeId(node.id); // Set the drag state
+    setDraggedOverNodeId(node.id); 
   };
 
   const handleDragLeave = (event: React.DragEvent<HTMLDivElement>, node: TreeNode) => {
     event.preventDefault();
-    setDraggedOverNodeId(null); // Reset the drag state
+    setDraggedOverNodeId(null); 
   };
 
   const renderTree = (node: TreeNode) => (
@@ -50,12 +51,14 @@ const FolderTree: React.FC<FolderTreeProps> = ({ nodes }) => {
       id={node.id}
       label={
         <div
-          onDragOver={(event) => handleDragOver(event, node)}
-          onDrop={(event) => handleDrop(event, node)}
-          onDragLeave={(event) => handleDragLeave(event, node)}
+          onDragOver={(event) => {if(node.type != 'area'){ handleDragOver(event, node)}}}
+          onDrop={(event) => {if(node.type != 'area'){handleDrop(event, node)}}}
+          onDragLeave={(event) => {if(node.type != 'area'){handleDragLeave(event, node)}}}
           style={{
             border: draggedOverNodeId === node.id ? '1px dashed #000' : 'none',
+            borderRadius: '4px',
             padding: '4px',
+            cursor: 'pointer',
           }}
         >
           <Box display="flex" alignItems="center">

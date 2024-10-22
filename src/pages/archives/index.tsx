@@ -15,21 +15,21 @@ function ArchivesPage() {
 
     async function fetchUsers() {
         const users = await getUsers();
-        console.log(users);
+        // console.log(users);
         setUsers(users);
     }
 
     async function fetchArchives() {
         const archives = await getArchives();
-        console.log(archives);
+        // console.log(archives);
         setArchives(archives);
         setTree(distributeAreas()); // Update the tree structure after fetching archives
     }
 
     async function fetchCurrentUser() {
         const user = await getSessionUser();
-        console.log(user);
-        setCurrentUser(user);
+        // console.log(user);
+        setCurrentUser(user as unknown as User);
     }
 
     useEffect(() => {
@@ -45,6 +45,7 @@ function ArchivesPage() {
             label: area,
             children: distributeUsers(area),
             startIcon: <FolderIcon className="w-5 h-5"/>,
+            type:'area',
         }));
     }
 
@@ -61,7 +62,7 @@ function ArchivesPage() {
             label: user.name,
             children: distributeFiles(user.id as string),
             startIcon: <FolderIcon className="w-5 h-5"/>,
-            cb: fetchArchives, // Pass fetchArchives as the callback
+            cb: fetchArchives, 
         }));
     }
 
@@ -78,6 +79,7 @@ function ArchivesPage() {
     }
     useEffect(() => {
         setTree(distributeAreas());
+        console.log(tree)
     }, [users, archives, currentUser]);
 
     return (
