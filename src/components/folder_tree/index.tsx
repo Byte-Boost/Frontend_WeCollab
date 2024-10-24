@@ -92,7 +92,7 @@ const FolderTree: React.FC<FolderTreeProps> = ({ nodes }) => {
           <Box display="flex" alignItems="center" justifyContent="space-between" width="100%">
             <Box display="flex" alignItems="center">
               {node.startIcon && <Box mr={1}>{node.startIcon}</Box>}
-              <Typography>{node.label}</Typography>
+              <Typography fontWeight={520}>{node.label}</Typography>
               {node.endIcon && <Box ml={1}>{node.endIcon}</Box>}
             </Box>
             <Box display="flex" alignItems="center" justifyContent="space-between">

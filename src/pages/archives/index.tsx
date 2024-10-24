@@ -47,10 +47,10 @@ function ArchivesPage() {
                 key: `area-${index}`,
                 label: area,
                 children: distributeUsers(area),
-                startIcon: <FolderIcon className="w-5 h-5"/>,
+                startIcon: <FolderIcon className="w-5 h-5" color="#C82333"/>,
                 type: 'area',
             })),
-            startIcon: <FolderIcon className="w-5 h-5"/>,
+            startIcon: <FolderIcon className="w-5 h-5" color="#FD7E14"/>,
             type: 'area',
         };
         return [rootNode];
@@ -70,7 +70,7 @@ function ArchivesPage() {
             key: `user-${user.id}`,
             label: user.name,
             children: distributeFiles(user.id as string),
-            startIcon: <FolderIcon className="w-5 h-5"/>,
+            startIcon: <FolderIcon className="w-5 h-5" color="#007BFF"/>,
             cb: fetchArchives,
             type: 'user',
         }));
@@ -86,7 +86,7 @@ function ArchivesPage() {
                 downloadAction: () => downloadArchive(archive.filePath, archive.name),
                 deleteAction: () => deleteArchive(archive.filePath),
                 cb: fetchData,
-                startIcon: <FileIcon className="w-5 h-5"/>,
+                startIcon: <FileIcon className="w-5 h-5 "/>,
                 type: 'archive',
             }));
     }
