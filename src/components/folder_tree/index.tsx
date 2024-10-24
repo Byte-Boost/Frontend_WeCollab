@@ -18,8 +18,8 @@ interface TreeNode {
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
   type?: 'area' | 'user' | 'archive';
-  buttonAction?: () => void;
-  buttonAction2?: () => void;
+  downloadAction?: () => void;
+  deleteAction?: () => void;
   cb?: () => void;
 }
 
@@ -100,7 +100,7 @@ const FolderTree: React.FC<FolderTreeProps> = ({ nodes }) => {
                 <Box mr={1}>
                   <div
                     onClick={() => {
-                      if (node.buttonAction) node.buttonAction();
+                      if (node.downloadAction) node.downloadAction();
                       if (node.cb) node.cb();
                     }}
                     className="flex justify-center self-center items-center"
@@ -114,7 +114,7 @@ const FolderTree: React.FC<FolderTreeProps> = ({ nodes }) => {
                   <div
                     onClick={() =>
                       confirmationAlert('Certeza que deseja deletar o arquivo?', 'Delete archive', () => {
-                        if (node.buttonAction2) node.buttonAction2();
+                        if (node.deleteAction) node.deleteAction();
                         if (node.cb) node.cb();
                       })
                     }
