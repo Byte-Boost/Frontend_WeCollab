@@ -131,7 +131,7 @@ export async function getArchives() {
     const res = await instance.get(`/archives`)
     return res.data;
 }
-export async function downloadArchive(filename: string) {
+export async function downloadArchive(filename: string,downloadname?:string) {
     try {
         console.log(`/archives/download/${filename}`)
       const res = await instance.get(`/archives/download/${filename}`, {
@@ -142,7 +142,7 @@ export async function downloadArchive(filename: string) {
       const url = window.URL.createObjectURL(new Blob([res.data]));
       const link = document.createElement('a');
       link.href = url;
-      link.setAttribute('download', filename); // or any other extension if needed
+      link.setAttribute('download', downloadname? downloadname: filename); // or any other extension if needed
       document.body.appendChild(link);
       link.click();
       link.remove();
@@ -151,5 +151,15 @@ export async function downloadArchive(filename: string) {
     } catch (error) {
       console.error('Error downloading the archive:', error);
       throw error;
+    }
+}
+export async function deleteArchive(filename: string){
+    try{
+    const res = await instance.delete(`/archives/delete/${filename}`)
+    return res.data;
+    }
+    catch(error){
+        console.error('Error deleting the archive:', error);
+        throw error;
     }
 }
