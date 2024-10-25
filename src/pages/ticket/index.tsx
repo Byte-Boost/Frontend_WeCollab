@@ -12,6 +12,8 @@ import { getSessionUser } from "@/scripts/utils/userService";
 import { Pagination } from "flowbite-react";
 import { useEffect, useState } from "react";
 import './ticket.css';
+import CustomPagination from "@/components/custom_pagination";
+
 function TicketPage() {
     const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);
     const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
@@ -128,7 +130,12 @@ function TicketPage() {
                         </table>
                     </div>
                     
-                    <div className="flex overflow-x-auto  sm:justify-center pt-5">
+                    <div className="flex overflow-x-auto sm:justify-center py-5">
+                    {/* {
+                        (data.length + 1 > 5 || page > 1 ) &&
+                        <CustomPagination currentPage={page} totalPages={totalPages} onPageChange={onPageChange}/>
+                    } */}
+                    
                     {
                     (data.length + 1 > 5 || page > 1 ) &&
                         <Pagination
@@ -148,7 +155,7 @@ function TicketPage() {
                       
                     }
                    
-                </div>
+                    </div>
                    
                 </section> 
                 <NewTicketModal isOpen={createModalIsOpen} closeModal={closeCreateModal} cb={()=>{}}></NewTicketModal>
