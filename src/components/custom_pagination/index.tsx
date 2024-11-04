@@ -1,5 +1,5 @@
+import './custom_pagination.css';
 import { useEffect, useState } from 'react';
-
 
 function CustomPagination({currentPage, totalPages, onPageChange}: {currentPage: number, totalPages: number, onPageChange: Function}){
     const [currentSelectedPage, setcurrentSelectedPage] = useState<number>(1);
@@ -21,24 +21,28 @@ function CustomPagination({currentPage, totalPages, onPageChange}: {currentPage:
     useEffect(()=>{
         setcurrentSelectedPage(currentSelectedPage)
         setShownPages(calculateNeighbors(currentSelectedPage));
-        
     }, [])
-    
     return (
         <div id="paginationContainer" className="flex justify-center items-center gap-2">
-            <button value="test" className="p-2 bg-slate-200 rounded-l-lg" onClick={()=>{
+            <button id="back" value="back" className="p-2 bg-slate-200 rounded-l-lg" disabled={currentPage==1} onClick={()=>{
                 onPageChange(currentPage-1)
             }}>Anterior</button>
             
             {
                 shownPages.map((pageNum: number)=>{
                     return (
-                        <button key={pageNum} value="test" className={"py-2 px-5 rounded-full w-[2rem] flex justify-center "+ (pageNum == currentSelectedPage ? "bg-blue-200" : "bg-slate-200")}>{pageNum}</button>
+                        <button key={pageNum} value="test" className={"py-2 px-5 rounded-full w-[2rem] flex justify-center "+ (pageNum == currentPage ? "bg-blue-200" : "bg-slate-200")}
+                        onClick={()=>{
+                            onPageChange(pageNum)
+                        }}
+                        >
+                            {pageNum}
+                            </button>
                     )
                 })
             }
             
-            <button value="test" className="p-2 bg-slate-200 rounded-r-lg" onClick={()=>{
+            <button id="next" value="next" className="p-2 bg-slate-200 rounded-r-lg" disabled={currentPage==totalPages} onClick={()=>{
                 onPageChange(currentPage+1)
             }}>Próximo</button>
         </div>    
