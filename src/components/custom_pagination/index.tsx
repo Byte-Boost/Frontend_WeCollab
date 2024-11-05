@@ -21,7 +21,7 @@ function CustomPagination({currentPage, totalPages, onPageChange}: {currentPage:
     useEffect(()=>{
         setcurrentSelectedPage(currentSelectedPage)
         setShownPages(calculateNeighbors(currentSelectedPage));
-    }, [])
+    }, [totalPages])
     return (
         <div id="paginationContainer" className="flex justify-center items-center gap-2">
             <button id="back" value="back" className="p-2 bg-slate-200 rounded-l-lg" disabled={currentPage==1} onClick={()=>{
