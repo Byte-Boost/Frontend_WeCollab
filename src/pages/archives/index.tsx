@@ -15,7 +15,7 @@ function ArchivesPage() {
 
     async function fetchUsers() {
         const users = await getUsers();
-        setUsers(users);
+        setUsers(users.rows);
     }
 
     async function fetchAreas() {
