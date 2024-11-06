@@ -6,6 +6,7 @@ import { User } from "@/models/models";
 import { confirmationAlert, failureAlert } from "@/scripts/utils/shared";
 import { Label, Pagination, TextInput } from "flowbite-react";
 import UserModal from "@/components/user_modal";
+import CustomPagination from "@/components/custom_pagination";
 
 const emptyUser: User = {
     id: "",
@@ -25,6 +26,7 @@ function UsersPage(){
     const [editUserModalIsOpen, setEditUserModalIsOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState<User>(emptyUser);
     const [startsWith, setStartsWith] = useState("");
+    const [totalPages, setTotalPages] = useState(0)
     const [data, setData] = useState(Array<User>);
     const [page, setPage] = useState(1);
 
@@ -35,12 +37,17 @@ function UsersPage(){
 
     async function getAllUsers() {
         try {
-            let users = await getUsers({
-                startsWith: startsWith,
-                page: page,
-                limit: 7
-            })
+            
+            let pageLimit = 7;
+
+            let usersQuery = await getUsers({
+                startsWith: startsWith
+            }, page, pageLimit)
+
+            let totalEntries = usersQuery.count
+            let users = usersQuery.rows
             setData(users)
+            setTotalPages(Math.ceil(totalEntries/pageLimit))
             return users;
         } catch(error: any) {
             if(error.status === 401) {
@@ -57,16 +64,13 @@ function UsersPage(){
         setEditUserModalIsOpen(false);
         getAllUsers();
     }
-
-    useEffect(() => {
-        getAllUsers()
-    }, [startsWith]);
     useEffect(() => {
         getAllUsers().then((newUsers) => {
             if(newUsers && newUsers.length === 0 && page > 1) {
+                console.log(newUsers)
                 setPage(page-1);
         }});
-    }, [page]);
+    }, [page, startsWith]);
 
     const onPageChange = (page: number) => setPage(page);
 
@@ -102,18 +106,19 @@ function UsersPage(){
                     </table>
                 </div>
 
-                <div className="flex overflow-x-auto sm:justify-center pt-5">
-                    { (data.length + 1 > 5 || page > 1 ) &&
-                    <Pagination
-                    layout="pagination"
-                    currentPage={page}
-                    totalPages={1000}
-                    onPageChange={onPageChange}
-                    className="flex items-center space-x-2"
-                    >
-                    </Pagination>
+                <div className="flex overflow-x-auto sm:justify-center py-5">
+                    
+                    {
+                    (data.length + 1 > 5 || page > 1 ) &&
+                        <CustomPagination
+                        currentPage={page}
+                        totalPages={totalPages}
+                        onPageChange={onPageChange} 
+                        />
+                      
                     }
-                </div>
+                   
+                    </div>
                 
             </section>
             <UserModal isOpen={editUserModalIsOpen} closeModal={closeModal} cb={getAllUsers} user={selectedUser} />

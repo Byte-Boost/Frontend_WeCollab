@@ -26,12 +26,12 @@ export async function login(username: string, password: string) {
     });
     return response;
 }
-export async function getUsers(filters: any={}) {
-    const res = await instance.get<Array<User>>(`/users`, {
+export async function getUsers(filters: any={startsWith:""}, page?:number, limit?:number) {
+    const res = await instance.get(`/users`, {
         params: {
             startsWith: filters.startsWith,
-            limit: filters.limit,
-            page: filters.page
+            limit: limit,
+            page: page
         }
     });
     return res.data;
