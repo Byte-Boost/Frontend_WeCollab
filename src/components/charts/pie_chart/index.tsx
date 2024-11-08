@@ -1,18 +1,34 @@
-import ReactApexChart from "react-apexcharts"
+import ReactApexChart from "react-apexcharts";
 
-function PieChart(){
-    const series = [1,2,3,4]
+interface PieChartProps {
+    values: number[]
+    labels: string[]
+    width: number
+}
+
+function PieChart({ values, labels, width }: PieChartProps) {
+    const series = values;
     const options = {
-        labels:['a','b','c','d'], 
-        responsive: [{
-            breakpoint: 480
-        }]
-    }
+        chart: {
+            background: '#FFFFFF'
+        },
+        labels: labels,
+        legend: {
+            fontSize: '25px',
+            labels: { colors: 'white' }
+        },
+        stroke: {
+            show: true,
+            width: 0.5,
+            colors: 'black'
+        }
+    };
 
     return (
         <>
-            <ReactApexChart series={series} options={options} type="pie" width='500' />
+            <ReactApexChart series={series} options={options} type="pie" width={width.toString()} />
         </>
-    )
+    );
 }
-export default PieChart
+
+export default PieChart;
