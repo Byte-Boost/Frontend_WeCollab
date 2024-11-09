@@ -1,4 +1,7 @@
-import ReactApexChart from "react-apexcharts";
+import dynamic from 'next/dynamic';
+import React from 'react';
+
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface ColumnChartProps {
     data: number[]

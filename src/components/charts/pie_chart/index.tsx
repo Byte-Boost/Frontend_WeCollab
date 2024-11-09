@@ -1,17 +1,16 @@
-import ReactApexChart from "react-apexcharts";
+import dynamic from 'next/dynamic';
+import React from 'react';
+
+const ReactApexChart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 interface PieChartProps {
-    values: number[]
-    labels: string[]
-    width: number
+    series: number[];
+    labels: string[];
+    width: number;
 }
 
-function PieChart({ values, labels, width }: PieChartProps) {
-    const series = values;
+const PieChart: React.FC<PieChartProps> = ({ series, labels, width }) => {
     const options = {
-        chart: {
-            background: '#FFFFFF'
-        },
         labels: labels,
         legend: {
             fontSize: '25px',
@@ -20,7 +19,7 @@ function PieChart({ values, labels, width }: PieChartProps) {
         stroke: {
             show: true,
             width: 0.5,
-            colors: 'black'
+            colors: ['black']
         }
     };
 
