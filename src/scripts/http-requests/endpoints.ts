@@ -48,6 +48,15 @@ export async function editUser(userId: string, user: User, cb?: Function) {
     await instance.patch(`/accounts/${userId}`, user)
     cb? cb(): null;
 }
+export async function resetUserPassword(userId: string){
+    await instance.patch(`/users/${userId}/reset-password`)
+}
+export async function changeUserPassword({currentPass, newPass}: {currentPass: string, newPass: string}) {
+    await instance.patch(`/users/update-password`, {
+        "currentPassword": currentPass,
+        "newPassword": newPass
+    })
+}
 
 // Ticket related endpoints
 export async function postTicket(createTicket: CreateTicket) {
