@@ -8,6 +8,7 @@ import { useEffect, useState } from 'react';
 import { getSessionUser } from '@/scripts/utils/userService';
 import FolderNavbarIcon from '../icons/folder/folder_navbar';
 import UserIcon from '../icons/user';
+import PasswordLockIcon from '../icons/passwordLock';
 
 
 function Navbar(){
@@ -32,6 +33,7 @@ function Navbar(){
                         <Link href="/archives" className="hover:scale-125 transition-all"><FolderNavbarIcon/></Link>
                         {user?.admin && <Link href="/users" className='hover:scale-125 transition-all'><UserIcon/></Link>} 
                         {user?.admin && <Link href="/register" className='hover:scale-125 transition-all'><AddUserIcon/></Link>} 
+                        <Link href="/changePassword" className="hover:scale-125 transition-all"><PasswordLockIcon/></Link>
                         <Link href="/" className="hover:scale-125 transition-all"><LogOutIcon/></Link>
                     </div>
                 </div>  
