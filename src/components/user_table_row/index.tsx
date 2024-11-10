@@ -13,8 +13,8 @@ interface UserTableRowProps {
 
 const UserTableRow = (userTableRowProps: UserTableRowProps) => {
     return (
-        <tr onClick={userTableRowProps.onClick} className="cursor-pointer hover:bg-gray-200 transition-all active:bg-gray-300 ">
-            <td className="p-2 md:p-4 border-b border-blue-gray-50 w-[9rem]">
+        <tr onClick={userTableRowProps.onClick} className="bg-white cursor-pointer hover:bg-gray-200 transition-all active:bg-gray-300 ">
+            <td className="p-2 md:p-4 border-b border-blue-gray-50 w-[10rem]">
                 <div className="flex items-center gap-3 lg:justify-normal  justify-end">
                     <p className="block antialiased font-sans text-md   leading-normal text-blue-gray-900 font-bold">
                         {formatCPF(userTableRowProps.cpf)}

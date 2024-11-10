@@ -51,7 +51,7 @@ function UserCard({ closeModal, user, cb }: UserCardProps) {
         try {
             // console.log(newUser.role, newUser.area, newUser.name, newUser.admin)
             await editUser(user.id?user.id:"", newUser).then(function(response) {
-                successAlert('Usuario Registrado com sucesso', user.toString());
+                successAlert('Usuario Atualizado com sucesso', user.toString());
                 closeModal();
             });
         } catch (error: any) {

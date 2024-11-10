@@ -76,7 +76,7 @@ function UsersPage(){
     const onPageChange = (page: number) => setPage(page);
 
     return (
-        <div className="bg-white min-h-screen flex justify-center">
+        <div className="min-h-screen flex justify-center" id="semblante">
             
             <Head>
                 <title>Lista de Usuarios - WeCollab</title>
@@ -90,7 +90,7 @@ function UsersPage(){
                 </div>
 
                 <div className="p-4 flex justify-center items-center">
-                    <table className="min-w-[70rem] max-w-[80rem] table-auto text-left shadow-xl">
+                    <table className="bg-white min-w-[70rem] max-w-[80rem] table-auto text-left shadow-xl">
                         <UserTableHeader titles={["CPF", "Carreira", "Cargo", "Nome"]}/>
                         <tbody>
                             {data.map((user, ij) => (

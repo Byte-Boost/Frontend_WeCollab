@@ -1,0 +1,6 @@
+#semblante {
+    background: linear-gradient(110deg,
+    rgba(234, 19, 180, 0.85) 0%,rgba(205, 32, 147, 0.85) 25%, rgba(178, 53, 176, 0.85) 50%, rgba(103, 104, 195, 0.85) 75%, rgba(24, 157, 215, 0.85) 100%
+  ) no-repeat;
+  /* background-attachment: fixed; */
+}
