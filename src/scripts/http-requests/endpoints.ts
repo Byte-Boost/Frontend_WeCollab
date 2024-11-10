@@ -125,10 +125,11 @@ export async function getRoles(filter: any) {
     return res.data;
 }
 // Archive related endpoints
-export async function uploadArchive(file : Blob, userId : number){
+export async function uploadArchive(file : Blob, userId? : number | null,area?: string | null){
     let formData = new FormData();
     formData.append('archive', file);
-    formData.append('userId', userId.toString());
+    if (userId) formData.append('userId', userId.toString());
+    if (area) formData.append('area', area);
     const res = await instance.post(`/archives/upload`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data'

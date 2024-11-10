@@ -11,6 +11,7 @@ function ArchivesPage() {
     const [users, setUsers] = useState<User[]>([]);
     const [archives, setArchives] = useState<any[]>([]);
     const [tree, setTree] = useState<any[]>([]);
+    const [globalTree, setGlobalTree] = useState<any[]>([]);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [areas, setAreas] = useState<string[]>([]);
 
@@ -47,13 +48,19 @@ function ArchivesPage() {
                 id: `area-${index}`,
                 key: `area-${index}`,
                 label: area,
-                children: distributeUsers(area),
+                children: [
+                    ...distributeUsers(area),
+                    ...distributeFilesForAreas(area)
+                ],
                 startIcon: <FolderIcon className="w-5 h-5" color="#C82333"/>,
                 type: 'area',
+                cb: fetchArchives,
             })),
             startIcon: <FolderIcon className="w-5 h-5" color="#FD7E14"/>,
-            type: 'area',
-        };
+            type: 'root',
+            
+        }
+        ;
         return [rootNode];
     }
 
@@ -70,14 +77,14 @@ function ArchivesPage() {
             id: `user-${user.id}`,
             key: `user-${user.id}`,
             label: user.name,
-            children: distributeFiles(user.id as string),
+            children: distributeFilesForUsers(user.id as string),
             startIcon: <FolderIcon className="w-5 h-5" color="#007BFF"/>,
             cb: fetchArchives,
             type: 'user',
         }));
     }
 
-    function distributeFiles(userId: string) {
+    function distributeFilesForUsers(userId: string) {
         return archives
             .filter((archive) => archive.userId === userId)
             .map((archive) => ({
@@ -91,6 +98,20 @@ function ArchivesPage() {
                 type: 'archive',
             }));
     }
+    function distributeFilesForAreas(area: string | null) {
+        return archives
+            .filter((archive) => archive.areaName === area && !archive.userId)
+            .map((archive) => ({
+                id: `archive-${archive.id}`,
+                key: `archive-${archive.id}`,
+                label: archive.name,
+                downloadAction: () => downloadArchive(archive.filePath, archive.name),
+                deleteAction: () => deleteArchive(archive.filePath),
+                cb: fetchData,
+                startIcon: <FileIcon className="w-5 h-5" />,
+                type: 'archive',
+            }));
+        }
 
     async function fetchData() {
         await fetchCurrentUser();
@@ -104,7 +125,20 @@ function ArchivesPage() {
     }, [currentUser?.area]);
 
     useEffect(() => {
-        setTree(distributeAreas());
+        setTree([
+            ...distributeAreas(),
+        ]);
+        setGlobalTree([
+            {
+                id: 'global',
+                key: 'global',
+                label: 'Público',
+                children: distributeFilesForAreas(null),
+                startIcon: <FolderIcon className="w-5 h-5" color="#FD7E14"/>,
+                cb: fetchArchives,
+                type: 'global',
+            }
+        ]);
     }, [users, archives, currentUser, areas]);
 
     return (
@@ -114,6 +148,7 @@ function ArchivesPage() {
             </Head>
             <section className="ticket">
                 <FolderTree nodes={tree} />
+                <FolderTree nodes={globalTree} />
             </section>
         </div>
     );

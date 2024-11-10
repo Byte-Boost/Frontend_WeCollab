@@ -17,7 +17,7 @@ interface TreeNode {
   onClick?: () => void;
   startIcon?: React.ReactNode;
   endIcon?: React.ReactNode;
-  type?: 'area' | 'user' | 'archive';
+  type?: 'root' | 'global' | 'area' | 'user' | 'archive';
   downloadAction?: () => void;
   deleteAction?: () => void;
   cb?: () => void;
@@ -45,19 +45,31 @@ const FolderTree: React.FC<FolderTreeProps> = ({ nodes }) => {
     const files = event.dataTransfer.files;
     if (files.length > 0 && secUser?.admin) {
       console.log(`Dropped files on ${node.label}:`, files);
-      await uploadArchive(files[0], (node.id).replace('user-', '') as unknown as number);
+      if (node.type === 'area') {
+        await uploadArchive(files[0],null, node.label);
+      } 
+      else if (node.type === 'user'){
+        await uploadArchive(files[0], (node.id).replace('user-', '') as unknown as number);
+      }
+      else if (node.type === 'global'){
+        await uploadArchive(files[0]);
+      }
       if (node.cb) node.cb(); // Call the callback to refresh the tree
     }
   };
 
   const handleDragOver = (event: React.DragEvent<HTMLDivElement>, node: TreeNode) => {
+    if (node.type != 'root' || !secUser?.admin ){
     event.preventDefault();
     setDraggedOverNodeId(node.id);
+  }
   };
 
   const handleDragLeave = (event: React.DragEvent<HTMLDivElement>, node: TreeNode) => {
+    if (node.type != 'root' || !secUser?.admin){
     event.preventDefault();
     setDraggedOverNodeId(null);
+    }
   };
 
   const renderTree = (node: TreeNode) => (
@@ -68,22 +80,16 @@ const FolderTree: React.FC<FolderTreeProps> = ({ nodes }) => {
       label={
         <div
           onDragOver={(event) => {
-            if (node.type !== 'area') {
               handleDragOver(event, node)
-            }
           }}
           onDrop={(event) => {
-            if (node.type !== 'area') {
               handleDrop(event, node)
-            }
           }}
           onDragLeave={(event) => {
-            if (node.type !== 'area') {
               handleDragLeave(event, node)
-            }
           }}
           style={{
-            border: draggedOverNodeId === node.id ? '1px dashed #000' : 'none',
+            border: secUser?.admin?  draggedOverNodeId === node.id && node.type != 'root' ? '1px dashed #000' : 'none' : 'none' ,
             borderRadius: '4px',
             padding: '4px',
             cursor: 'pointer',
