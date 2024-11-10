@@ -9,7 +9,7 @@ import { exampleTicket } from '@/samples/sampleTicket';
 import { closeTicket, getTicketById, getTickets } from "@/scripts/http-requests/endpoints";
 import { confirmationAlert, failureAlert } from "@/scripts/utils/shared";
 import { getSessionUser } from "@/scripts/utils/userService";
-import { Pagination } from "flowbite-react";
+import Head from 'next/head';
 import { useEffect, useState } from "react";
 import './ticket.css';
 import CustomPagination from "@/components/custom_pagination";
@@ -97,20 +97,23 @@ function TicketPage() {
 
     return (
         <div className="bg-white min-h-screen flex justify-center">
+                <Head>
+                    <title>Lista de Tickets - WeCollab</title>
+                </Head>
                 <section className="ticket">
-                    <div className="p-10 flex justify-between">
+                    <div className="p-6 m-4 flex justify-between bg-[#f4f4f4] rounded-2xl">
                         <TicketUser area={user?.area ?? ''} name={user?.username ?? ''} />
                         <CustomButton value="Novo" onClick={()=>{setCreateModalIsOpen(true);}} name="novo"/>
                     </div>
 
-                    <div className="mx-4 flex justify-center">
+                    <div className="mx-4 flex justify-center mt-2">
                         <div className="w-[40rem] flex justify-around">
-                            <select name="userRelation" id="userRelation" onChange={handleFilterChanges} >
+                            <select name="userRelation" id="userRelation" onChange={handleFilterChanges} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 min-w-[12rem]">
                                 <option value="created">Meus tickets</option>
                                 <option value="observed">Tickets seguidos</option>
                                 { user?.admin && <option value="all">Todos os tickets</option>}
                             </select>
-                            <select name="status" id="status" onChange={handleFilterChanges} defaultValue={"all"}>
+                            <select name="status" id="status" onChange={handleFilterChanges} defaultValue={"all"} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 min-w-[12rem]">
                                 <option value="open">Abertos</option>
                                 <option value="closed">Fechados</option>
                                 <option value="all">Todos</option>

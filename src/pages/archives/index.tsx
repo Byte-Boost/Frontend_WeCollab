@@ -4,6 +4,7 @@ import FolderIcon from "@/components/icons/folder/folder_icon";
 import { User } from "@/models/models";
 import { deleteArchive, downloadArchive, getArchives, getAreas, getUsers} from "@/scripts/http-requests/endpoints";
 import { getSessionUser } from "@/scripts/utils/userService";
+import Head from "next/head";
 import { useEffect, useState } from "react";
 
 function ArchivesPage() {
@@ -108,6 +109,9 @@ function ArchivesPage() {
 
     return (
         <div className="bg-white min-h-screen flex flex-col justify-start">
+            <Head>
+                <title>Arquivos - WeCollab</title>
+            </Head>
             <section className="ticket">
                 <FolderTree nodes={tree} />
             </section>

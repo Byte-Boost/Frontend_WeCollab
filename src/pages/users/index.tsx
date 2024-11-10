@@ -7,6 +7,7 @@ import { confirmationAlert, failureAlert } from "@/scripts/utils/shared";
 import { Label, Pagination, TextInput } from "flowbite-react";
 import UserModal from "@/components/user_modal";
 import CustomPagination from "@/components/custom_pagination";
+import Head from "next/head";
 
 const emptyUser: User = {
     id: "",
@@ -76,6 +77,10 @@ function UsersPage(){
 
     return (
         <div className="bg-white min-h-screen flex justify-center">
+            
+            <Head>
+                <title>Lista de Usuarios - WeCollab</title>
+            </Head>
             <section id="users" className="w-full flex flex-col items-center">
                 <div className="p-4 min-w-[40rem]">
                     <Label htmlFor="userSearch" value="Pesquisar Usuario:" className="font-bold" />

@@ -4,6 +4,7 @@ import { failureAlert } from '@/scripts/utils/shared';
 import { login } from '@/scripts/http-requests/endpoints';
 import { useRouter } from 'next/router';
 import CustomInput from '../custom_input';
+import Head from 'next/head';
 
 function LoginForm(){
     const router = useRouter();
@@ -36,6 +37,9 @@ function LoginForm(){
 
     return(
         <section className='form-container'>
+            <Head>
+                <title>Login - WeCollab</title>
+            </Head>
             <div className='form'>
                 <form  action="" onSubmit={(e) => e.preventDefault()}>
                     <h1 className="" >🎩LOGIN</h1>
