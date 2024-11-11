@@ -173,3 +173,19 @@ export async function deleteArchive(filename: string){
         throw error;
     }
 }
+export async function getCompletedTicketsRatio(area : string){
+    const res = await instance.get(`/data/completedRatio`,{
+        params: {
+            area: area
+        }
+    }) 
+    return res.data;
+}
+export async function getSpeedTicketsRatio(area: string){
+    const res = await instance.get(`/data/completionSpeed`,{
+        params: {
+            area: area
+        }
+    })  // This returns in ms the average time to close a ticket
+    return res.data;
+}

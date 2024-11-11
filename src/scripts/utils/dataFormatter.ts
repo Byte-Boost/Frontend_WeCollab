@@ -67,3 +67,19 @@ export function formatCPF(v:string){
     let new_date = new Date(year, month, day).toJSON().slice(0,10).split(/-/).reverse().join('/');
     return new_date;
   }
+  export function convertMs(ms: number): string {
+    const seconds = ms / 1000;
+    const minutes = ms / (1000 * 60);
+    const hours = ms / (1000 * 60 * 60);
+    const days = ms / (1000 * 60 * 60 * 24);
+
+    if (days >= 1) {
+        return `${days.toFixed(2)} days`;
+    } else if (hours >= 1) {
+        return `${hours.toFixed(2)} hours`;
+    } else if (minutes >= 1) {
+        return `${minutes.toFixed(2)} minutes`;
+    } else {
+        return `${seconds.toFixed(2)} seconds`;
+    }
+}
