@@ -75,9 +75,9 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
     }, [])
     
     useEffect(() => {
-        getUsers({startsWith: inputValueUsers, limit: 5})
+        getUsers({startsWith: inputValueUsers}, 1, 5)
         .then(function(response){
-            setInputUsers(response);
+            setInputUsers(response.rows);
         })
         .catch(error => {
             failureAlert("Error fetching users", "An error occurred while fetching users", () => {});

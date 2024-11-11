@@ -1,5 +1,5 @@
 import { Area, Role, User } from "@/models/models";
-import { editUser, getAreas, getRoles } from "@/scripts/http-requests/endpoints";
+import { editUser, getAreas, getRoles, resetUserPassword } from "@/scripts/http-requests/endpoints";
 import { failureAlert, successAlert } from "@/scripts/utils/shared";
 import { Card } from "flowbite-react";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import CustomCheckbox from "../custom_checkbox";
 import CustomButton from "../custom_button";
 import './users.css';
 import { formatCPF } from "@/scripts/utils/dataFormatter";
+import Swal from "sweetalert2";
 
 interface UserCardProps {
     closeModal: any
@@ -50,7 +51,7 @@ function UserCard({ closeModal, user, cb }: UserCardProps) {
         try {
             // console.log(newUser.role, newUser.area, newUser.name, newUser.admin)
             await editUser(user.id?user.id:"", newUser).then(function(response) {
-                successAlert('Usuario Registrado com sucesso', user.toString());
+                successAlert('Usuario Atualizado com sucesso', user.toString());
                 closeModal();
             });
         } catch (error: any) {
@@ -120,6 +121,29 @@ function UserCard({ closeModal, user, cb }: UserCardProps) {
                                         setNewUser({...newUser, admin: check})
                                     }}></CustomCheckbox>
                                     <CustomButton name="Editar" value="Atualizar usuário" className="m-5" />
+                                    <button name="Password-Reset" className="w-24 bg-orange-600 text-white inline-flex h-12 font-bold rounded-[0.25rem] text-2 relative overflow-hidden border-none m-5" type="button" onClick={
+                                        ()=>{
+                                            Swal.fire({
+                                                title: "Está certo disso?",
+                                                text: "Esta ação retornará a senha do usuário para a senha padrão",
+                                                icon: "warning",
+                                                showCancelButton: true,
+                                                confirmButtonColor: "#3085d6",
+                                                cancelButtonColor: "#d33",
+                                                confirmButtonText: "Sim, resetar senha"
+                                              }).then((result) => {
+                                                if (result.isConfirmed) {
+                                                    resetUserPassword(user.id?user.id:"0").then(()=>{
+                                                        successAlert("Senha Resetada", "Senha resetada com sucesso", ()=>{})
+                                                    }).catch((error)=>{
+                                                        failureAlert("Erro ao resetar senha", error, ()=>{})
+                                                    });
+                                                }
+                                              });
+
+
+                                        }
+                                    }>Resetar Senha</button>
                                 </div>
                             </form>
                         </div>

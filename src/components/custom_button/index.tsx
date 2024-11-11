@@ -7,13 +7,14 @@ interface CustomButton{
     onClick?: MouseEventHandler;
     value: string;
     className?: string;
+    type?: "submit" | "button" | "reset";
     ref? : LegacyRef<HTMLButtonElement> | undefined
 }
 
 
 function CustomButton(props: CustomButton ){
     return(
-        <button ref={props.ref} className={twMerge('btn',props.className)} onClick={props.onClick} name={props.name}>{props.value}</button>
+        <button type={props.type||"submit"} ref={props.ref} className={twMerge('btn',props.className)} onClick={props.onClick} name={props.name}>{props.value}</button>
     )
 }
 

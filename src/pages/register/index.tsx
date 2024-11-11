@@ -7,6 +7,7 @@ import { getAreas, getRoles, register } from "@/scripts/http-requests/endpoints"
 import { formatCPF } from "@/scripts/utils/dataFormatter";
 import { failureAlert, successAlert } from "@/scripts/utils/shared";
 import { Card } from "flowbite-react";
+import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 
 function RegisterPage() {
@@ -95,6 +96,10 @@ function RegisterPage() {
 
     return (
         <div className="mt-4 h-[85vh] flex justify-center items-center">
+            
+            <Head>
+                <title>Registrar Usuario - WeCollab</title>
+            </Head>
             <div className='min-h-[85vh] min-w-full flex justify-center items-center'>
                 <div className="text-center">
                     <Card className="p-4 border-2">

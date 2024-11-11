@@ -9,9 +9,11 @@ import { exampleTicket } from '@/samples/sampleTicket';
 import { closeTicket, getTicketById, getTickets } from "@/scripts/http-requests/endpoints";
 import { confirmationAlert, failureAlert } from "@/scripts/utils/shared";
 import { getSessionUser } from "@/scripts/utils/userService";
-import { Pagination } from "flowbite-react";
+import Head from 'next/head';
 import { useEffect, useState } from "react";
 import './ticket.css';
+import CustomPagination from "@/components/custom_pagination";
+
 function TicketPage() {
     const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);
     const [createModalIsOpen, setCreateModalIsOpen] = useState(false);
@@ -76,6 +78,7 @@ function TicketPage() {
         getAllTickets()
       }, [])
     useEffect(() => {
+        setPage(1);
         getAllTickets()
     },[filters]);
     useEffect(() => {
@@ -94,20 +97,23 @@ function TicketPage() {
 
     return (
         <div className="bg-white min-h-screen flex justify-center">
+                <Head>
+                    <title>Lista de Tickets - WeCollab</title>
+                </Head>
                 <section className="ticket">
-                    <div className="p-10 flex justify-between">
+                    <div className="p-6 m-4 flex justify-between bg-[#f4f4f4] rounded-2xl">
                         <TicketUser area={user?.area ?? ''} name={user?.username ?? ''} />
                         <CustomButton value="Novo" onClick={()=>{setCreateModalIsOpen(true);}} name="novo"/>
                     </div>
 
-                    <div className="mx-4 flex justify-center">
+                    <div className="mx-4 flex justify-center mt-2">
                         <div className="w-[40rem] flex justify-around">
-                            <select name="userRelation" id="userRelation" onChange={handleFilterChanges} >
+                            <select name="userRelation" id="userRelation" onChange={handleFilterChanges} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 min-w-[12rem]">
                                 <option value="created">Meus tickets</option>
                                 <option value="observed">Tickets seguidos</option>
                                 { user?.admin && <option value="all">Todos os tickets</option>}
                             </select>
-                            <select name="status" id="status" onChange={handleFilterChanges} defaultValue={"all"}>
+                            <select name="status" id="status" onChange={handleFilterChanges} defaultValue={"all"} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block p-2.5 min-w-[12rem]">
                                 <option value="open">Abertos</option>
                                 <option value="closed">Fechados</option>
                                 <option value="all">Todos</option>
@@ -128,27 +134,19 @@ function TicketPage() {
                         </table>
                     </div>
                     
-                    <div className="flex overflow-x-auto  sm:justify-center pt-5">
+                    <div className="flex overflow-x-auto sm:justify-center py-5">
+                    
                     {
                     (data.length + 1 > 5 || page > 1 ) &&
-                        <Pagination
-                        layout="pagination"
+                        <CustomPagination
                         currentPage={page}
                         totalPages={totalPages}
-                        onPageChange={onPageChange}
-                        className="flex items-center space-x-2"
-                        >
-                                <button className="w-12 h-12 flex items-center justify-center">Previous</button>
-                                <button className="w-12 h-12 flex items-center justify-center">1</button>
-                                <button className="w-12 h-12 flex items-center justify-center">2</button>
-                                <button className="w-12 h-12 flex items-center justify-center">3</button>
-                                <button className="w-12 h-12 flex items-center justify-center">4</button>
-                                <button className="w-12 h-12 flex items-center justify-center">Next</button>
-                        </Pagination>
+                        onPageChange={onPageChange} 
+                        />
                       
                     }
                    
-                </div>
+                    </div>
                    
                 </section> 
                 <NewTicketModal isOpen={createModalIsOpen} closeModal={closeCreateModal} cb={()=>{}}></NewTicketModal>
