@@ -228,6 +228,7 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
                 <div className="p-4 md:p-5 text-center">
                     <p className="text-base leading-relaxed text-gray-500">
                         {ticket.description}
+                        <ActivityBoard/>
                     </p>
                 </div>
 
