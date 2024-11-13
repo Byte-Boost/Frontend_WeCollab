@@ -4,8 +4,8 @@ import { getSessionUser } from "@/scripts/utils/userService";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useEffect, useState } from "react";
-const PieChart = dynamic(() => import('@/components/charts/pie_chart'), { ssr: false });
-const ColumnChart = dynamic(() => import('@/components/charts/column_chart'), { ssr: false });
+const PieChart = dynamic(() => import('@/components/DashBoard/pie_chart'), { ssr: false });
+const ColumnChart = dynamic(() => import('@/components/DashBoard/column_chart'), { ssr: false });
 function Home() {
     const [ticketSpeedData, setTicketSpeedData] = useState<{ area: string, tickets: { speed: number | null }}[]>([]);
     const [ticketCompletionData, setTicketCompletionData] = useState<{ area: string, tickets: {concluido : number,ratio : number,total : number }}[]>([]);

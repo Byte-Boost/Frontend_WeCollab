@@ -1,4 +1,4 @@
-import FolderTree from "@/components/folder_tree";
+import FolderTree from "@/components/FolderTree/folder_tree";
 import FileIcon from "@/components/icons/file";
 import FolderIcon from "@/components/icons/folder/folder_icon";
 import { User } from "@/models/models";

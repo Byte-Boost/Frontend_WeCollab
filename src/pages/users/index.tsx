@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import UserTableHeader from "@/components/user_table_header";
-import UserTableRow from "@/components/user_table_row";
+import UserTableHeader from "@/components/UserEdit/user_table_header";
+import UserTableRow from "@/components/UserEdit/user_table_row";
 import { deleteUser, getUserById, getUsers } from "@/scripts/http-requests/endpoints";
 import { User } from "@/models/models";
 import { confirmationAlert, failureAlert } from "@/scripts/utils/shared";
 import { Label, Pagination, TextInput } from "flowbite-react";
-import UserModal from "@/components/user_modal";
-import CustomPagination from "@/components/custom_pagination";
+import UserModal from "@/components/UserEdit/user_modal";
+import CustomPagination from "@/components/CustomElements/custom_pagination";
 import Head from "next/head";
 
 const emptyUser: User = {

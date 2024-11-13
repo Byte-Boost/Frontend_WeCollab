@@ -1,4 +1,4 @@
-import BoxTicketIcon from "../icons/box_ticket";
+import BoxTicketIcon from "../../icons/box_ticket";
 
 
 interface CustomTableHeaderProps {

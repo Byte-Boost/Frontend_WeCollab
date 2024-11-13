@@ -1,9 +1,9 @@
-import CustomButton from "@/components/custom_button";
-import CustomTableHeader from "@/components/custom_table_header";
-import CustomTableRow from "@/components/custom_table_row";
-import NewTicketModal from "@/components/new_ticket_modal";
-import TicketModal from "@/components/ticket_modal";
-import TicketUser from "@/components/ticket_user";
+import CustomButton from "@/components/CustomElements/custom_button";
+import CustomTableHeader from "@/components/CustomElements/custom_table_header";
+import CustomTableRow from "@/components/CustomElements/custom_table_row";
+import NewTicketModal from "@/components/Tickets/new_ticket_modal";
+import TicketModal from "@/components/Tickets/ticket_modal";
+import TicketUser from "@/components/Tickets/ticket_user";
 import { Ticket } from "@/models/models";
 import { exampleTicket } from '@/samples/sampleTicket';
 import { closeTicket, getTicketById, getTickets } from "@/scripts/http-requests/endpoints";
@@ -12,7 +12,7 @@ import { getSessionUser } from "@/scripts/utils/userService";
 import Head from 'next/head';
 import { useEffect, useState } from "react";
 import './ticket.css';
-import CustomPagination from "@/components/custom_pagination";
+import CustomPagination from "@/components/CustomElements/custom_pagination";
 
 function TicketPage() {
     const [ticketModalIsOpen, setTicketModalIsOpen] = useState(false);

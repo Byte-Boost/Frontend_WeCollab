@@ -1,7 +1,7 @@
 import { formatDateToSlash } from "@/scripts/utils/dataFormatter";
 import { MouseEventHandler } from "react";
-import BoxTicketIcon from "../icons/box_ticket";
-import CrossIcon from "../icons/cross_icon";
+import BoxTicketIcon from "../../icons/box_ticket";
+import CrossIcon from "../../icons/cross_icon";
 
 interface CustomTableRowProps {
     id: string;

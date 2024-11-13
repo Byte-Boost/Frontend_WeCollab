@@ -1,11 +1,11 @@
 import './card.css'
 import { useEffect, useState } from 'react';
-import CategoryIcon from '../icons/category';
+import CategoryIcon from '../../icons/category';
 import { Label, Select, Textarea, TextInput } from 'flowbite-react';
 import { Area, CreateTicket, Ticket, User } from '@/models/models';
 import { getAreas, getUsers, postTicket } from '@/scripts/http-requests/endpoints';
 import { failureAlert, successAlert } from '@/scripts/utils/shared';
-import CustomSelect from '../custom_select';
+import CustomSelect from '../../CustomElements/custom_select';
 import { Autocomplete, TextField } from '@mui/material';
 import { twMerge } from 'tailwind-merge';
 

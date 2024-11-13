@@ -3,10 +3,11 @@ import { use, useEffect, useState } from 'react';
 import { failureAlert, successAlert } from '@/scripts/utils/shared';
 import { closeTicket, getAreas, getCommentsByTicketId, getUsers, postComment, switchObserver } from '@/scripts/http-requests/endpoints';
 import { Area, Ticket, TicketComment, User } from '@/models/models';
-import CategoryIcon from '../icons/category';
+import CategoryIcon from '../../icons/category';
 import { Label, Textarea, TextInput } from 'flowbite-react';
-import CustomSelect from '../custom_select';
+import CustomSelect from '../../CustomElements/custom_select';
 import { Autocomplete, TextField } from '@mui/material';
+import ActivityBoard from '../../ActivityBoard/activity_board';
 
 function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Ticket,uponPost? : Function}){
     const [commentsOnTicket, setCommentsOnTicket] = useState<Array<TicketComment>>([]);

@@ -3,10 +3,10 @@ import { editUser, getAreas, getRoles, resetUserPassword } from "@/scripts/http-
 import { failureAlert, successAlert } from "@/scripts/utils/shared";
 import { Card } from "flowbite-react";
 import { useEffect, useState } from "react";
-import CustomSelect from "../custom_select";
-import CustomInput from "../custom_input";
-import CustomCheckbox from "../custom_checkbox";
-import CustomButton from "../custom_button";
+import CustomSelect from "@/components/CustomElements/custom_select";
+import CustomInput from "@/components/CustomElements/custom_input";
+import CustomCheckbox from "@/components/CustomElements/custom_checkbox";
+import CustomButton from "@/components/CustomElements/custom_button";
 import './users.css';
 import { formatCPF } from "@/scripts/utils/dataFormatter";
 import Swal from "sweetalert2";

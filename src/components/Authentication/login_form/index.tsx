@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
 import { login } from '@/scripts/http-requests/endpoints';
 import { useRouter } from 'next/router';
-import CustomInput from '../custom_input';
+import CustomInput from '../CustomElements/custom_input';
 import Head from 'next/head';
 
 function LoginForm(){

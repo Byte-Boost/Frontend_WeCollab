@@ -1,14 +1,14 @@
 import './navbar.css'
-import LogOutIcon from "../icons/logout";
-import TicketIcon from "../icons/ticket";
-import HomeIcon from "../icons/home";
+import LogOutIcon from "../../icons/logout";
+import TicketIcon from "../../icons/ticket";
+import HomeIcon from "../../icons/home";
 import Link from 'next/link';
-import AddUserIcon from '../icons/add_user';
+import AddUserIcon from '../../icons/add_user';
 import { useEffect, useState } from 'react';
 import { getSessionUser } from '@/scripts/utils/userService';
-import FolderNavbarIcon from '../icons/folder/folder_navbar';
-import UserIcon from '../icons/user';
-import PasswordLockIcon from '../icons/passwordLock';
+import FolderNavbarIcon from '../../icons/folder/folder_navbar';
+import UserIcon from '../../icons/user';
+import PasswordLockIcon from '../../icons/passwordLock';
 
 
 function Navbar(){

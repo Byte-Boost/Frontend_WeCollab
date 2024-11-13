@@ -1,4 +1,4 @@
-import TicketIcon from "../icons/ticket"; 
+import TicketIcon from "../../icons/ticket"; 
 import './user.css'
 
 interface TicketUser{

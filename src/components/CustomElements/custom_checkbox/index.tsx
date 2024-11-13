@@ -1,7 +1,13 @@
 
-function CustomCheckbox({label, name, cb, defaultChecked=false}: {label: string, name: string, cb: Function, defaultChecked?: boolean}){
-    return(  
-        
+interface CustomCheckBoxProps {
+    label: string; 
+    name: string; 
+    cb: Function;
+    defaultChecked?: boolean;
+}
+
+function CustomCheckbox({label, name, cb, defaultChecked=false}: CustomCheckBoxProps){
+    return(       
         <div className="inline-flex items-center">
             <label className="flex items-center cursor-pointer relative" htmlFor={"checkbox-"+name}>
                 <input defaultChecked={defaultChecked} id={"checkbox-"+name} onChange={(e)=>{cb(e.target.checked)}} type="checkbox" name={name} className="peer h-5 w-5 cursor-pointer transition-all appearance-none rounded shadow hover:shadow-md border border-slate-300 checked:bg-red-600 checked:border-red-600"/>

@@ -4,10 +4,10 @@ import { SimpleTreeView } from '@mui/x-tree-view/SimpleTreeView';
 import { TreeItem } from '@mui/x-tree-view/TreeItem';
 import { Box, Typography } from '@mui/material';
 import { uploadArchive } from '@/scripts/http-requests/endpoints';
-import CrossIcon from '../icons/cross_icon';
+import CrossIcon from '../../icons/cross_icon';
 import { User } from '@/models/models';
 import { getSessionUser } from '@/scripts/utils/userService';
-import DownloadIcon from '../icons/download';
+import DownloadIcon from '../../icons/download';
 import { confirmationAlert } from '@/scripts/utils/shared';
 
 interface TreeNode {
