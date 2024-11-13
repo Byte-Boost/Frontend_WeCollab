@@ -3,7 +3,7 @@ import { useRef } from 'react';
 import { failureAlert } from '@/scripts/utils/shared';
 import { login } from '@/scripts/http-requests/endpoints';
 import { useRouter } from 'next/router';
-import CustomInput from '../CustomElements/custom_input';
+import CustomInput from '@/components/CustomElements/custom_input';
 import Head from 'next/head';
 
 function LoginForm(){
@@ -44,9 +44,9 @@ function LoginForm(){
                 <form  action="" onSubmit={(e) => e.preventDefault()}>
                     <h1 className="" >🎩LOGIN</h1>
                         <div className="coolinput ">
-                            <CustomInput type='text' name='Username' ref={usernameRef}/>
+                            <CustomInput inputClassName='border border-solid border-[#21231666] ' type='text' name='Username' ref={usernameRef}/>
                             <br />
-                            <CustomInput type='password' name='Password' ref={passwordRef}/>
+                            <CustomInput inputClassName='border border-solid border-[#21231666] ' type='password' name='Password' ref={passwordRef}/>
                         </div>
                         <br />
                         <div>
