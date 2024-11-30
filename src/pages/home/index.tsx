@@ -1,6 +1,9 @@
+import CustomButton from "@/components/CustomElements/custom_button";
 import { User } from "@/models/models";
 import { getAreas, getCompletedTicketsRatio, getSpeedTicketsRatio } from "@/scripts/http-requests/endpoints";
+import { failureAlert, successAlert } from "@/scripts/utils/shared";
 import { getSessionUser } from "@/scripts/utils/userService";
+import xlsxToJSON from "@/scripts/utils/xlsxToJSON";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -12,30 +15,33 @@ function Home() {
     const [areas, setAreas] = useState<string[]>([]);
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [dataFetched, setDataFetched] = useState(false);
+    const [importedData, setImportedData] = useState<any>({});
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
     useEffect(() => {
         fetchCurrentUser();
     }, []);
-
     useEffect(() => {
         if (currentUser) {
             fetchAreas();
         }
     }, [currentUser]);
-
     useEffect(() => {
         if (areas.length > 0) {
             fetchTicketSpeed();
             fetchTicketCompletionRatio();
         }
     }, [areas]);
-
+    useEffect(()=>{
+        handleImport(selectedFile);
+    }, [selectedFile]);
     useEffect(() => {
-        console.log('ticketSpeedData:', ticketSpeedData);
     }, [ticketSpeedData]);
     useEffect(() => {
-        console.log('ticketCompletionData:', ticketCompletionData);
     }, [ticketCompletionData]);
+
+    
+
     async function fetchCurrentUser() {
         const user = await getSessionUser();
         setCurrentUser(user as unknown as User);
@@ -77,6 +83,32 @@ function Home() {
             setDataFetched(true);
         }
     }
+
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files && event.target.files[0];
+        setSelectedFile(file);
+    };
+
+    async function handleImportedRow(jsonRow: any){
+        console.log(jsonRow);
+    }
+    
+    async function handleImport(file: any){
+        if(file) {
+            const jsonData = await xlsxToJSON(file);
+            let i = 0;
+            try{
+              while(jsonData.length > i) {
+                handleImportedRow(jsonData[i])
+                i++;
+              };
+              successAlert('Sequências importadas com sucesso!', 'Sucesso');
+            } catch (err: any){
+              failureAlert(err.message, 'Erro');
+            }
+        }
+    }
+
     return (
         <div className={`${currentUser?.admin? 'bg-white' : ''} min-h-screen flex flex-col justify-start`}>
             <Head>
@@ -87,6 +119,8 @@ function Home() {
                 {dataFetched && currentUser?.admin ? (
                 <div className="flex justify-center flex-col items-center h-[85vh]">
                     <h1 className="text-lg font-bold">Informações sobre Tickets</h1>
+                    <label className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded p-2 cursor-pointer' htmlFor='file'>Escolha um arquivo</label>
+                    <input className='hidden' type="file" name="file" id='file' required accept='.xlsx' onChange={handleFileChange}/>
                     <div className="flex justify-between items-center bg-white p-4 w-full">
                         <PieChart
                             name="Tickets concluídos em total"
@@ -106,6 +140,7 @@ function Home() {
                             textColor=""
                         />
                     </div>
+                    <p>Info: {importedData.id}</p>
                 </div>
                 ) : (
                     currentUser?.admin ? (
