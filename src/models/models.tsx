@@ -1,4 +1,5 @@
 import { JwtPayload } from "jwt-decode";
+import { ChangeEventHandler, LegacyRef, MouseEventHandler } from "react";
 
 // Modals
 export type ModalProps = {
@@ -21,72 +22,73 @@ export type UserModalProps = {
 
 // Ticket related models
 export type CreateTicket = {
-    area: string, 
-    title: string, 
-    description: string, 
+    area: string; 
+    title: string; 
+    description: string; 
     observers: Array<string>
 }
 export type getTicketsFilter = {
-    status: string,
-    area: string,
+    status: string;
+    area: string;
     userRelation: string
 }
 export type Ticket = {
-    id: string, 
-    area: string, 
-    status: string, 
-    title: string, 
-    description: string, 
-    dateOfCreation: Date, 
+    id: string; 
+    area: string; 
+    status: string; 
+    title: string; 
+    description: string; 
+    dateOfCreation: Date; 
     requesterId: string
-    Owner: {id: number, name: string},
+    Owner: {id: number; name: string};
     Observers: Array<Observer>
 }
 export type TicketComment = {
-    id: string, 
-    content: string, 
-    date: Date, 
-    commenterId: string, 
-    ticketId: string,
+    id: string; 
+    content: string; 
+    date: Date; 
+    commenterId: string; 
+    ticketId: string;
     User: {
-        id: string,
-        name: string,
-        role: string,
-        area: string,
+        id: string;
+        name: string;
+        role: string;
+        area: string;
+        pfp?: string;
     }
 }
 
 // User related models
 export interface User {
-    id?: string,
-    name: string,
-    cpf: string,
-    area: string | null,
-    username: string,
-    password: string,
-    role: string,
+    id?: string;
+    name: string;
+    cpf: string;
+    area: string | null;
+    username: string;
+    password: string;
+    role: string;
     admin: true | false
     Role?: {
         name: string
     }
 }
 export interface MyJwtPayload extends JwtPayload {
-    id: string,
-    username: string,
-    role: string,
+    id: string;
+    username: string;
+    role: string;
     admin: string
 }
 export type Observer = {
-    id: string,
+    id: string;
     User: User;
 }
 
 // Area related models
 export type Area = {
-    name: string,
+    name: string;
     Roles: Array<Role>
 }
 // Role related models
 export type Role = {
-    name: string,
+    name: string;
 }

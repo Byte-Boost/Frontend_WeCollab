@@ -1,4 +1,4 @@
-import Navbar from "./navbar";
+import Navbar from "./Navigation/navbar";
 import './globals.css';
 import { ReactNode } from "react";
 import Head from "next/head";

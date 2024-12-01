@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import UserTableHeader from "@/components/user_table_header";
-import UserTableRow from "@/components/user_table_row";
+import UserTableHeader from "@/components/UserEdit/user_table_header";
+import UserTableRow from "@/components/UserEdit/user_table_row";
 import { deleteUser, getUserById, getUsers } from "@/scripts/http-requests/endpoints";
 import { User } from "@/models/models";
 import { confirmationAlert, failureAlert } from "@/scripts/utils/shared";
-import { Label, Pagination, TextInput } from "flowbite-react";
-import UserModal from "@/components/user_modal";
-import CustomPagination from "@/components/custom_pagination";
+import { Card, Label, Pagination, TextInput } from "flowbite-react";
+import UserModal from "@/components/UserEdit/user_modal";
+import CustomPagination from "@/components/CustomElements/custom_pagination";
 import Head from "next/head";
 
 const emptyUser: User = {
@@ -81,49 +81,52 @@ function UsersPage(){
             <Head>
                 <title>Lista de Usuarios - WeCollab</title>
             </Head>
-            <section id="users" className="w-full flex flex-col items-center">
-                <div className="p-4 min-w-[40rem]">
-                    <Label htmlFor="userSearch" value="Pesquisar Usuario:" className="font-bold" />
-                    <div className="border-2 rounded-lg shadow-inner">
-                        <TextInput id="userSearch" type="text" name="userSearch" required onChange={handleChange}/>
+            <section id="users" className="bg-white w-full flex flex-col items-center border-t-2">
+                <Card className="mt-4 border-[#9f9f9f] shadow-xl">
+
+                    <div className="p-4 min-w-[40rem]">
+                        <Label htmlFor="userSearch" value="Pesquisar Usuario:" className="font-bold" />
+                        <div className="border-2 rounded-lg shadow-inner">
+                            <TextInput id="userSearch" type="text" name="userSearch" required onChange={handleChange}/>
+                        </div>
                     </div>
-                </div>
 
-                <div className="p-4 flex justify-center items-center">
-                    <table className="bg-white min-w-[70rem] max-w-[80rem] table-auto text-left shadow-xl">
-                        <UserTableHeader titles={["CPF", "Carreira", "Cargo", "Nome"]}/>
-                        <tbody>
-                            {data.map((user, ij) => (
-                                    <UserTableRow key={ij} onClick={() => {setEditUserModalIsOpen(true); setSelectedUser(user)}} 
-                                    name={user.name} 
-                                    cpf={user.cpf} 
-                                    area={user.area} 
-                                    username={user.username} 
-                                    role={user.Role?.name || ""} 
-                                    onDelete={() => {
-                                        confirmationAlert("Tem certeza que deseja remover esse usuário?", 'deleteuser', () => {
-                                            user.id? user.id = user.id : user.id= '';
-                                            deleteUser(user.id, getAllUsers)
-                                        })
-                                    }}/>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                    <div className="p-4 flex justify-center items-center">
+                        <table className="bg-white min-w-[70rem] max-w-[80rem] table-auto text-left">
+                            <UserTableHeader titles={["CPF", "Carreira", "Cargo", "Nome"]}/>
+                            <tbody>
+                                {data.map((user, ij) => (
+                                        <UserTableRow key={ij} onClick={() => {setEditUserModalIsOpen(true); setSelectedUser(user)}} 
+                                        name={user.name} 
+                                        cpf={user.cpf} 
+                                        area={user.area} 
+                                        username={user.username} 
+                                        role={user.Role?.name || ""} 
+                                        onDelete={() => {
+                                            confirmationAlert("Tem certeza que deseja remover esse usuário?", 'deleteuser', () => {
+                                                user.id? user.id = user.id : user.id= '';
+                                                deleteUser(user.id, getAllUsers)
+                                            })
+                                        }}/>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
 
-                <div className="flex overflow-x-auto sm:justify-center py-5">
+                    <div className="flex overflow-x-auto sm:justify-center py-5">
+                        
+                        {
+                        (data.length + 1 > 5 || page > 1 ) &&
+                            <CustomPagination
+                            currentPage={page}
+                            totalPages={totalPages}
+                            onPageChange={onPageChange} 
+                            />
+                        
+                        }
                     
-                    {
-                    (data.length + 1 > 5 || page > 1 ) &&
-                        <CustomPagination
-                        currentPage={page}
-                        totalPages={totalPages}
-                        onPageChange={onPageChange} 
-                        />
-                      
-                    }
-                   
-                    </div>
+                        </div>
+                </Card>
                 
             </section>
             <UserModal isOpen={editUserModalIsOpen} closeModal={closeModal} cb={getAllUsers} user={selectedUser} />

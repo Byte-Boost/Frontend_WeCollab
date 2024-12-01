@@ -1,7 +1,7 @@
-import CustomButton from "@/components/custom_button";
-import CustomCheckbox from "@/components/custom_checkbox";
-import CustomInput from "@/components/custom_input";
-import CustomSelect from "@/components/custom_select";
+import CustomButton from "@/components/CustomElements/custom_button";
+import CustomCheckbox from "@/components/CustomElements/custom_checkbox";
+import CustomInput from "@/components/CustomElements/custom_input";
+import CustomSelect from "@/components/CustomElements/custom_select";
 import { Area, Role, User } from "@/models/models";
 import { getAreas, getRoles, register } from "@/scripts/http-requests/endpoints";
 import { formatCPF } from "@/scripts/utils/dataFormatter";
