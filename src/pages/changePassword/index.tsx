@@ -3,7 +3,7 @@ import CustomCheckbox from "@/components/CustomElements/custom_checkbox";
 import CustomInput from "@/components/CustomElements/custom_input";
 import CustomSelect from "@/components/CustomElements/custom_select";
 import { Area, Role, User } from "@/models/models";
-import { changeUserPassword, getAreas, getRoles, register } from "@/scripts/http-requests/endpoints";
+import { changeUserPassword, changeUserPfp, getAreas, getRoles, getSelf, register } from "@/scripts/http-requests/endpoints";
 import { formatCPF } from "@/scripts/utils/dataFormatter";
 import { failureAlert, successAlert } from "@/scripts/utils/shared";
 import { Card } from "flowbite-react";
@@ -18,6 +18,7 @@ function changePassword() {
     
     const [passwordDto, setPasswordDto] = useState(emptyPasswords);
     const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [userPfp, setUserPfp] = useState('');
     const buttonRef = useRef(null);
     const handleChange = (e: any) => {
         const { name, value} = e.target;
@@ -51,6 +52,47 @@ function changePassword() {
         }
     };
 
+    const imageToBase64 = (file: File): Promise<string> => {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+      
+          reader.onload = () => {
+            if (reader.result) {
+              resolve(reader.result.toString());
+            } else {
+              reject("Failed to convert file to Base64 string.");
+            }
+          };
+      
+          reader.onerror = (error) => {
+            reject(error);
+          };
+      
+          reader.readAsDataURL(file);
+        });
+    };
+    const handleChangePfp = async (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files && event.target.files[0];
+        if (file){
+            try {
+                const base64String = await imageToBase64(file)
+                changeUserPfp(base64String).then(function(response) {
+                    getSelf().then(function(response) {
+                        setUserPfp(response.pfp);
+                    });
+                    successAlert('Foto de Perfil Alterada', 'Sua foto de perfil foi alterada com sucesso!', () => {});
+                });
+            } catch (error: any) {
+                failureAlert('Erro ao alterar foto de perfil', 'Ocorreu um erro ao tentar alterar a foto de perfil.', () => {});
+            }
+        }
+    };
+    useEffect(()=>{
+        getSelf().then(function(response) {
+            setUserPfp(response.pfp);
+        });
+    }, [])
+
     return (
         <div className="mt-4 h-[85vh] flex justify-center items-center">
             <Head>
@@ -58,6 +100,15 @@ function changePassword() {
             </Head>
             <div className='min-h-[85vh] min-w-full flex justify-center items-center'>
                 <div className="text-center">
+                    <Card className="p-4 border-2 mb-2">
+                        <h1 className="text-5xl pt-5 font-mono">Meu perfil</h1>
+                        <div className="text-center">
+                            <label htmlFor="file">
+                                <img src={userPfp} className="aspect-square rounded-full p-2 w-[8rem] cursor-pointer inline-block"></img>
+                            </label>
+                            <input className='hidden' type="file" name="file" id='file' required accept='image/*' onChange={handleChangePfp}/>
+                        </div>
+                    </Card>
                     <Card className="p-4 border-2">
                         <h1 className="text-5xl pt-5 font-mono">Redefinir Senha</h1>
                         <div className="text-center">
