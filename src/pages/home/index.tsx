@@ -40,7 +40,6 @@ function Home() {
     useEffect(() => {
     }, [ticketCompletionData]);
 
-    
 
     async function fetchCurrentUser() {
         const user = await getSessionUser();
@@ -110,47 +109,15 @@ function Home() {
     }
 
     return (
-        <div className={`${currentUser?.admin? 'bg-white' : ''} min-h-screen flex flex-col justify-start`}>
+        <div className={` min-h-screen flex flex-col justify-start`}>
             <Head>
                 <title>Home - WeCollab</title>
             </Head>
-
-
-                {dataFetched && currentUser?.admin ? (
                 <div className="flex justify-center flex-col items-center h-[85vh]">
-                    <h1 className="text-lg font-bold">Informações sobre Tickets</h1>
-                    <label className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded p-2 cursor-pointer' htmlFor='file'>Escolha um arquivo</label>
-                    <input className='hidden' type="file" name="file" id='file' required accept='.xlsx' onChange={handleFileChange}/>
-                    <div className="flex justify-between items-center bg-white p-4 w-full">
-                        <PieChart
-                            name="Tickets concluídos em total"
-                            series={[(ticketCompletionData.reduce((sum,data) => sum +  data.tickets.concluido, 0 )),(ticketCompletionData.reduce((sum, data) => sum + data.tickets.total, 0))-((ticketCompletionData.reduce((sum,data) => sum +  data.tickets.concluido, 0 )))]}
-                            labels={['Concluido','Em andamento']}
-                            colors={['#007BFF','#135f2f']}
-                            width={600}
-                            title="Tickets concluídos em total"
-                            textColor="black"
-                        />
-                        <ColumnChart
-                            name="Dias em média para concluir um ticket"
-                            categories={ticketSpeedData.map(data => data.area)}
-                            data={ticketSpeedData.map(data => parseFloat(((data.tickets.speed ?? 0)/(1000 * 60 * 60 * 24)).toFixed(0)))}
-                            width={600}
-                            title="Média de dias para concluir um ticket por área"	
-                            textColor=""
-                        />
-                    </div>
-                    <p>Info: {importedData.id}</p>
-                </div>
-                ) : (
-                    currentUser?.admin ? (
-                    <h1 className="text-2xl text-white">Carregando...</h1>
-                    ) : 
                     <div className="flex justify-center flex-col items-center h-[85vh]">
-                    <img src="/favicon-dark.ico" className="pointer-events-none" />
+                        <img src="/favicon-dark.ico" className="pointer-events-none" />
                     </div>
-                )}
-            
+                </div>
         </div>
     );
 }

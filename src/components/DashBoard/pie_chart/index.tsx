@@ -7,13 +7,19 @@ interface PieChartProps {
     name: string;
     series: number[];
     labels: string[];
+    suffix?: string;
+    formattingFunction?: Function;
     width: number;
     title?: string;
     textColor?: string;
     colors?: string[]; 
 }
+const defaultFormattingFunction = (value: number) => {
+    return value;
+};
 
-const PieChart: React.FC<PieChartProps> = ({ series, labels, width, title, textColor = 'black', colors = ['#00ff00', '#ff0000'] }) => {
+
+const PieChart: React.FC<PieChartProps> = ({ series, labels, width, title, formattingFunction = defaultFormattingFunction, textColor = 'black', colors = ['#00ff00', '#ff0000'], suffix="tickets" }) => {
     const options: ApexCharts.ApexOptions = {
         labels: labels,
         colors: colors, 
@@ -44,7 +50,7 @@ const PieChart: React.FC<PieChartProps> = ({ series, labels, width, title, textC
             },
             y: {
                 formatter: function (val: number) {
-                    return `${val} tickets`;
+                    return `${formattingFunction(val)} ${suffix}`;
                 }
             }
         }
