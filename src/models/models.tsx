@@ -54,6 +54,7 @@ export type TicketComment = {
         name: string;
         role: string;
         area: string;
+        pfp?: string;
     }
 }
 

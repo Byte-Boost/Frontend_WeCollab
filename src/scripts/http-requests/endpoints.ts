@@ -26,6 +26,10 @@ export async function login(username: string, password: string) {
     });
     return response;
 }
+export async function getSelf(){
+    const res = await instance.get(`/users/self`)
+    return res.data;
+}
 export async function getUsers(filters: any={startsWith:""}, page?:number, limit?:number) {
     const res = await instance.get(`/users`, {
         params: {
@@ -55,6 +59,11 @@ export async function changeUserPassword({currentPass, newPass}: {currentPass: s
     await instance.patch(`/users/update-password`, {
         "currentPassword": currentPass,
         "newPassword": newPass
+    })
+}
+export async function changeUserPfp(newPfp: String | null) {
+    await instance.put(`/users/update-pfp`, {
+        "pfp": newPfp
     })
 }
 

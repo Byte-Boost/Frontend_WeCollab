@@ -1,13 +1,12 @@
 import './card.css'
-import { use, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { failureAlert, successAlert } from '@/scripts/utils/shared';
 import { closeTicket, getAreas, getCommentsByTicketId, getUsers, postComment, switchObserver } from '@/scripts/http-requests/endpoints';
 import { Area, Ticket, TicketComment, User } from '@/models/models';
 import CategoryIcon from '../../icons/category';
-import { Label, Textarea, TextInput } from 'flowbite-react';
+import { Textarea } from 'flowbite-react';
 import CustomSelect from '../../CustomElements/custom_select';
 import { Autocomplete, TextField } from '@mui/material';
-import ActivityBoard from '../../ActivityBoard/activity_board';
 
 function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Ticket,uponPost? : Function}){
     const [commentsOnTicket, setCommentsOnTicket] = useState<Array<TicketComment>>([]);
@@ -260,7 +259,10 @@ function TicketCard({closeModal, ticket,uponPost}: {closeModal: any, ticket: Tic
                             return (
                                 <div className="bg-gray-200 mt-4 p-2.5 w-full rounded-lg border" key={index}>
                                     <div className="flex gap-2">
-                                        <div className="bg-black w-8 h-8 rounded-lg text-white text-center content-center font-mono">{comment.User.name[0].toUpperCase()}</div>
+                                        {comment.User.pfp?
+                                         <img src={comment.User.pfp} className="w-8 h-8 rounded-lg text-center content-center object-cover"></img>
+                                         :<div className="bg-black w-8 h-8 rounded-lg text-white text-center content-center font-mono">{comment.User.name[0].toUpperCase()}</div>
+                                        }
                                         <span className="text-md">{comment.User.name}</span>
                                         <span className="text-md grow text-end">{(new Date(comment.date)).toLocaleDateString()}</span>
                                     </div>
