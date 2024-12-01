@@ -9,6 +9,7 @@ import { getSessionUser } from '@/scripts/utils/userService';
 import FolderNavbarIcon from '../../icons/folder/folder_navbar';
 import UserIcon from '../../icons/user';
 import PasswordLockIcon from '../../icons/passwordLock';
+import DashboardIcon from '@/components/icons/dashboard';
 
 
 function Navbar(){
@@ -30,6 +31,7 @@ function Navbar(){
                     <div className="flex flex-row gap-6">
                        
                         <Link href="/ticket" className="hover:scale-125 transition-all"><TicketIcon/></Link>
+                        {user?.admin && <Link href="/dashboard" className='hover:scale-125 transition-all'><DashboardIcon/></Link>}
                         <Link href="/archives" className="hover:scale-125 transition-all"><FolderNavbarIcon/></Link>
                         {user?.admin && <Link href="/users" className='hover:scale-125 transition-all'><UserIcon/></Link>} 
                         {user?.admin && <Link href="/register" className='hover:scale-125 transition-all'><AddUserIcon/></Link>} 
