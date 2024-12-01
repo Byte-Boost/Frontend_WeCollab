@@ -32,7 +32,7 @@ function UserCard({ closeModal, user, cb }: UserCardProps) {
     const validateInputs = () => {
         const emptyFields = [];
         for (const [key, value] of Object.entries(newUser)) {
-            if (value === '' || value === null) {
+            if (key!= "pfp" && (value === '' || value === null)) {
                 emptyFields.push(key);
             }
         }

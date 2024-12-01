@@ -1,16 +1,12 @@
 import CustomButton from "@/components/CustomElements/custom_button";
-import CustomCheckbox from "@/components/CustomElements/custom_checkbox";
 import CustomInput from "@/components/CustomElements/custom_input";
-import CustomSelect from "@/components/CustomElements/custom_select";
-import { Area, Role, User } from "@/models/models";
-import { changeUserPassword, changeUserPfp, getAreas, getRoles, getSelf, register } from "@/scripts/http-requests/endpoints";
-import { formatCPF } from "@/scripts/utils/dataFormatter";
+import { changeUserPassword, changeUserPfp, getSelf } from "@/scripts/http-requests/endpoints";
 import { failureAlert, successAlert } from "@/scripts/utils/shared";
 import { Card } from "flowbite-react";
 import Head from "next/head";
 import { useEffect, useRef, useState } from "react";
 
-function changePassword() {
+function MyProfile() {
     const emptyPasswords: any = {
         currentPass: '',
         newPass: '',
@@ -18,6 +14,7 @@ function changePassword() {
     
     const [passwordDto, setPasswordDto] = useState(emptyPasswords);
     const [passwordConfirm, setPasswordConfirm] = useState('');
+    const [userName, setUserName] = useState('');
     const [userPfp, setUserPfp] = useState('');
     const buttonRef = useRef(null);
     const handleChange = (e: any) => {
@@ -51,7 +48,6 @@ function changePassword() {
             console.log(error);
         }
     };
-
     const imageToBase64 = (file: File): Promise<string> => {
         return new Promise((resolve, reject) => {
           const reader = new FileReader();
@@ -90,21 +86,26 @@ function changePassword() {
     useEffect(()=>{
         getSelf().then(function(response) {
             setUserPfp(response.pfp);
+            setUserName(response.username);
         });
     }, [])
 
     return (
         <div className="mt-4 h-[85vh] flex justify-center items-center">
             <Head>
-                <title>Redefinir Senha - WeCollab</title>
+                <title>Meu perfil - WeCollab</title>
             </Head>
             <div className='min-h-[85vh] min-w-full flex justify-center items-center'>
                 <div className="text-center">
                     <Card className="p-4 border-2 mb-2">
-                        <h1 className="text-5xl pt-5 font-mono">Meu perfil</h1>
+                        <h1 className="text-5xl pt-5 font-mono">{userName}</h1>
                         <div className="text-center">
                             <label htmlFor="file">
-                                <img src={userPfp} className="aspect-square rounded-full p-2 w-[8rem] cursor-pointer inline-block"></img>
+                                {
+                                userPfp == '' || userPfp == null?
+                                <div className="aspect-square rounded-full p-2 w-[8rem] cursor-pointer inline-block bg-black text-white text-center content-center font-mono text-[4rem]">{userName.substring(0,1).toUpperCase()}</div>
+                                :<img src={userPfp} className="object-cover aspect-square rounded-full p-2 w-[8rem] cursor-pointer inline-block"></img>
+                                }
                             </label>
                             <input className='hidden' type="file" name="file" id='file' required accept='image/*' onChange={handleChangePfp}/>
                         </div>
@@ -136,4 +137,4 @@ function changePassword() {
     );
 }
 
-export default changePassword;
+export default MyProfile;
